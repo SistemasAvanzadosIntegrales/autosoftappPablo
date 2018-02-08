@@ -18,11 +18,6 @@ document.addEventListener('deviceready', function () {
     
 }, false);
 
-window.plugins.sendTags({rol:  "session.get_rol()", id: "session.get_id_cliente()"},
-        onSuccess: { (result) in
-        alert("success!");
-    }) { (error) in
-        alert("Error sending tags - \(error?.localizedDescription)");
-    }
+window.plugins.sendTags({rol:  "session.get_rol()", id: "session.get_id_cliente()"});
 
 alert("rol:"+"roles"+" id:"+"1");
