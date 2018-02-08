@@ -13,9 +13,10 @@ document.addEventListener('deviceready', function () {
         .handleNotificationOpened(notificationOpenedCallback)        
         .endInit();         
           
-       window.plugins.OneSignal.sendTag("key", "value");
+    window.plugins.OneSignal.sendTag("rol", "valor");
+    window.plugins.OneSignal.sendTag("id", "2");
 
     
 }, false);
 
-alert("rol:"+"roles"+" id:"+"1");
+alert("rol:"+"role"+" id:"+"1");
