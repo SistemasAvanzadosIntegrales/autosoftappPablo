@@ -15,10 +15,9 @@ document.addEventListener('deviceready', function () {
     // Call syncHashedEmail anywhere in your app if you have the user's email.
     // This improves the effectiveness of OneSignal's "best-time" notification scheduling feature.
     // window.plugins.OneSignal.syncHashedEmail(userEmail);
-    OneSignal.push(function() {      
-      OneSignal.sendTag("key", "value");
+     window.plugins.OneSignal.push(function() {      
+       window.plugins.OneSignal.sendTag("key", "value");
     });
-- Read more: https://www.reinisfischer.com/how-enable-onesignal-web-push-notifications-sendtag-drupal-user-segmentation-interests
 
     
 }, false);
