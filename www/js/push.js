@@ -15,12 +15,14 @@ document.addEventListener('deviceready', function () {
     // Call syncHashedEmail anywhere in your app if you have the user's email.
     // This improves the effectiveness of OneSignal's "best-time" notification scheduling feature.
     // window.plugins.OneSignal.syncHashedEmail(userEmail);
-    window.plugins.sendTags({rol:  "session.get_rol()", id: "session.get_id_cliente()"},
+    
+}, false);
+
+window.plugins.sendTags({rol:  "session.get_rol()", id: "session.get_id_cliente()"},
         onSuccess: { (result) in
         alert("success!");
     }) { (error) in
         alert("Error sending tags - \(error?.localizedDescription)");
     }
-}, false);
 
 alert("rol:"+"roles"+" id:"+"1");
