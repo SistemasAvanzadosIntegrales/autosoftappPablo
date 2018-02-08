@@ -1,0 +1,128 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/font-awesome.css" />
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <h4 class="text-muted titulo text-center">Elegir cliente</h4>
+      <div class="container-fluid">
+        <a class="navbar-link navbar-brand" href="#" onclick="history.go(-1);"><i class="fa fa-arrow-circle-left text-md"></i></a>
+        <div class="navbar-header">
+          <button type="button" class="navbar-link navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="hidden-sm hidden-md hidden-lg"><a href="index.html" class="navbar-link">Log In</a></li>
+            <li class="hidden-sm hidden-md hidden-lg"><a href="asesor.html" class="navbar-link">Asesor</a></li>
+            <li class="hidden-sm hidden-md hidden-lg"><a href="tecnico.html" class="navbar-link">Tecnico</a></li>
+            <li class="hidden-sm hidden-md hidden-lg"><a href="nueva_inspeccion.html" class="navbar-link">Nueva Inspeccion</a></li>
+            <li class="hidden-sm hidden-md hidden-lg"><a href="realizar_inspeccion.html" class="navbar-link">Realizar Inspeccion</a></li>
+            <li class="hidden-sm hidden-md hidden-lg"><a href="clientes.html" class="navbar-link">Clientes</a></li>
+            <li class="dropdown visible-sm visible-md visible-lg">
+              <a href="#" class="dropdown-toggle navbar-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars text-md"> </i></a>
+              <ul class="dropdown-menu">
+                <li><a href="index.html" class="navbar-link">Log In</a></li>
+                <li><a href="asesor.html" class="navbar-link">Asesor</a></li>
+                <li><a href="tecnico.html" class="navbar-link">Tecnico</a></li>
+                <li><a href="nueva_inspeccion.html" class="navbar-link">Nueva Inspeccion</a></li>
+                <li><a href="realizar_inspeccion.html" class="navbar-link">Realizar Inspeccion</a></li>
+                <li><a href="clientes.html" class="navbar-link">Clientes</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav><!-- navbar -->
+    <div class="container-fluid my-container">
+      <div class="row">
+        <div class="col-xs-1">
+          <h1><img src="img/logo-bosh.jpg" width="70px"></h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="input-group col-xs-12">
+                <form class="form-inline">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="cliente" placeholder="Buscar">
+                      <a class="input-group-addon btn btn-search link" onclick="gridClientes();">
+                        <i class="fa fa-search "> </i>
+                      </a> 
+                    </div>
+                  </div>                  
+                </form>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-striped default-table">
+                <thead>
+                  <tr>
+                    <th class="text-left">Cliente</th>
+                    <th class="text-center">Marca</th>
+                    <th class="text-center">Modelo</th>
+                    <th class="text-center">Placas</th>
+                    <th class="text-center"></th>
+                  </tr>
+                </thead>
+                <tbody id="table-clients"></tbody>
+                  
+                <!-- <tbody>
+                  <tr>
+                    <td class="text-left">Jose Luis Gonzalez Robles</td>
+                    <td class="text-center">Volkswagen</td>
+                    <td class="text-center">Up</td>
+                    <td class="text-center">JDS2131</td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-chevron-right"> </i> </a></td>
+                  </tr>
+                  <tr>
+                    <td class="text-left">Jose Luis Gonzalez Robles</td>
+                    <td class="text-center">Volkswagen</td>
+                    <td class="text-center">Up</td>
+                    <td class="text-center">JDS2131</td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-chevron-right"> </i> </a></td>
+                  </tr>
+                  <tr>
+                    <td class="text-left">Jose Luis Gonzalez Robles</td>
+                    <td class="text-center">Volkswagen</td>
+                    <td class="text-center">Up</td>
+                    <td class="text-center">JDS2131</td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-chevron-right"> </i> </a></td>
+                  </tr>
+                  <tr>
+                    <td class="text-left">Jose Luis Gonzalez Robles</td>
+                    <td class="text-center">Volkswagen</td>
+                    <td class="text-center">Up</td>
+                    <td class="text-center">JDS2131</td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-chevron-right"> </i> </a></td>
+                  </tr>
+                </tbody>  -->
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/localstorage.js"></script>
+  
+    <script type="text/javascript">
+        $(document).ready(function() {
+            gridClientes();
+        });
+     </script>
+  </body>
