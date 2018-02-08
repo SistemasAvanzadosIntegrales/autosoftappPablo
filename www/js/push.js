@@ -16,5 +16,5 @@ document.addEventListener('deviceready', function () {
     window.plugins.OneSignal.sendTag("rol",session.get_rol() );
     window.plugins.OneSignal.sendTag("id", session.get_id_cliente() );
 
-    
+    alert("rol "+session.get_rol()+" "+"id "+session.get_id_cliente())
 }, false);
