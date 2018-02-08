@@ -24,6 +24,7 @@ function severo(id){
 function push(rol){
     window.plugins.OneSignal.getIds(function(ids) {
       var notificationObj = {
+          app_id: '9279844e-0f7c-4469-a616-79df5e864a5a',
           contents: {en: "Mensaje por segmentos"},
           included_segments: [rol]
       };
