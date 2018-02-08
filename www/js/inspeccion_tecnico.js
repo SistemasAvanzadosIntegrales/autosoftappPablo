@@ -21,6 +21,23 @@ function severo(id){
     $("#severity_"+severity[1]).val(severity[0]);
 }
 
+function push(rol){
+    window.plugins.OneSignal.getIds(function(ids) {
+      var notificationObj = {
+          contents: {en: "Mensaje por segmentos"},
+          included_segments: [rol]
+      };
+      window.plugins.OneSignal.postNotification(notificationObj,
+        function(successResponse) {
+          alert("Notification Post Success:", successResponse);
+        },
+        function (failedResponse) {
+          alert("Notification Post Failed: ", failedResponse);
+          alert("Notification Post Failed:\n" + JSON.stringify(failedResponse));
+        }
+      );
+    });
+}
 /**
  *  @author   : Pablo Diaz
  *  @Contact  : pablo_diaz@avansys.com.mx
