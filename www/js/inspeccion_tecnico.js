@@ -154,7 +154,7 @@ var vehicle = $("#vehicle_id").val();
 var ft = new FileTransfer();
  ft.upload(imageURI, ruta_generica+"/api/v1/upload", 
 function(result){ 
-     alert(result);
+     alert(JSON.stringify(result));
      pic.append("<input type='hidden' size='10' class='photo' value='"+id+"_"+JSON.stringify(result.message)+"' >");
  }, 
 function(error){ 
