@@ -66,14 +66,15 @@ function guardar(){
         if( $(this).val() == "" ){
             var attr=$(this).attr("class").split(" ");
              navigator.notification.alert(
-    'You are the winner!',  // message
-    false,         // callback
-    'Game Over',            // title
-    'Done'                  // buttonName
-);
+                "No ha inspeccionado: "+attr[1],  // message
+                false,         // callback
+                'Aviso',            // title
+                'Aceptar'                  // buttonName
+            );
 
             //alert("No ha inspeccionado: "+attr[1]);
             flag=false;
+            return false;
         }                
         arr.push($(this).attr("id")+"_"+$(this).val());
         
@@ -104,13 +105,21 @@ function guarda_todo(arr){
         },
         success:function(resp) {
             
-            if( resp.status == 'ok' ) { 
-                navigator.notification.prompt(resp.message, flase, "Información", "Aceptar");
-
-                alert(resp.message);                      
+            if( resp.status == 'ok' ) {
+                navigator.notification.alert(
+                    resp.message,  // message
+                    false,         // callback
+                    'Aviso',            // title
+                    'Aceptar'                  // buttonName
+                );                
             }
             else {
-                $("#alertaLogin").html(resp.message).show();
+                navigator.notification.alert(
+                    resp.message,  // message
+                    false,         // callback
+                    'Aviso',            // title
+                    'Aceptar'                  // buttonName
+                );                            
             }
         }, 
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -155,10 +164,17 @@ var ft = new FileTransfer();
  ft.upload(imageURI, ruta_generica+"/api/v1/upload", 
 function(result){ 
      alert(JSON.stringify(result));
+     alert(result.response.message);
+     alert(JSON.stringify(result.response));
      pic.append("<input type='hidden' size='10' class='photo' value='"+id+"_"+JSON.stringify(result.message)+"' >");
  }, 
-function(error){ 
-     alert(JSON.stringify(error));
+function(error){
+     navigator.notification.alert(
+        JSON.stringify(error),  // message
+        false,         // callback
+        'Aviso',            // title
+        'Aceptar'                  // buttonName
+    );                 
  },
 options);
  
