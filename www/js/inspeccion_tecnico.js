@@ -71,8 +71,10 @@ function guardar(){
                 'Aviso',            // title
                 'Aceptar'                  // buttonName
             );
-
-            //alert("No ha inspeccionado: "+attr[1]);
+            if( $(this).val() == "3" ){
+                if($("p.attr[1]").html()="")
+                    alert("Agrege evidencia para: "+attr[1]);
+            }
             flag=false;
             return false;
         }                
@@ -164,11 +166,9 @@ var vehicle = $("#vehicle_id").val();
 var ft = new FileTransfer();
  ft.upload(imageURI, ruta_generica+"/api/v1/upload", 
 function(result){ 
-     
-     alert(JSON.stringify(result.response));
-     resp=JSON.parse(result.response);
-     alert(resp.message);
-     pic.append("<input type='hidden' size='10' class='photo' value='"+id+"_"+JSON.stringify(result.message)+"' >");
+         
+     resp=JSON.parse(result.response);     
+     pic.append("<input type='hidden' size='10' class='photo' value='"+id+"_"+resp.message+"' >");
  }, 
 function(error){
      navigator.notification.alert(
