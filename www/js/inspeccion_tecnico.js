@@ -16,9 +16,17 @@ var ruta_generica = "http://172.16.0.15:8000";
  *  @date     : 02/02/2018
  *  @function : severo
  **/
-function severo(id){
+function severo(id,object,classing,sub){
     var severity=id.split("_");
+   
     $("#severity_"+severity[1]).val(severity[0]);
+    var clasees=["btn-success","btn-warning","btn-danger","btn-info"];
+    $(classing).find(sub).removeClass("btn-success");
+    $(classing).find(sub).removeClass("btn-warning");
+    $(classing).find(sub).removeClass("btn-danger");
+    $(classing).find(sub).removeClass("btn-info");
+    $(object).addClass(clasees[severity[0]-1]);
+    
 }
 
 function push(rol){
@@ -52,14 +60,19 @@ function push(rol){
  *  @function : guardar
  **/
 function guardar(){
-    var arr=new Array();
-    var arrPhoto=new Array();
+    var arr=new Array();    
     var flag=true;
     $(".severity").each(function(){
         if( $(this).val() == "" ){
             var attr=$(this).attr("class").split(" ");
-            alert("No ha inspeccionado: "+attr[1]);
-            return false;
+             navigator.notification.alert(
+    'You are the winner!',  // message
+    false,         // callback
+    'Game Over',            // title
+    'Done'                  // buttonName
+);
+
+            //alert("No ha inspeccionado: "+attr[1]);
             flag=false;
         }                
         arr.push($(this).attr("id")+"_"+$(this).val());
@@ -67,12 +80,16 @@ function guardar(){
     });
     if(!flag)
         return false;
+    else
+        guarda_todo(arr);
+}
+
+function guarda_todo(arr){
+    var arrPhoto=new Array();
     $(".photo").each(function(){                
         arrPhoto.push($(this).val());
     });
-    
-    alert(arrPhoto);
-    
+       
      var token = session.get_token;
      $.ajax({
         url: ruta_generica+"/api/v1/save_inspections",
@@ -88,9 +105,9 @@ function guardar(){
         success:function(resp) {
             
             if( resp.status == 'ok' ) { 
-                //$("#alertaLogin").html(resp.message).show();
-                alert(resp.message);
-                $("#guardar").attr("disabled","disabled");                              
+                navigator.notification.prompt(resp.message, flase, "Información", "Aceptar");
+
+                alert(resp.message);                      
             }
             else {
                 $("#alertaLogin").html(resp.message).show();
