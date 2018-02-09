@@ -79,17 +79,18 @@ function guardar(){
         arr.push($(this).attr("id")+"_"+$(this).val());
         
     });
-    if(!flag)
-        return false;
-    else
-        guarda_todo(arr);
-}
-
-function guarda_todo(arr){
     var arrPhoto=new Array();
     $(".photo").each(function(){                
         arrPhoto.push($(this).val());
     });
+    if(!flag)
+        return false;
+    else
+        guarda_todo(arr,arrPhoto);
+}
+
+function guarda_todo(arr,arrPhoto){
+    
        
      var token = session.get_token;
      $.ajax({
@@ -163,9 +164,10 @@ var vehicle = $("#vehicle_id").val();
 var ft = new FileTransfer();
  ft.upload(imageURI, ruta_generica+"/api/v1/upload", 
 function(result){ 
-     alert(JSON.stringify(result));
-     alert(result.response.message);
+     
      alert(JSON.stringify(result.response));
+     resp=JSON.parse(result.response);
+     alert(resp.message);
      pic.append("<input type='hidden' size='10' class='photo' value='"+id+"_"+JSON.stringify(result.message)+"' >");
  }, 
 function(error){
