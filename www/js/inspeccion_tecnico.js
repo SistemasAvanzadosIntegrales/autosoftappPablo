@@ -22,21 +22,27 @@ function severo(id){
 }
 
 function push(rol){
-    window.plugins.OneSignal.getIds(function(ids) {
-      var notificationObj = {
-          app_id: '9279844e-0f7c-4469-a616-79df5e864a5a',
-          contents: {en: "Mensaje por segmentos"},
-          included_segments: [rol]
-      };
-      window.plugins.OneSignal.postNotification(notificationObj,
-        function(successResponse) {
-          alert("Notification Post Success:", successResponse);
+    $.ajax({
+        url: ruta_generica+"/api/v1/send_notification",
+        type: 'POST',
+        dataType: 'JSON',
+        data: {
+            tipo:"rol",
+            value:rol
+            mensaje:"Vehículo: "+$("#model").val()+" Placa: "+$("#license_plate").val()
         },
-        function (failedResponse) {
-          alert("Notification Post Failed: ", failedResponse);
-          alert("Notification Post Failed:\n" + JSON.stringify(failedResponse));
+        success:function(resp) {        
+            if( resp.status == 'ok' ) {               
+             $("#alertaLogin").html(resp.message).show(); 
+            }
+            else {
+              $("#alertaLogin").html(resp.message).show();
+            }
+        }, 
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            console.log("Status: " + textStatus); 
+            console.log("Error: " + errorThrown); 
         }
-      );
     });
 }
 /**
