@@ -28,7 +28,7 @@ function push(rol){
         dataType: 'JSON',
         data: {
             tipo:"rol",
-            value:rol
+            value:rol,
             mensaje:"Vehículo: "+$("#model").val()+" Placa: "+$("#license_plate").val()
         },
         success:function(resp) {        
