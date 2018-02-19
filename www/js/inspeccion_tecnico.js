@@ -242,17 +242,8 @@ function muestra(nombre){
  *  @function : audioCapture
  **/
 
-function audioCapture() {
-  var options = {
-    limit: 1,
-    duration: 30
-  };
-  alert("captura de audio");
-   navigator.device.capture.captureAudio(successAudio, errorAudio, options);
-}
-
-var errorAudio = function(error) {
-    alert('Error code: ' + error.code, null, 'Capture Error');
+function errorAudio(error) {
+    alert('Error code: ' + error.code);
 };
 
 function successAudio(mediaFiles) {
@@ -261,6 +252,14 @@ function successAudio(mediaFiles) {
       path = mediaFiles[i].fullPath;
       alert(mediaFiles);
    }
+}
+function audioCapture() {
+  var options = {
+    limit: 1,
+    duration: 30
+  };
+  alert("captura de audio");
+   navigator.device.capture.captureAudio(successAudio, errorAudio, options);
 }
 /**
  *  @author   : Pablo Diaz
