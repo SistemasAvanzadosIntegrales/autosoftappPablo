@@ -138,6 +138,7 @@ function cameraSuccess(imageURI)
     var name=pos.split("_");
     var pic = $("#"+name[1]+"-photo");
     pic.append("<img class='img-responsive' src='"+imageURI+"'/>");
+    alert(imageURI);
 var id = name[0];
 var tokens = session.get_token();
 var options = new FileUploadOptions();
