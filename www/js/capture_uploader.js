@@ -28,7 +28,7 @@ function captureVideoInspection(inspection_id, catalogo_id){
 function captureSuccess(file)
 {
     alert(file);
- videoURI=file.fullPath;
+ videoURI=file[0].fullPath;
     alert(videoURI);
  var tokens = session.get_token();
  var options = new FileUploadOptions();
