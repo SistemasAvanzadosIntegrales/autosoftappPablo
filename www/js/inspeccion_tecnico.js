@@ -247,11 +247,7 @@ function errorAudio(error) {
 };
 
 function successAudio(mediaFiles) {
-   var i, path, len;
-   for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-      path = mediaFiles[i].fullPath;
-      alert(path);
-   }
+     alert(mediaFiles[0].fullPath);      
 }
 function audioCapture() {
   var options = {
