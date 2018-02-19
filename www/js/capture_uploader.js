@@ -57,11 +57,12 @@ if (progressEvent.lengthComputable) {
 };
  ft.upload(imageURI, ruta_generica+"/api/v1/upload",
 function(result){
-
+alert(result.response);
      resp=JSON.parse(result.response);
      pic.append("<input type='hidden' size='10' class='photo' value='"+id+"_"+resp.message+"' >");
  },
 function(error){
+     alert(result.response);
      navigator.notification.alert(
         JSON.stringify(error),  // message
         false,         // callback
