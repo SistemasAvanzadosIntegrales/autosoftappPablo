@@ -13,10 +13,10 @@ var r = new Resumable({
 
 var inspection_id;
 var catalogo_id;
-var options = { limit: 1, quality: 1 };
 function captureVideoInspection(inspection_id, catalogo_id){
-  inspection_id = inspection_id;
-  catalogo_id = catalogo_id;
+    inspection_id = inspection_id;
+    catalogo_id = catalogo_id;
+var options = { limit: 1, quality: 1 };
     alert("capture");
   try{
       navigator.device.capture.captureVideo(captureSuccess, captureError, options);
@@ -29,7 +29,7 @@ function captureSuccess(file)
 {
     alert(file);
  videoURI=file[0].fullPath;
-    alert(videoURI);
+    alert(catalogo_id);
  var tokens = session.get_token();
  var options = new FileUploadOptions();
  var vehicle = $("#vehicle_id").val();
@@ -49,11 +49,16 @@ function captureSuccess(file)
 statusDom = document.querySelector('#status');
 var ft = new FileTransfer();
 ft.onprogress = function(progressEvent) {
-if (progressEvent.lengthComputable) {
-    loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
-} else {
-    loadingStatus.increment();
-}
+        if (progressEvent.lengthComputable) {
+            var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
+                statusDom.innerHTML = perc + "% loaded...";
+		} else {
+			if(statusDom.innerHTML == "") {
+				statusDom.innerHTML = "Loading";
+			} else {
+				statusDom.innerHTML += ".";
+			}
+        }
 };
  ft.upload(videoURI, ruta_generica+"/api/v1/upload",
 function(result){
