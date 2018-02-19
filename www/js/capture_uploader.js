@@ -13,7 +13,7 @@ var r = new Resumable({
 
 var inspection_id;
 var catalogo_id;
-var options = { limit: 1, quality: 0 };
+var options = { limit: 1, quality: 1 };
 function captureVideoInspection(inspection_id, catalogo_id){
   inspection_id = inspection_id;
   catalogo_id = catalogo_id;
