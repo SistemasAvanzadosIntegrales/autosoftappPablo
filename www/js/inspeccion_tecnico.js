@@ -250,7 +250,7 @@ function successAudio(mediaFiles) {
    var i, path, len;
    for (i = 0, len = mediaFiles.length; i < len; i += 1) {
       path = mediaFiles[i].fullPath;
-      alert(mediaFiles);
+      alert(path);
    }
 }
 function audioCapture() {
@@ -259,7 +259,11 @@ function audioCapture() {
     duration: 30
   };
   alert("captura de audio");
-   navigator.device.capture.captureAudio(successAudio, errorAudio, options);
+     try{
+      navigator.device.capture.captureAudio(successAudio, errorAudio, options);
+  }catch(e){
+      alert(e);
+  }   
 }
 /**
  *  @author   : Pablo Diaz

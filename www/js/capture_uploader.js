@@ -13,11 +13,11 @@ var r = new Resumable({
 
 var inspection_id;
 var catalogo_id;
-function captureVideoInspection(inspection_id, catalogo_id){
+function captureVideoInspection(inspection_id, catalogo_id_parametro){
     inspection_id = inspection_id;
-    catalogo_id = catalogo_id;
-var options = { limit: 1, quality: 1 };
-    alert("capture");
+    catalogo_id = catalogo_id_parametro;
+    alert(catalogo_id);
+var options = { limit: 1, quality: 1 };   
   try{
       navigator.device.capture.captureVideo(captureSuccess, captureError, options);
   }catch(e){
@@ -26,8 +26,7 @@ var options = { limit: 1, quality: 1 };
 }
 
 function captureSuccess(file)
-{
-    alert(file);
+{   
  videoURI=file[0].fullPath;
     alert(catalogo_id);
  var tokens = session.get_token();
@@ -51,7 +50,7 @@ var ft = new FileTransfer();
 ft.onprogress = function(progressEvent) {
         if (progressEvent.lengthComputable) {
             var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
-                statusDom.innerHTML = perc + "% loaded...";
+                statusDom.innerHTML = perc + "% de video subido"
 		} else {
 			if(statusDom.innerHTML == "") {
 				statusDom.innerHTML = "Loading";
@@ -62,7 +61,7 @@ ft.onprogress = function(progressEvent) {
 };
  ft.upload(videoURI, ruta_generica+"/api/v1/upload",
 function(result){
-alert(result.response);
+statusDom.innerHTML = "";
      resp=JSON.parse(result.response);
      pic.append("<input type='hidden' size='10' class='photo' value='"+id+"_"+resp.message+"' >");
  },
