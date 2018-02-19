@@ -243,7 +243,7 @@ function muestra(nombre){
  **/
 
 function errorAudio(error) {
-    alert('Error code: ' + error.code);
+    alert('Error code: ' + error);
 };
 
 function successAudio(mediaFiles) {
