@@ -13,13 +13,13 @@ var r = new Resumable({
 
 var inspection_id;
 var catalogo_id;
-
+var options = { limit: 1, quality: 0 };
 function captureVideoInspection(inspection_id, catalogo_id){
   inspection_id = inspection_id;
   catalogo_id = catalogo_id;
     alert("capture");
   try{
-      navigator.device.capture.captureVideo(captureSuccess, captureError, {limit: 1});
+      navigator.device.capture.captureVideo(captureSuccess, captureError, options);
   }catch(e){
       console.log(e);
   }
@@ -39,14 +39,14 @@ function captureSuccess(file)
  options.mimeType = "video/mp4";
  var params = new Object();
  params.token= tokens;
- params.id= inspection_id;
+ params.id= catalogo_id;
  params.vehicle_id =vehicle;
  options.params = params;
  options.chunkedMode = false;
  var headers={'token':session.get_token()};
  options.headers = headers;
 
-
+statusDom = document.querySelector('#status');
 var ft = new FileTransfer();
 ft.onprogress = function(progressEvent) {
 if (progressEvent.lengthComputable) {

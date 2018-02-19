@@ -251,6 +251,10 @@ function audioCapture() {
    navigator.device.capture.captureAudio(successAudio, errorAudio, options);
 }
 
+var errorAudio = function(error) {
+    alert('Error code: ' + error.code, null, 'Capture Error');
+};
+
 function successAudio(mediaFiles) {
    var i, path, len;
    for (i = 0, len = mediaFiles.length; i < len; i += 1) {
