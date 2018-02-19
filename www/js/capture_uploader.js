@@ -55,7 +55,7 @@ if (progressEvent.lengthComputable) {
     loadingStatus.increment();
 }
 };
- ft.upload(imageURI, ruta_generica+"/api/v1/upload",
+ ft.upload(videoURI, ruta_generica+"/api/v1/upload",
 function(result){
 alert(result.response);
      resp=JSON.parse(result.response);
@@ -72,11 +72,11 @@ function(error){
  },
 options);
     
-  /*var tmp_video = "<video width='50%' controls='controls'>";
+  var tmp_video = "<video width='50%' controls='controls'>";
   tmp_video += "<source src='" + file[0].fullPath + "' type='video/mp4'>";
   tmp_video += "</video>";
   $("#"+inspection_id+catalogo_id).append(tmp_video);
-
+/*
   r.addFile(file);*/
 }
 
