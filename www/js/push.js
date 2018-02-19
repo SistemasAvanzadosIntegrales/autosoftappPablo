@@ -13,8 +13,8 @@ document.addEventListener('deviceready', function () {
         .handleNotificationOpened(notificationOpenedCallback)        
         .endInit();         
           
-    window.plugins.OneSignal.sendTag("rol",session.get_rol() );
-    window.plugins.OneSignal.sendTag("id", session.get_id_cliente() );   
+    window.plugins.OneSignal.sendTag("rol",session.get_rol()+session.get_token());
+    window.plugins.OneSignal.sendTag("id", session.get_id_cliente()+session.get_token());   
 
    
 }, false); 

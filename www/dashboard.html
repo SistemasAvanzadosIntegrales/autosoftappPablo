@@ -23,17 +23,15 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             <li class="hidden-sm hidden-md hidden-lg"><a href="index.html" class="navbar-link">Log In</a></li>
-            <li class="hidden-sm hidden-md hidden-lg"><a href="asesor.html" class="navbar-link">Asesor</a></li>
-            <li class="hidden-sm hidden-md hidden-lg"><a href="tecnico.html" class="navbar-link">Tecnico</a></li>
+            <li class="hidden-sm hidden-md hidden-lg"><a href="dashboard.html" class="navbar-link">Dashboard</a></li>
             <li class="hidden-sm hidden-md hidden-lg"><a href="nueva_inspeccion.html" class="navbar-link">Nueva Inspeccion</a></li>
             <li class="hidden-sm hidden-md hidden-lg"><a href="realizar_inspeccion.html" class="navbar-link">Realizar Inspeccion</a></li>
-            <li class="hidden-sm hidden-md hidden-lg"><a href="clientes.html" class="navbar-link">Clientes</a></li>
+            <li class="hidden-sm hidden-md hidden-lg"><a href="cliente_detalle.html" class="navbar-link">Clientes</a></li>
             <li class="dropdown visible-sm visible-md visible-lg">
               <a href="#" class="dropdown-toggle navbar-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars text-md"> </i></a>
               <ul class="dropdown-menu">
                 <li><a href="index.html" class="navbar-link">Log In</a></li>
-                <li><a href="asesor.html" class="navbar-link">Asesor</a></li>
-                <li><a href="tecnico.html" class="navbar-link">Tecnico</a></li>
+                <li><a href="dashboard.html" class="navbar-link">Dashboard</a></li>
                 <li><a href="nueva_inspeccion.html" class="navbar-link">Nueva Inspeccion</a></li>
                 <li><a href="realizar_inspeccion.html" class="navbar-link">Realizar Inspeccion</a></li>
                 <li><a href="clientes.html" class="navbar-link">Clientes</a></li>
@@ -53,59 +51,34 @@
         <div class="col-xs-12">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <div class="input-group col-xs-6">
-                <input type="text" class="form-control" id="exampleInputAmount" placeholder="Buscar">
-                <a class="input-group-addon btn btn-search link">
+              <div class="input-group col-xs-12">
+                <input type="text" class="form-control" id="word" placeholder="Buscar">
+                <a id="search" class="input-group-addon btn btn-search link">
                   <i class="fa fa-search text-color-marca"> </i>
                 </a>
+                <a onclick="location.href='nueva_inspeccion.html';" class="user hide  btn btn-primary pull-right"><i class="fa fa-plus"> </i> Agregar</a>
               </div>
-              <div class="input-group col-xs-6"></div>
             </div>
+            <div id="alertaLogin" class="text-center text-red"></div>
             <div class="table-responsive">
-              <table class="table table-striped default-table">
+              <table id="inspections" class="table table-striped default-table">
                 <thead>
-                  <tr>
+                  <tr class="admin hide">
                     <th class="text-left">Folio</th>
                     <th class="text-left">Cliente</th>
-                    <th class="text-center">Marca</th>
-                    <th class="text-center">Modelo</th>
-                    <th class="text-center">Placas</th>
-                    <th class="text-center">Estatus</th>
+                    <th class="text-left">Marca</th>
+                    <th class="text-left">Modelo</th>
+                    <th class="text-left">Placas</th>
+                    <th class="text-left">Estatus</th>
+                  </tr>
+                  <tr class="user hide">
+                    <th class="text-left">Nombre</th>
+                    <th class="text-left">Estatus</th>
+                    <th class="text-left">Modificar</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td class="text-left">1112</td>
-                    <td class="text-left">Jose Luis Gonzalez Robles</td>
-                    <td class="text-center">Volkswagen</td>
-                    <td class="text-center">Up</td>
-                    <td class="text-center">JDS2131</td>
-                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-search text-color-marca"> </i> En revision</a></td>
-                  </tr>
-                  <tr>
-                    <td class="text-left">1112</td>
-                    <td class="text-left">Jose Luis Gonzalez Robles</td>
-                    <td class="text-center">Volkswagen</td>
-                    <td class="text-center">Up</td>
-                    <td class="text-center">JDS2131</td>
-                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-clock-o text-color-marca"> </i> Espera cliente</a></td>
-                  </tr>
-                  <tr>
-                    <td class="text-left">1112</td>
-                    <td class="text-left">Jose Luis Gonzalez Robles</td>
-                    <td class="text-center">Volkswagen</td>
-                    <td class="text-center">Up</td>
-                    <td class="text-center">JDS2131</td>
-                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-comments-o text-color-marca"> </i> Respondido</a></td>
-                  </tr>
-                  <tr>
-                    <td class="text-left">1112</td>
-                    <td class="text-left">Jose Luis Gonzalez Robles</td>
-                    <td class="text-center">Volkswagen</td>
-                    <td class="text-center">Up</td>
-                    <td class="text-center">JDS2131</td>
-                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-check-square-o text-color-marca"> </i> Revisado</a></td>
-                  </tr>
+                <tbody id='table-body'>
+
                 </tbody>
               </table>
             </div>
@@ -114,6 +87,14 @@
       </div>
     </div>
     <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/config.js"></script>
+    <script type="text/javascript" src="js/localstorage.js"></script>
+    <script type="text/javascript" src="js/filter.js"></script>
+    <script type="text/javascript" src="js/inspeccion_tecnico.js"></script>
+    <script type="text/javascript" src="js/inspections.js"></script>
+    <script type="text/javascript">document.addEventListener("deviceready", getInspectionsList, false);</script>
+    <script type="text/javascript" src="js/push.js"></script>
   </body>
 </html>
