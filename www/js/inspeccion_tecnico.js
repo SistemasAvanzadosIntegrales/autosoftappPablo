@@ -251,7 +251,7 @@ function errorAudio(error) {
 };
 
 function successAudio(mediaFiles) {
-    //mediaFiles = jQuery.parseJSON(mediaFiles);
+    mediaFiles = jQuery.parseJSON(mediaFiles);
     alert(mediaFiles.full_path);
     var name=pos.split("_");
     var pic = $("#"+name[0]+name[1]+"-photo");    

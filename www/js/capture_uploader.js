@@ -28,7 +28,14 @@ var options = { limit: 1, quality: 1 };
 function captureSuccess(file)
 {   
  videoURI=file[0].fullPath;
-    alert(catalogo_id);
+alert(catalogo_id);
+var pic = $("#"+inspection_id+catalogo_id+"-photo");    
+var id = inspection_id;        
+pic.append("<div class='custom-big-link-grid'>"+
+	       "<video width='100%' height='100%' controls>"+
+           "<source src='"+videoURI+"' type='video/mp4''>"+
+		   "</video>"+	       
+	       "</div>");
  var tokens = session.get_token();
  var options = new FileUploadOptions();
  var vehicle = $("#vehicle_id").val();
