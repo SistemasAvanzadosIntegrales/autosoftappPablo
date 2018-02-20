@@ -251,8 +251,8 @@ function errorAudio(error) {
 };
 
 function successAudio(mediaFiles) {
-    //mediaFiles = jQuery.parseJSON(mediaFiles);
-     alert(mediaFiles.full_path);
+    mediaFiles = jQuery.parseJSON(mediaFiles);
+    alert(mediaFiles.full_path);
 }
 function audioCapture() {
   var options = {
