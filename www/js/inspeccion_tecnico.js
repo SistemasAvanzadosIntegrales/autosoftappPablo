@@ -136,38 +136,38 @@ function cameraFail(message) {
 
 var picturecount=1;
 var pos;
+var catalogue_id;
 
 function cameraSuccess(imageURI)
 {
     var name=pos.split("_");
     var pic = $("#"+name[1]+"-photo");
-    pic.append("<img class='img-responsive' src='"+imageURI+"'/>");
-    alert(imageURI);
-var id = name[0];
-var tokens = session.get_token();
-var options = new FileUploadOptions();
-var vehicle = $("#vehicle_id").val();
+    pic.append("<img class='img-responsive' src='"+imageURI+"'/>");   
+    var id = name[0];
+    var tokens = session.get_token();
+    var options = new FileUploadOptions();
+    var vehicle = $("#vehicle_id").val();
 
- options.fileKey = "file";
- options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
- options.mimeType = "image/jpeg";
- var params = new Object();
- params.token= tokens;
- params.id= id;
- params.vehicle_id =vehicle;
- options.params = params;
- options.chunkedMode = false;
- var headers={'token':session.get_token};
- options.headers = headers;
+     options.fileKey = "file";
+     options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+     options.mimeType = "image/jpeg";
+     var params = new Object();
+     params.token= tokens;
+     params.id= id;
+     params.vehicle_id =vehicle;
+     options.params = params;
+     options.chunkedMode = false;
+     var headers={'token':session.get_token};
+     options.headers = headers;
 
 
-var ft = new FileTransfer();
-ft.onprogress = function(progressEvent) {
-if (progressEvent.lengthComputable) {
-    loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
-} else {
-    loadingStatus.increment();
-}
+    var ft = new FileTransfer();
+    ft.onprogress = function(progressEvent) {
+    if (progressEvent.lengthComputable) {
+        loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+    } else {
+        loadingStatus.increment();
+    }
 };
  ft.upload(imageURI, ruta_generica+"/api/v1/upload",
 function(result){
@@ -253,13 +253,62 @@ function errorAudio(error) {
 function successAudio(mediaFiles) {
     mediaFiles = jQuery.parseJSON(mediaFiles);
     alert(mediaFiles.full_path);
+    var name=pos;
+    var pic = $("#"+pos+catalogue_id+"-photo");
+    pic.append(" <div class='custom-big-link-grid audio'>"+
+	           "<i class='fas fa-volume-up'></i>"+
+	           "<audio width='100%' height='100%' controls>"+
+	           "<source src='"+mediaFiles.full_path+">"+
+	           "</audio>"+
+	           "</div>");   
+    var id = pos;
+   // pic.append("<img class='img-responsive' src='"+imageURI+"'/>");   
+    var tokens = session.get_token();
+    var options = new FileUploadOptions();
+    var vehicle = $("#vehicle_id").val();
+/*
+     options.fileKey = "file";
+     options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+     options.mimeType = "image/jpeg";
+     var params = new Object();
+     params.token= tokens;
+     params.id= id;
+     params.vehicle_id =vehicle;
+     options.params = params;
+     options.chunkedMode = false;
+     var headers={'token':session.get_token};
+     options.headers = headers;
+
+
+    var ft = new FileTransfer();
+    ft.onprogress = function(progressEvent) {
+    if (progressEvent.lengthComputable) {
+        loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+    } else {
+        loadingStatus.increment();
+    }
+};
+ ft.upload(imageURI, ruta_generica+"/api/v1/upload",
+function(result){
+
+     resp=JSON.parse(result.response);
+     pic.append("<input type='hidden' size='10' class='photo' value='"+id+"_"+resp.message+"' >");
+ },
+function(error){
+     navigator.notification.alert(
+        JSON.stringify(error),  // message
+        false,         // callback
+        'Aviso',            // title
+        'Aceptar'                  // buttonName
+    );
+ },
+options);*/
+
 }
-function audioCapture() {
-  var options = {
-    limit: 1,
-    duration: 30
-  };
-  alert("captura de audio");
+function audioCapture(id,catalogue_id) {
+    pos=id;
+    catalogue_id=catalogue_id;
+
      try{
       navigator.device.audiorecorder.recordAudio(successAudio, errorAudio);
   }catch(e){
