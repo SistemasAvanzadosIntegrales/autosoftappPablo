@@ -13,8 +13,8 @@ var r = new Resumable({
 
 var inspection_id;
 var catalogo_id;
-function captureVideoInspection(inspection_id, catalogo_id_parametro){
-    inspection_id = inspection_id;
+function captureVideoInspection(inspection_id_parametro, catalogo_id_parametro){
+    inspection_id = inspection_id_parametro;
     catalogo_id = catalogo_id_parametro;
     alert(catalogo_id);
 var options = { limit: 1, quality: 1 };   
@@ -28,7 +28,7 @@ var options = { limit: 1, quality: 1 };
 function captureSuccess(file)
 {   
  videoURI=file[0].fullPath;
-alert(catalogo_id);
+alert(inspection_id+""+catalogo_id);
 var pic = $("#"+inspection_id+catalogo_id+"-photo");    
 var id = inspection_id;        
 pic.append("<div class='custom-big-link-grid'>"+
