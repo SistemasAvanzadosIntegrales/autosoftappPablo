@@ -19,24 +19,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+		  <!--<div id="buttonmenu" name="buttonmenu"></div>-->
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
-            <li class="hidden-sm hidden-md hidden-lg"><a href="index.html" class="navbar-link">Log In</a></li>
-            <li class="hidden-sm hidden-md hidden-lg"><a href="dashboard.html" class="navbar-link">Dashboard</a></li>
-            <li class="hidden-sm hidden-md hidden-lg"><a href="nueva_inspeccion.html" class="navbar-link">Nueva Inspeccion</a></li>
-            <li class="hidden-sm hidden-md hidden-lg"><a href="realizar_inspeccion.html" class="navbar-link">Realizar Inspeccion</a></li>
-            <li class="hidden-sm hidden-md hidden-lg"><a href="clientes.html" class="navbar-link">Clientes</a></li>
-            <li class="dropdown visible-sm visible-md visible-lg">
-              <a href="#" class="dropdown-toggle navbar-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars text-md"> </i></a>
-              <ul class="dropdown-menu">
-                <li><a href="index.html" class="navbar-link">Log In</a></li>
-                <li><a href="dashboard.html" class="navbar-link">Dashboard</a></li>
-                <li><a href="nueva_inspeccion.html" class="navbar-link">Nueva Inspeccion</a></li>
-                <li><a href="realizar_inspeccion.html" class="navbar-link">Realizar Inspeccion</a></li>
-                <li><a href="cliente_detalle.html" class="navbar-link">Clientes</a></li>
-              </ul>
-            </li>
+          <ul id="menudinamico" name="menudinamico" class="nav navbar-nav navbar-right">
+          </ul>
+		  <ul id="menudefault" name="menudefault" class="nav navbar-nav navbar-right">     
           </ul>
         </div>
       </div>
@@ -44,7 +32,7 @@
     <div class="container-fluid my-container">
       <div class="row">
         <div class="col-xs-1">
-          <h1><img src="img/logo-bosh.jpg" width="70px"></h1>
+          <h1><a href="dashboard.html"><img name="logo" id='logo' src="" width="70px"></a></h1>
         </div>
       </div>
       <div class="row">
@@ -121,6 +109,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             gridClientes();
+			menu(0,0);
         });
      </script>
   </body>

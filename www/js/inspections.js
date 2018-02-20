@@ -19,7 +19,10 @@ function xhrError(XMLHttpRequest, textStatus, errorThrown) {
     'Done'                  // buttonName
   );
 }
-
+function ver(id)
+{
+  $('#'+id).toggle();
+}
 function getInspectionsDetail(){
   $("#table-body").html("");
   let params =  (new URL(location)).searchParams;

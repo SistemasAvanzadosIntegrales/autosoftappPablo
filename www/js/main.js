@@ -7,6 +7,7 @@
  * @Description: Libreria para app de Autosoft.
  **/
 
+
 /**
  *  @author   : Roberto Ramirez
  *  @Contact  : roberto_ramirez@avansys.com.mx
@@ -61,6 +62,7 @@ function ingresar() {
                 $("#alertaLogin").html(jsonValue.message).show();
             }
         });
+
     }
   }
 
@@ -81,8 +83,7 @@ function ingresar() {
  *  @date     : 16/01/2018
  *  @function : gridClientes
  **/
-function gridClientes(){
-
+function gridClientes(){    
     $("#table-clients").html("");
     var token = session.get_token;
 
@@ -97,7 +98,7 @@ function gridClientes(){
         success:function(resp) {
 
             if( resp.status == 'ok' ) {
-               $("#table-clients").append(resp.table);
+               $("#table-clients").append(resp.table);			   
             }
             else {
                 $("#alertaLogin").html(resp.message).show();
@@ -127,7 +128,8 @@ function obtenerclients(){
         dataType: 'JSON',
         data: {
             token:      token,
-            cliente:    $("#cliente").val().trim()
+            cliente:    $("#cliente").val().trim(),
+			id_user:    session.get_id_cliente	        
         },
         success:function(resp) {
 
@@ -211,7 +213,8 @@ function obtener_datos_cliente(){
 			type: 'GET',
 			dataType: 'JSON',
 			data: {
-				token:  token
+				token:    token,
+				id_user:  session.get_id_cliente
 			},
 			success:function(resp) {
 
@@ -281,8 +284,7 @@ function editar_cliente(){
 	var email = $("#email").val();
 	var cellphone = $("#cellphone").val();
 	var password = $("#password").val();
-
-	alert("editar cliente");
+	
 	var id = localStorage.getItem('id_cliente');
 
 	var token = session.get_token;
@@ -339,7 +341,7 @@ function agregar_cliente(){
 		$("#alertaCliente").html("La contraseña debe ser mayor 8 y menor a 12 caracteres").show();
 	}
 	else{
-		alert("agregar cliente");
+		
 		var token = session.get_token;
 
 		$.ajax({
@@ -401,7 +403,8 @@ function obtener_datos_vehiculo(){
 			type: 'GET',
 			dataType: 'JSON',
 			data: {
-				token:  token
+				token:  token,
+				id_user:  session.get_id_cliente
 			},
 			success:function(resp) {
 
@@ -564,3 +567,136 @@ function eliminar_vehiculo(id){
         }
     });
 }
+
+/**
+ *  @author   : Andrea Luna
+ *  @Contact  : andrea_luna@avansys.com.mx
+ *  @date     : 19/02/2018
+ *  @function : apariencia
+ **/
+function apariencia(name_logo){
+	
+	var fileTransfer = new FileTransfer();
+	var uri = encodeURI(ruta_generica+"/img/company/"+name_logo);
+	var fileURL = '/sdcard/Download/'+name_logo;
+	
+		
+	fileTransfer.download(
+		uri,
+		fileURL,
+		function(entry) {
+			$('#logo').attr("src",entry.toURL());
+		},
+		function(error) {
+			console.log('2');
+			console.log("download error source " + error.source);
+			console.log("download error target " + error.target);
+			console.log("download error code" + error.code);
+		},
+		false,
+		{			
+			headers: {
+				"Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
+			}
+		}
+	);
+}
+
+/**
+ *  @author   : Andrea Luna
+ *  @Contact  : andrea_luna@avansys.com.mx
+ *  @date     : 19/02/2018
+ *  @function : apariencia
+ **/
+function get_logo(){
+	var token = session.get_token;
+
+    $.ajax({
+        url: ruta_generica+"/api/v1/get_logo",
+        type: 'POST',
+        dataType: 'JSON', 
+        data: {
+            token:  token
+        },
+        success:function(resp) {
+			var name_logo = JSON.stringify(resp.name_logo['logo']).replace(/['"]+/g, '');
+			var img = new Image();
+		    
+			img.src = '/sdcard/Download/'+name_logo;
+			
+			//Descargar imagen
+		    if(img.height == false)
+				apariencia(name_logo);
+				
+			//Mostrar imagen
+			$('#logo').attr("src",'/sdcard/Download/'+name_logo);
+			
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log("Status: " + textStatus);
+            console.log("Error: " + errorThrown);
+        }
+    });
+	
+	
+}
+
+
+/**
+ *  @author   : Andrea Luna
+ *  @Contact  : andrea_luna@avansys.com.mx
+ *  @date     : 15/02/2018
+ *  @function : apariencia
+ *  @description : 
+ 			parametros: 				
+				adjuntarArchivo: 1 = mostrar opcion, 0 = no mostrar opcion
+				cerrar: 1 = mostrar opcion, 0 = no mostrar opcion
+				agregar: 1 = agregar opcion, 0 = no agregar opcion
+ **/
+function menu(adjuntarArchivo, cerrar){	
+		
+    $.ajax({
+        url: ruta_generica+"/api/v1/get_menu",
+        type: 'POST',
+        dataType: 'JSON',
+        data: {
+            token:  session.get_token,
+			id:     session.get_id_cliente
+        },
+        success:function(resp) {
+			var permiso = resp.permisos;
+			var marcar_atendido = false;
+			
+			$("#menudinamico").html(resp.table_menu).show();
+			
+			for (var valor of permiso)		  
+				if(valor['name'] == "mark_as_attended")
+					marcar_atendido = true;
+			
+			if(!adjuntarArchivo) $("#adjuntar").css('display', 'none');			
+			if(!cerrar) $("#cerrar").css('display', 'none');	
+			if(localStorage.getItem('id_cliente') == null) $("#agregarAutos").css('display', 'none');
+			if(marcar_atendido == false) $("#palomita").css('display', 'none');				
+			if(!resp.edit) {
+				if(localStorage.getItem('id_cliente') != null)
+					$("#guardarcliente").css('display', 'none');
+				if(localStorage.getItem('id_vehiculo') != null)
+					$("#guardarvehiculo").css('display', 'none');
+			}
+			if(!resp.add){ 
+				$("#addcliente").css('display', 'none'); 
+				$("#agregarAutos").css('display', 'none');
+			}
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log("Status: " + textStatus);
+            console.log("Error: " + errorThrown);
+        }
+    });
+	
+	get_logo(); 
+}
+
+
+
+

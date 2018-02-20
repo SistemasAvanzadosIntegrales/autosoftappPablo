@@ -9,7 +9,7 @@
   <body>
     <!-- navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
-      <h4 class="text-muted titulo text-center">Resultado de inspección</h4>
+      <h4 class="text-muted titulo text-center">Alta cliente</h4>
       <div class="container-fluid">
         <a class="navbar-link navbar-brand" href="#" onclick="history.go(-1);"><i class="fa fa-arrow-circle-left text-md"></i></a>
         <div class="navbar-header">
@@ -19,9 +19,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+		  <a name="agregarAutos" id="agregarAutos" href="alta_vehiculo.html" class="navbar-link navbar-toggle"><i class="fa fa-car text-md"> </i></a>
+		  <a id="guardarcliente" name="guardarcliente" onclick="accion_cliente();" class="navbar-link navbar-toggle"><i class="fa fa-save text-md"> </i></a>
+		  <!--<div id="buttonmenu" name="buttonmenu"></div>-->
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
+		   <ul id="menudinamico" name="menudinamico" class="nav navbar-nav navbar-right">
+           </ul>
+		   <ul id="menudefault" name="menudefault" class="nav navbar-nav navbar-right">     
+           </ul>
+          <!--<ul class="nav navbar-nav navbar-right">
             <li class="hidden-sm hidden-md hidden-lg"><a href="index.html" class="navbar-link">Log In</a></li>
             <li class="hidden-sm hidden-md hidden-lg"><a href="dashboard.html" class="navbar-link">Dashboard</a></li>
             <li class="hidden-sm hidden-md hidden-lg"><a href="nueva_inspeccion.html" class="navbar-link">Nueva Inspeccion</a></li>
@@ -40,14 +47,14 @@
                 <li><a href="clientes.html" class="navbar-link">Clientes</a></li>
               </ul>
             </li>
-          </ul>
+          </ul>-->
         </div>
       </div>
     </nav><!-- navbar -->
     <div class="container-fluid my-container">
       <div class="row">
         <div class="col-xs-1">
-          <h1><img src="img/logo-bosh.jpg" width="70px"></h1>
+          <h1><a href="dashboard.html"><img name="logo" id='logo' src="" width="70px"></a></h1>
         </div>
       </div>
       <div class="row">
@@ -109,6 +116,7 @@
 	  <script>
 		  $(document).ready(function() {
 		  	obtener_datos_cliente();
+			  menu(0,0);
 		  });
 	  </script>
   </body>

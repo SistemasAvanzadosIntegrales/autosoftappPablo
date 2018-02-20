@@ -214,3 +214,7 @@ body {
         max-width: 60%;
     }
 }
+
+.navbar-toggle{
+	margin-right: 5px;
+}

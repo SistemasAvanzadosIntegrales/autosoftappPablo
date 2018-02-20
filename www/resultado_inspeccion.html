@@ -19,27 +19,36 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+		  <a href="javascript:update_inspection('status', '3')" class="navbar-link navbar-toggle"><i class="fa fa-paper-plane "> </i></a>
+		  <a href="javascript:update_inspection('status', '2')" class="navbar-link navbar-toggle"><i class="fa fa-save "> </i></a>
+		  <a name="palomita" id="palomita" href="javascript:update_inspection('status', '5')" class="navbar-link navbar-toggle"><i class="fa fa-check "> </i></a>
+		  <!--<div id="buttonmenu" name="buttonmenu"></div>-->
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
+			<ul id="menudinamico" name="menudinamico" class="nav navbar-nav navbar-right">
+			</ul>
+			<ul id="menudefault" name="menudefault" class="nav navbar-nav navbar-right">     
+			</ul>
+          <!--<ul class="nav navbar-nav navbar-right">
             <li class="hidden-sm hidden-md hidden-lg"><a href="index.html" class="navbar-link"><i class="fa fa-sign-out"></i>Salir</a></li>
             <li class="hidden-sm hidden-md hidden-lg"><a href="login.html" class="navbar-link"><i class="fa fa-home"></i> Home</a></li>
             <li class="hidden-sm hidden-md hidden-lg"><a href="dashboard.html" class="navbar-link"><i class="fa fa-power-off"> Cerrar </i></a></li>
-            <li class="hidden-sm hidden-md hidden-lg resumable-drop" ondragenter="jQuery(this).addClass('resumable-dragover');" ondragend="jQuery(this).removeClass('resumable-dragover');" ondrop="jQuery(this).removeClass('resumable-dragover');">
-              <a class="navbar-link resumable-browse"><i class="fa fa-file"></i><u>Presupuesto</u></a>
+            <li class="hidden-sm hidden-md hidden-lg">
+              <a class="navbar-link resumable-browse"><i class="fa fa-file"></i> Presupuesto</a>
             </li>
-            <li><a href="javascript:update_inspection('status', '5')" class="navbar-link"><i class="fa fa-check "> </i></a></li>
-            <li><a href="javascript:update_inspection('status', '2')" class="navbar-link"><i class="fa fa-save "> </i></a></li>
-            <li><a href="javascript:update_inspection('status', '3')" class="navbar-link"><i class="fa fa-paper-plane "> </i></a></li>
+            <li></li>
+            <li></li>
+            <li></li>
             <li class="dropdown visible-sm visible-md visible-lg">
               <a href="#" class="dropdown-toggle navbar-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars "> </i></a>
               <ul class="dropdown-menu">
                 <li><a href="login.html"class="navbar-link"><i class="fa fa-sign-out"></i>Salir</a></li>
                 <li><a href="dashboard.html" class="navbar-link"><i class="fa fa-home"></i> Home</a></li>
+                <li><a class="navbar-link resumable-browse"><a class="navbar-link"><i class="fa fa-file"></i> Presupuesto</a></li>
                 <li><a href="javascript:update_inspection('status', '0')" class="navbar-link"><i class="fa fa-power-off"> Cerrar </i></a></li>
               </ul>
             </li>
-          </ul>
+          </ul>-->
         </div>
       </div>
     </nav><!-- navbar -->
@@ -62,7 +71,7 @@
     <div class="container-fluid my-container">
       <div class="row">
         <div class="col-xs-1">
-          <h1><img src="img/logo-bosh.jpg" width="70px"></h1>
+          <h1><a href="dashboard.html"><img name="logo" id='logo' src="" width="70px"></a></h1>
         </div>
       </div>
       <div class="row">
@@ -139,6 +148,10 @@
     <script type="text/javascript" src="js/resumable.js"></script>
     <script type="text/javascript" src="js/attach_pdf.js"></script>
     <script type="text/javascript" src="js/inspections.js"></script>
+	  <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript">
-    document.addEventListener("deviceready", getInspectionsDetail, false);
+		$(document).ready(function() {
+			menu(1,1);
+        });
+    	document.addEventListener("deviceready", getInspectionsDetail, false);	
    </script>
