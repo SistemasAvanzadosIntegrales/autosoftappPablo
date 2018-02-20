@@ -31,7 +31,7 @@ function captureSuccess(file)
 alert(inspection_id+""+catalogo_id);
 var pic = $("#"+inspection_id+catalogo_id+"-photo");    
 var id = inspection_id;        
-pic.append("<div class='custom-big-link-grid'>"+
+pic.append("<div>"+
 	       "<video width='100%' height='100%' controls>"+
            "<source src='"+videoURI+"' type='video/mp4''>"+
 		   "</video>"+	       

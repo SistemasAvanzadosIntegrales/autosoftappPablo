@@ -91,7 +91,7 @@ function guardar(){
 }
 
 function guarda_todo(arr,arrPhoto){
-     var token = session.get_token;
+     var token = session.get_token();
      $.ajax({
         url: ruta_generica+"/api/v1/save_inspections",
         type: 'POST',
