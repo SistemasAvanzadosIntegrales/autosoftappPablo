@@ -141,7 +141,7 @@ var catalogue_id;
 function cameraSuccess(imageURI)
 {
     var name=pos.split("_");
-    var pic = $("#"+name[1]+"-photo");
+    var pic = $("#"+name[0]+name[1]+"-photo");
     pic.append("<img class='img-responsive' src='"+imageURI+"'/>");   
     var id = name[0];
     var tokens = session.get_token();
@@ -253,8 +253,10 @@ function errorAudio(error) {
 function successAudio(mediaFiles) {
     mediaFiles = jQuery.parseJSON(mediaFiles);
     alert(mediaFiles.full_path);
-    var name=pos;
-    var pic = $("#"+pos+catalogue_id+"-photo");
+    var name=pos.split("_");
+    var pic = $("#"+name[0]+name[1]+"-photo");
+    pic.append("<img class='img-responsive' src='"+imageURI+"'/>");   
+    var id = name[0];        
     pic.append(" <div class='custom-big-link-grid audio'>"+
 	           "<i class='fas fa-volume-up'></i>"+
 	           "<audio width='100%' height='100%' controls>"+
@@ -305,8 +307,8 @@ function(error){
 options);*/
 
 }
-function audioCapture(id,catalogue_id) {
-    pos=id;
+function audioCapture(p) {
+    pos=p;
     catalogue_id=catalogue_id;
 
      try{
