@@ -294,7 +294,7 @@ function successAudio(mediaFiles) {
 function(result){
 
      resp=JSON.parse(result.response);
-     pic.append("<input type='hidden' size='10' class='photo' value='"+id+"_"+resp.message+"' >");
+     pic.append("<input type='hidden' size='10' class='photo' value='"+id+"-"+resp.message+"' >");
  },
 function(error){
      navigator.notification.alert(
