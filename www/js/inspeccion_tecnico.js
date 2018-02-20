@@ -6,6 +6,10 @@
  * @date:        24/01/2018
  * @Description: Libreria para app de Autosoft.
  **/
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+ console.log(navigator.device.audiorecorder.recordAudio);
+}
 
 /**
  *  @author   : Pablo Diaz
@@ -256,7 +260,7 @@ function audioCapture() {
   };
   alert("captura de audio");
      try{
-      navigator.device.capture.captureAudio(successAudio, errorAudio);
+      navigator.device.audiorecorder.recordAudio(successAudio, errorAudio);
   }catch(e){
       alert(e);
   }   
