@@ -256,7 +256,7 @@ function audioCapture() {
   };
   alert("captura de audio");
      try{
-      navigator.device.capture.captureAudio(successAudio, errorAudio, options);
+      navigator.device.capture.captureAudio(successAudio, errorAudio);
   }catch(e){
       alert(e);
   }   
