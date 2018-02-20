@@ -82,13 +82,8 @@ function(error){
     );
  },
 options);
-    
-  var tmp_video = "<video width='50%' controls='controls'>";
-  tmp_video += "<source src='" + file[0].fullPath + "' type='video/mp4'>";
-  tmp_video += "</video>";
-  $("#"+inspection_id+catalogo_id).append(tmp_video);
-/*
-  r.addFile(file);*/
+     
+
 }
 
 function captureError(error) {
