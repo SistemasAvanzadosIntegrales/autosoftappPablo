@@ -252,13 +252,13 @@ function errorAudio(error) {
 
 function successAudio(mediaFiles) {
     mediaFiles = jQuery.parseJSON(mediaFiles);
-    //alert(mediaFiles.full_path);
+    alert(pos);
     audioURI=mediaFiles.full_path;
     var name=pos.split("_");
     var pic = $("#"+name[0]+name[1]+"-photo");    
     var id = name[0];        
     pic.append(" <div class='custom-big-link-grid audio'>"+
-	           "<i class='fas fa-volume-up'></i>"+
+	           "<i class='fa fa-volume-up'></i>"+
 	           "<audio width='100%' height='100%' controls>"+
 	           "<source src='"+mediaFiles.full_path+"'>"+
 	           "</audio>"+
