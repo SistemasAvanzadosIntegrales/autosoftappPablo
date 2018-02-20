@@ -25,28 +25,30 @@ function severo(severity ,botton){
 }
 
 function push(rol){
-    $.ajax({
-        url: ruta_generica+"/api/v1/send_notification",
-        type: 'POST',
-        dataType: 'JSON',
-        data: {
-            tipo:"rol",
-            value:rol,
-            mensaje:"Vehículo: "+$("#model").val()+" Placa: "+$("#license_plate").val()
-        },
-        success:function(resp) {
-            if( resp.status == 'ok' ) {
-             $("#alertaLogin").html(resp.message).show();
+    if(guardar()){
+        $.ajax({
+            url: ruta_generica+"/api/v1/send_notification",
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                tipo:"rol",
+                value:rol,
+                mensaje:"Vehículo: "+$("#model").val()+" Placa: "+$("#license_plate").val()
+            },
+            success:function(resp) {
+                if( resp.status == 'ok' ) {
+                 $("#alertaLogin").html(resp.message).show();
+                }
+                else {
+                  $("#alertaLogin").html(resp.message).show();
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Status: " + textStatus);
+                console.log("Error: " + errorThrown);
             }
-            else {
-              $("#alertaLogin").html(resp.message).show();
-            }
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-            console.log("Status: " + textStatus);
-            console.log("Error: " + errorThrown);
-        }
-    });
+        });
+    }
 }
 /**
  *  @author   : Pablo Diaz
@@ -112,6 +114,7 @@ function guarda_todo(arr,arrPhoto){
                     'Aviso',            // title
                     'Aceptar'                  // buttonName
                 );
+                return true;
             }
             else {
                 navigator.notification.alert(
@@ -120,11 +123,13 @@ function guarda_todo(arr,arrPhoto){
                     'Aviso',            // title
                     'Aceptar'                  // buttonName
                 );
+                return false;
             }
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             console.log("Status: " + textStatus);
             console.log("Error: " + errorThrown);
+            return false;
         }
     });
 }
@@ -252,7 +257,6 @@ function errorAudio(error) {
 
 function successAudio(mediaFiles) {
     mediaFiles = jQuery.parseJSON(mediaFiles);
-    alert(pos);
     audioURI=mediaFiles.full_path;
     var name=pos.split("_");
     var pic = $("#"+name[0]+name[1]+"-photo");    
@@ -263,7 +267,6 @@ function successAudio(mediaFiles) {
 	           "<source src='"+mediaFiles.full_path+"'>"+
 	           "</audio>"+
 	           "</div>");   
-    var id = pos;
    // pic.append("<img class='img-responsive' src='"+imageURI+"'/>");   
     var tokens = session.get_token();
     var options = new FileUploadOptions();
