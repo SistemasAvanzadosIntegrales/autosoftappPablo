@@ -40,6 +40,7 @@ function push(rol){
             success:function(resp) {
                 if( resp.status == 'ok' ) {
                  $("#alertaLogin").html(resp.message).show();
+                    location.href="resultado_inspeccion.html";
                 }
                 else {
                   $("#alertaLogin").html(resp.message).show();
