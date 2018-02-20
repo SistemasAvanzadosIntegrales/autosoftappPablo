@@ -252,7 +252,8 @@ function errorAudio(error) {
 
 function successAudio(mediaFiles) {
     mediaFiles = jQuery.parseJSON(mediaFiles);
-    alert(mediaFiles.full_path);
+    //alert(mediaFiles.full_path);
+    audioURI=mediaFiles.full_path;
     var name=pos.split("_");
     var pic = $("#"+name[0]+name[1]+"-photo");    
     var id = name[0];        
@@ -267,9 +268,9 @@ function successAudio(mediaFiles) {
     var tokens = session.get_token();
     var options = new FileUploadOptions();
     var vehicle = $("#vehicle_id").val();
-/*
+
      options.fileKey = "file";
-     options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+     options.fileName = audioURI.substr(audioURI.lastIndexOf('/') + 1);
      options.mimeType = "image/jpeg";
      var params = new Object();
      params.token= tokens;
@@ -289,7 +290,7 @@ function successAudio(mediaFiles) {
         loadingStatus.increment();
     }
 };
- ft.upload(imageURI, ruta_generica+"/api/v1/upload",
+ ft.upload(audioURI, ruta_generica+"/api/v1/upload",
 function(result){
 
      resp=JSON.parse(result.response);
@@ -303,7 +304,7 @@ function(error){
         'Aceptar'                  // buttonName
     );
  },
-options);*/
+options);
 
 }
 function audioCapture(p) {
