@@ -36,6 +36,7 @@
 <plugin name="cordova-plugin-dialogs" spec="1.3.3"/>
 <plugin name="cordova-plugin-file-transfer" spec="1.6.3"/>
 <plugin name="onesignal-cordova-plugin" spec="https://github.com/OneSignal/OneSignal-Cordova-SDK"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
+<plugin name="cordova-plugin-audio-recorder" spec="1.0.5"/>
 <plugin name="cordova-plugin-whitelist" spec="1.2.2"/>
 <platform  name="ios">
     <!-- below requires the splash screen plugin -->
