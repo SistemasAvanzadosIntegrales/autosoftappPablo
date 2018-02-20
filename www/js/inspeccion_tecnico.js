@@ -143,7 +143,7 @@ function cameraSuccess(imageURI)
     var name=pos.split("_");
     var pic = $("#"+name[0]+name[1]+"-photo");
     pic.append("<img class='img-responsive' src='"+imageURI+"'/>");   
-    var id = name[0];
+    var id = name[1];
     var tokens = session.get_token();
     var options = new FileUploadOptions();
     var vehicle = $("#vehicle_id").val();
@@ -173,7 +173,7 @@ function cameraSuccess(imageURI)
 function(result){
 
      resp=JSON.parse(result.response);
-     pic.append("<input type='hidden' size='10' class='photo' value='"+id+"-"+resp.message+"' >");
+     pic.append("<input type='hidden' size='10' class='photo' value='"+name[1]+"-"+resp.message+"' >");
  },
 function(error){
      navigator.notification.alert(
@@ -256,7 +256,7 @@ function successAudio(mediaFiles) {
     audioURI=mediaFiles.full_path;
     var name=pos.split("_");
     var pic = $("#"+name[0]+name[1]+"-photo");    
-    var id = name[0];        
+    var id = name[1];        
     pic.append(" <div class='custom-big-link-grid audio'>"+
 	           "<i class='fa fa-volume-up'></i>"+
 	           "<audio width='100%' height='100%' controls>"+
@@ -294,7 +294,7 @@ function successAudio(mediaFiles) {
 function(result){
 
      resp=JSON.parse(result.response);
-     pic.append("<input type='hidden' size='10' class='photo' value='"+id+"-"+resp.message+"' >");
+     pic.append("<input type='hidden' size='10' class='photo' value='"+name[1]+"-"+resp.message+"' >");
  },
 function(error){
      navigator.notification.alert(
