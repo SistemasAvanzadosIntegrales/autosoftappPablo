@@ -26,6 +26,7 @@ function severo(severity ,botton){
 
 function push(rol){
     if(guardar()){
+        var token = session.get_token();        
         $.ajax({
             url: ruta_generica+"/api/v1/send_notification",
             type: 'POST',
@@ -33,6 +34,7 @@ function push(rol){
             data: {
                 tipo:"rol",
                 value:rol,
+                token:token,
                 mensaje:"Vehículo: "+$("#model").val()+" Placa: "+$("#license_plate").val()
             },
             success:function(resp) {
