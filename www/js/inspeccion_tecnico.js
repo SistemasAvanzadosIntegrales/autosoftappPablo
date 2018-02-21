@@ -23,9 +23,8 @@ function severo(severity ,botton){
   botton.parent().find('a').removeClass("btn-success btn-warning btn-danger btn-info");
   botton.addClass(botton.attr('data-class'));
 }
+function push(rol){    
 
-function push(rol){
-    if(guardar()){
         var token = session.get_token();        
         $.ajax({
             url: ruta_generica+"/api/v1/send_notification",
@@ -51,7 +50,6 @@ function push(rol){
                 console.log("Error: " + errorThrown);
             }
         });
-    }
 }
 /**
  *  @author   : Pablo Diaz
@@ -59,7 +57,7 @@ function push(rol){
  *  @date     : 02/02/2018
  *  @function : guardar
  **/
-function guardar(){
+function guardar(rol){
     var arr=new Array();
     var flag=true;
     $(".severity").each(function(){
@@ -92,10 +90,10 @@ function guardar(){
     if(!flag)
         return false;
     else
-        guarda_todo(arr,arrPhoto);
+        guarda_todo(arr,arrPhoto,rol);
 }
 
-function guarda_todo(arr,arrPhoto){
+function guarda_todo(arr,arrPhoto,rol){
      var token = session.get_token();
      $.ajax({
         url: ruta_generica+"/api/v1/save_inspections",
@@ -117,7 +115,8 @@ function guarda_todo(arr,arrPhoto){
                     'Aviso',            // title
                     'Aceptar'                  // buttonName
                 );
-                return true;
+                if(rol!=0)
+                    push(rol);
             }
             else {
                 navigator.notification.alert(

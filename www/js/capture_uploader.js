@@ -28,7 +28,7 @@ function captureSuccess(file)
 {   
 videoURI=file[0].fullPath;
 var pic = $("#"+inspection_id+catalogo_id+"-photo");    
-var id = catalogue_id;        
+var id = catalogo_id;        
 pic.append("<video width='100%' controls>"+
            "<source src='"+videoURI+"' type='video/mp4''>"+
 		   "</video>");
