@@ -41,7 +41,7 @@ function ingresar() {
             success:function(resp) {
                 
                 if( resp.status == 'ok' ) {                    
-                    session.login($("#token").val().trim(),resp.rol,resp.user.id);       
+                    session.login($("#token").val().trim(),resp.rol,resp.conf.id);       
                     if(resp.rol=="Técnico" || resp.rol=="admin")
                         location.href="tecnico.html";       
                     else if(resp.rol=="Asesor")
