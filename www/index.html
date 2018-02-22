@@ -5,16 +5,15 @@
         <link rel="stylesheet" href="css/bootstrap.css" />
         <link rel="stylesheet" href="css/main.css" />
         <link rel="stylesheet" href="css/font-awesome.css" />
+
     </head>
     <body>
         <div class="container-fluid">
-            
             <div class="row">
                 <div class="col-xs-12 text-left mt-4">
-                    <img src="img/logo-bosh.jpg" width="70px">
+                    <img src="img/logo.png" width="70px">
                 </div>
             </div>
-            
             <div class="row">
                 <div class="col-xs-12 text-left mt-4" id="form-login">
                     <form class="vertical-center">
@@ -23,36 +22,37 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user"> </i></span>
-                                <input type="email" id="email" class="form-control" placeholder="Usuario" value="carlos@gmail.com">
+                                <input type="email" id="email" class="form-control" placeholder="Usuario">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock"> </i></span>
-                                <input type="password" id="password" class="form-control" placeholder="Contraseña" value="12345678">
+                                <input type="password" id="password" class="form-control" placeholder="Contraseña">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-key"> </i></span>
-                                <input type="token" id="token" class="form-control" placeholder="Token" value="4odzk">
+                                <input type="token" id="token" class="form-control" placeholder="Token">                                
                             </div>
                         </div>
                         <a class="pull-right btn btn-primary mt-4" onclick="ingresar();"><i class="fa fa-sign-in"> </i> Ingresar</a>
                     </form>
                 </div>
-            </div>            
-            
+            </div>
+
             <div class="row">
                 <div class="col-xs-12 text-center mt-5">
-                    <a onclick="resetPassword();" class="text-white">¿Olvidaste tu contraseña?</a> 
+                    <a onclick="resetPassword();" class="text-white">¿Olvidaste tu contraseña?</a>
                 </div>
             </div>
-        </div>        
+        </div>
         <script type="text/javascript" src="js/jquery.js"></script>
-        <script type="text/javascript" src="js/bootstrap.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>'
+        <script type="text/javascript" src="js/config.js"></script>
         <script type="text/javascript" src="js/localstorage.js"></script>
-        
+        <script type="text/javascript" src="js/main.js"></script>
     </body>
 </html>

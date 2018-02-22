@@ -6,9 +6,10 @@
  * @date:        24/01/2018
  * @Description: Libreria para app de Autosoft.
  **/
-
-var rutaV1 = "http://admin.lealtadprimero.com.mx/servicio/index.php";
-var ruta_generica = "http://172.16.1.30:8000";
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+ console.log(navigator.device.audiorecorder.recordAudio);
+}
 
 /**
  *  @author   : Pablo Diaz
@@ -16,42 +17,39 @@ var ruta_generica = "http://172.16.1.30:8000";
  *  @date     : 02/02/2018
  *  @function : severo
  **/
-function severo(id,object,classing,sub){
-    var severity=id.split("_");
-   
-    $("#severity_"+severity[1]).val(severity[0]);
-    var clasees=["btn-success","btn-warning","btn-danger","btn-info"];
-    $(classing).find(sub).removeClass("btn-success");
-    $(classing).find(sub).removeClass("btn-warning");
-    $(classing).find(sub).removeClass("btn-danger");
-    $(classing).find(sub).removeClass("btn-info");
-    $(object).addClass(clasees[severity[0]-1]);
-    
+function severo(severity ,botton){
+  botton = $(botton);
+  botton.parent().find('input[type="hidden"]').val(severity);
+  botton.parent().find('a').removeClass("btn-success btn-warning btn-danger btn-info");
+  botton.addClass(botton.attr('data-class'));
 }
-
 function push(rol){
-    $.ajax({
-        url: ruta_generica+"/api/v1/send_notification",
-        type: 'POST',
-        dataType: 'JSON',
-        data: {
-            tipo:"rol",
-            value:rol,
-            mensaje:"Vehículo: "+$("#model").val()+" Placa: "+$("#license_plate").val()
-        },
-        success:function(resp) {        
-            if( resp.status == 'ok' ) {               
-             $("#alertaLogin").html(resp.message).show(); 
+
+        var token = session.get_token();
+        $.ajax({
+            url: ruta_generica+"/api/v1/send_notification",
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                tipo:"rol",
+                value:rol,
+                token:token,
+                mensaje:"Vehículo: "+$("#model").val()+" Placa: "+$("#license_plate").val()
+            },
+            success:function(resp) {
+                if( resp.status == 'ok' ) {
+                 $("#alertaLogin").html(resp.message).show();
+                    location.href="resultado_inspeccion.html";
+                }
+                else {
+                  $("#alertaLogin").html(resp.message).show();
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Status: " + textStatus);
+                console.log("Error: " + errorThrown);
             }
-            else {
-              $("#alertaLogin").html(resp.message).show();
-            }
-        }, 
-        error: function(XMLHttpRequest, textStatus, errorThrown) { 
-            console.log("Status: " + textStatus); 
-            console.log("Error: " + errorThrown); 
-        }
-    });
+        });
 }
 /**
  *  @author   : Pablo Diaz
@@ -59,46 +57,44 @@ function push(rol){
  *  @date     : 02/02/2018
  *  @function : guardar
  **/
-function guardar(){
-    var arr=new Array();    
+function guardar(rol){
+    var arr=new Array();
     var flag=true;
     $(".severity").each(function(){
         if( $(this).val() == "" ){
             var attr=$(this).attr("class").split(" ");
              navigator.notification.alert(
-                "No ha inspeccionado: "+attr[1],  // message
+                "No ha inspeccionado: "+attr[1].replace(/-/g, " "),  // message
                 false,         // callback
                 'Aviso',            // title
                 'Aceptar'                  // buttonName
             );
-            
+
             flag=false;
             return false;
         }
         if( $(this).val() == "3" ){
                 if($(".p"+attr[1]).html()=""){
-                    alert("Agrege evidencia para: "+attr[1]);
+                    alert("Agrege evidencia para: "+attr[1].replace(/-/g, " ");
                     flag=false;
                     return false;
                 }
             }
         arr.push($(this).attr("id")+"_"+$(this).val());
-        
+
     });
     var arrPhoto=new Array();
-    $(".photo").each(function(){                
+    $(".photo").each(function(){
         arrPhoto.push($(this).val());
     });
     if(!flag)
         return false;
     else
-        guarda_todo(arr,arrPhoto);
+        guarda_todo(arr,arrPhoto,rol);
 }
 
-function guarda_todo(arr,arrPhoto){
-    
-       
-     var token = session.get_token;
+function guarda_todo(arr,arrPhoto,rol){
+     var token = session.get_token();
      $.ajax({
         url: ruta_generica+"/api/v1/save_inspections",
         type: 'POST',
@@ -106,19 +102,23 @@ function guarda_todo(arr,arrPhoto){
         data: {
             token:      token,
             vehicle_id: $("#vehicle_id").val(),
-            dataForm: arr, 
-            dataPhoto: arrPhoto 
-            
+            dataForm: arr,
+            dataPhoto: arrPhoto
+
         },
         success:function(resp) {
-            
+
             if( resp.status == 'ok' ) {
                 navigator.notification.alert(
                     resp.message,  // message
-                    false,         // callback
+                    function(){
+                      location.href="dashboard.html";
+                    },         // callback
                     'Aviso',            // title
                     'Aceptar'                  // buttonName
-                );                
+                );
+                if(rol!=0)
+                    push(rol);
             }
             else {
                 navigator.notification.alert(
@@ -126,14 +126,16 @@ function guarda_todo(arr,arrPhoto){
                     false,         // callback
                     'Aviso',            // title
                     'Aceptar'                  // buttonName
-                );                            
+                );
+                return false;
             }
-        }, 
-        error: function(XMLHttpRequest, textStatus, errorThrown) { 
-            console.log("Status: " + textStatus); 
-            console.log("Error: " + errorThrown); 
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log("Status: " + textStatus);
+            console.log("Error: " + errorThrown);
+            return false;
         }
-    }); 
+    });
 }
 
 
@@ -143,47 +145,55 @@ function cameraFail(message) {
 
 var picturecount=1;
 var pos;
+var catalogue_id;
 
-function cameraSuccess(imageURI) 
-{   
-    var name=pos.split("_");   
-    var pic = $("#"+name[1]+"-photo");
-    pic.append("<img class='img-responsive' src='"+imageURI+"'/>");    
-var id = name[0];
-var tokens = session.get_token();    
-var options = new FileUploadOptions();
-var vehicle = $("#vehicle_id").val();    
-    
- options.fileKey = "file";
- options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
- options.mimeType = "image/jpeg"; 
- var params = new Object();
- params.token= tokens; 
- params.id= id; 
- params.vehicle_id =vehicle;
- options.params = params;
- options.chunkedMode = false;
- var headers={'token':session.get_token};
- options.headers = headers;
+function cameraSuccess(imageURI)
+{
+    var name=pos.split("_");
+    var pic = $("#"+name[0]+name[1]+"-photo");
+    pic.append("<img class='img-responsive' src='"+imageURI+"'/>");
+    var id = name[1];
+    var tokens = session.get_token();
+    var options = new FileUploadOptions();
+    var vehicle = $("#vehicle_id").val();
 
-    
-var ft = new FileTransfer();
- ft.upload(imageURI, ruta_generica+"/api/v1/upload", 
-function(result){ 
-         
-     resp=JSON.parse(result.response);     
-     pic.append("<input type='hidden' size='10' class='photo' value='"+id+"_"+resp.message+"' >");
- }, 
+     options.fileKey = "file";
+     options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+     options.mimeType = "image/jpeg";
+     var params = new Object();
+     params.token= tokens;
+     params.id= id;
+     params.vehicle_id =vehicle;
+     options.params = params;
+     options.chunkedMode = false;
+     var headers={'token':session.get_token};
+     options.headers = headers;
+
+
+    var ft = new FileTransfer();
+    ft.onprogress = function(progressEvent) {
+    if (progressEvent.lengthComputable) {
+        loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+    } else {
+        loadingStatus.increment();
+    }
+};
+ ft.upload(imageURI, ruta_generica+"/api/v1/upload",
+function(result){
+
+     resp=JSON.parse(result.response);
+     pic.append("<input type='hidden' size='10' class='photo' value='"+name[1]+"-"+resp.message+"' >");
+ },
 function(error){
      navigator.notification.alert(
         JSON.stringify(error),  // message
         false,         // callback
         'Aviso',            // title
         'Aceptar'                  // buttonName
-    );                 
+    );
  },
 options);
- 
+
 }
 
 
@@ -196,7 +206,7 @@ options);
 function gridInspections(){
     $("#table-inspections").html("");
     let params =  (new URL(location)).searchParams;
-    
+
     var token = session.get_token;
     $.ajax({
         url: ruta_generica+"/api/v1/inspections",
@@ -207,34 +217,24 @@ function gridInspections(){
             vehicle_id: params.get('vehicle_id')
         },
         success:function(resp) {
-            
+
             if( resp.status == 'ok' ) {
-                
+
                $("#table-inspections").append(resp.table);
                $("#model").val(resp.model);
                $("#license_plate").val(resp.license_plate);
                $("#vehicle_id").val(resp.vehicle_id);
-                
+
             }
             else {
                 $("#alertaLogin").html(resp.message).show();
             }
-        }, 
-        error: function(XMLHttpRequest, textStatus, errorThrown) { 
-            console.log("Status: " + textStatus); 
-            console.log("Error: " + errorThrown); 
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log("Status: " + textStatus);
+            console.log("Error: " + errorThrown);
         }
-    });        
-}
-
-/**
- *  @author   : Pablo Diaz
- *  @Contact  : pablo_diaz@avansys.com.mx
- *  @date     : 25/01/2018
- *  @function : muestra
- **/
-function muestra(nombre){
-   $('.'+nombre).toggle();
+    });
 }
 
 
@@ -245,27 +245,75 @@ function muestra(nombre){
  *  @function : audioCapture
  **/
 
-function audioCapture() { 
-   var options = {
-      limit: 1,
-      duration: 30
-   };
-    alert("captura de audio");
-   navigator.device.capture.captureAudio(successAudio, errorAudio, options);
+function errorAudio(error) {
+    alert('Error code: ' + error);
+};
 
-   function successAudio(mediaFiles) {
-      var i, path, len;
-      for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-         path = mediaFiles[i].fullPath;
-         console.log(mediaFiles);
-      }
-   }
+function successAudio(mediaFiles) {
+    mediaFiles = jQuery.parseJSON(mediaFiles);
+    audioURI=mediaFiles.full_path;
+    var name=pos.split("_");
+    var pic = $("#"+name[0]+name[1]+"-photo");
+    var id = name[1];
+    pic.append(" <div class='custom-big-link-grid audio'>"+
+	           "<i class='fa fa-volume-up'></i>"+
+	           "<audio width='100%' height='100%' controls>"+
+	           "<source src='"+mediaFiles.full_path+"'>"+
+	           "</audio>"+
+	           "</div>");
+   // pic.append("<img class='img-responsive' src='"+imageURI+"'/>");
+    var tokens = session.get_token();
+    var options = new FileUploadOptions();
+    var vehicle = $("#vehicle_id").val();
 
-   function errorAudio(error) {
-      navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
-   }
+     options.fileKey = "file";
+     options.fileName = audioURI.substr(audioURI.lastIndexOf('/') + 1);
+     options.mimeType = "image/jpeg";
+     var params = new Object();
+     params.token= tokens;
+     params.id= id;
+     params.vehicle_id =vehicle;
+     options.params = params;
+     options.chunkedMode = false;
+     var headers={'token':session.get_token};
+     options.headers = headers;
+
+
+    var ft = new FileTransfer();
+    ft.onprogress = function(progressEvent) {
+    if (progressEvent.lengthComputable) {
+        loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+    } else {
+        loadingStatus.increment();
+    }
+};
+ ft.upload(audioURI, ruta_generica+"/api/v1/upload",
+function(result){
+
+     resp=JSON.parse(result.response);
+     pic.append("<input type='hidden' size='10' class='photo' value='"+name[1]+"-"+resp.message+"' >");
+ },
+function(error){
+     navigator.notification.alert(
+        JSON.stringify(error),  // message
+        false,         // callback
+        'Aviso',            // title
+        'Aceptar'                  // buttonName
+    );
+ },
+options);
+
 }
+function audioCapture(p) {
+    pos=p;
+    catalogue_id=catalogue_id;
 
+     try{
+      navigator.device.audiorecorder.recordAudio(successAudio, errorAudio);
+  }catch(e){
+      alert(e);
+  }
+}
 /**
  *  @author   : Pablo Diaz
  *  @Contact  : pablo_diaz@avansys.com.mx
@@ -274,6 +322,6 @@ function audioCapture() {
  **/
 function captureCamara(p){
      pos=p;
-     navigator.camera.getPicture(cameraSuccess, cameraFail, { quality: 90, destinationType: Camera.DestinationType.FILE_URI, saveToPhotoAlbum: true }); 
-     
+     navigator.camera.getPicture(cameraSuccess, cameraFail, { quality: 90, destinationType: Camera.DestinationType.FILE_URI, saveToPhotoAlbum: true });
+
 }

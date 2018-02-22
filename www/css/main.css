@@ -81,7 +81,7 @@ body {
 }
 
 #form-login {
-    
+
 }
 
 .text-shadow {
@@ -91,6 +91,9 @@ body {
 }
 
 /*
+
+
+*/
 .navbar-link{
   border: none;
 }
@@ -133,9 +136,6 @@ body {
 .my-form{
     margin-bottom: 0px!important;
 }
-
-*/
-
 /**
  * Samsung galaxy tab
  **/
@@ -213,4 +213,8 @@ body {
         margin: -10% auto;
         max-width: 60%;
     }
+}
+
+.navbar-toggle{
+	margin-right: 5px;
 }

@@ -5,13 +5,11 @@
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/font-awesome.css" />
-
-        <link rel="stylesheet" href="css/resumable.css" />
   </head>
-  <body>
+  <body id="FullContainer">
     <!-- navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
-      <h4 class="text-muted titulo text-center">Inspeccionar</h4>
+      <h4 class="text-muted titulo text-center">Inspección</h4>
       <div class="container-fluid">
         <a class="navbar-link navbar-brand" href="#" onclick="history.go(-1);"><i class="fa fa-arrow-circle-left text-md"></i></a>
         <div class="navbar-header">
@@ -21,9 +19,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a  onclick="guardar('Asesor')" class="navbar-link navbar-toggle"><i class="fa fa-paper-plane text-md"> </i></a>
-		  <a id="guardar" href="#" onclick="guardar(0)" class="navbar-link navbar-toggle"><i class="fa fa-save text-md"> </i></a>
-		  <div id="buttonmenu" name="buttonmenu"></div>
+		  <!--<div id="buttonmenu" name="buttonmenu"></div>-->
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul id="menudinamico" name="menudinamico" class="nav navbar-nav navbar-right">
@@ -36,39 +32,40 @@
     <div class="container-fluid my-container">
       <div class="row">
         <div class="col-xs-1">
-          <h1><a href="dashboard.html"><img name="logo" id='logo' src="" width="70px"></a></h1>
+          <h1><img name="logo" id='logo' src="" width="70px"></h1>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
           <div class="panel panel-default">
             <div class="panel-heading">
-                <div class="form-group">
-                  <div class="input-group">
-                    <div class="input-group-addon">Modelo</div>
-                    <input type="text" size="10" class="form-control" value="" id="model">
-                    <input type="hidden" size="10" class="form-control" value="" id="vehicle_id">
-                    <input type="hidden" size="10" class="form-control" value="" id="inspections_id">
-                  </div>
-                  <div class="input-group">
-                    <div class="input-group-addon">Placa</div>
-                    <input type="text" size="10" class="form-control" value="" id="license_plate">
-                  </div>
-                </div>
+              <div class="input-group col-xs-12">
+                <input type="text" class="form-control" id="word" placeholder="Buscar">
+                <a id="search" class="input-group-addon btn btn-search link">
+                  <i class="fa fa-search text-color-marca"> </i>
+                </a>
+                <a onclick="location.href='nueva_inspeccion.html';" class="tecnico hide  btn btn-primary pull-right"><i class="fa fa-plus"> </i> Agregar</a>
+              </div>
             </div>
-            <div id="status"></div>
+            <div id="alertaLogin" class="text-center text-red"></div>
             <div class="table-responsive">
-              <table class="table table-striped default-table">
+              <table id="inspections" class="table table-striped default-table">
                 <thead>
-                  <tr>
-                    <th class="text-center">Severidad</th>
-                    <th class="text-left">Inspecci&oacute;n</th>
-                    <th class="text-center">Multimedia</th>
-                    <th class="text-center">Audio</th>
-                    <th class="text-center">Ver</th>
+                  <tr class="admin hide">
+                    <th class="text-left">Folio</th>
+                    <th class="text-left">Cliente</th>
+                    <th class="text-left">Marca</th>
+                    <th class="text-left">Modelo</th>
+                    <th class="text-left">Placas</th>
+                    <th class="text-left">Estatus</th>
+                  </tr>
+                  <tr class="user hide">
+                    <th class="text-left">Nombre</th>
+                    <th class="text-left">Estatus</th>
+                    <th class="text-left">Modificar</th>
                   </tr>
                 </thead>
-                <tbody id='table-inspections'>
+                <tbody id='table-body'>
                 </tbody>
               </table>
             </div>
@@ -76,20 +73,22 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="js/resumable.js"></script>
-    <script type="text/javascript" src="js/config.js"></script>
     <script type="text/javascript" src="js/localstorage.js"></script>
-    <script type="text/javascript" src="js/capture_uploader.js"></script>
+    <script type="text/javascript" src="js/push.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/config.js"></script>
+    <script type="text/javascript" src="js/filter.js"></script>
     <script type="text/javascript" src="js/inspeccion_tecnico.js"></script>
+    <script type="text/javascript" src="js/inspections.js"></script>
 	  <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/style.js"></script>
-    <script src='cordova.js'></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            gridInspections();
+		document.addEventListener("deviceready", getInspectionsList, false);
+		$(document).ready(function () {
 			menu(0,0);
-        });
-     </script>
+		});
+	</script>
   </body>
+</html>

@@ -1,12 +1,12 @@
-/**
+/*
  * Local storage
- * 
+ *
  * Libreria equivalente almacenamiento en sesion
- * 
+ *
  * @access    public
  * @author    Avansys
  * @copyright Avansys
- * 
+ *
  */
 var session = {};
 
@@ -23,7 +23,7 @@ session.login = function(token,rol,id_cliente) {
             'token' : token,
             'rol' : rol,
             'id_cliente' : id_cliente
-        }));        
+        }));
     }
     catch(error) {
         //alert(error.message);
@@ -55,7 +55,7 @@ session.isLogged = function() {
  * @author    Avansys
  */
 session.get_token = function() {
-    var session=JSON.parse(localStorage.getItem('session'));     
+    var session=JSON.parse(localStorage.getItem('session'));
     return session.token;
 };
 
@@ -68,7 +68,7 @@ session.get_token = function() {
  * @author    Avansys
  */
 session.get_rol = function() {
-    var session=JSON.parse(localStorage.getItem('session'));     
+    var session=JSON.parse(localStorage.getItem('session'));
     return session.rol;
 };
 
@@ -79,6 +79,6 @@ session.get_rol = function() {
  * @author    Avansys
  */
 session.get_id_cliente = function() {
-    var session=JSON.parse(localStorage.getItem('session'));     
+    var session=JSON.parse(localStorage.getItem('session'));
     return session.id_cliente;
 };
