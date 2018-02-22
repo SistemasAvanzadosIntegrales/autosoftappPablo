@@ -75,7 +75,7 @@ function guardar(rol){
         }
         if( $(this).val() == "3" ){
                 if($(".p"+attr[1]).html()=""){
-                    alert("Agrege evidencia para: "+attr[1].replace(/-/g, " ");
+                    alert("Agrege evidencia para: "+attr[1].replace(/-/g, " "));
                     flag=false;
                     return false;
                 }
