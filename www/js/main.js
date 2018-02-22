@@ -7,6 +7,9 @@
  * @Description: Libreria para app de Autosoft.
  **/
 
+var rutaV1 = "http://admin.lealtadprimero.com.mx/servicio/index.php";
+//var ruta_generica = "http://localhost:8000";
+var ruta_generica = "http://172.16.1.30:8000"; 
 
 /**
  *  @author   : Roberto Ramirez
@@ -41,13 +44,9 @@ function ingresar() {
             success:function(resp) {
                 
                 if( resp.status == 'ok' ) {                    
-                    session.login($("#token").val().trim(),resp.rol,resp.user.id);       
-                    if(resp.rol=="Técnico" || resp.rol=="admin")
-                        location.href="tecnico.html";       
-                    else if(resp.rol=="Asesor")
-                        location.href="dashboard.html";
-                    else
-                        $("#alertaLogin").html("Rol incorrecto").show();
+                    session.login($("#token").val().trim(),resp.rol,resp.conf.id);             
+                    location.href="tecnico.html";      
+                   //  location.href="cliente_detalle.html";
                 }
                 else {
                     $("#alertaLogin").html(resp.message).show();
@@ -62,9 +61,9 @@ function ingresar() {
                 $("#alertaLogin").html(jsonValue.message).show();
             }
         });
-
+        
     }
-  }
+}
 
 
 /**
@@ -73,9 +72,10 @@ function ingresar() {
  *  @date     : 16/01/2018
  *  @function : resetPassword
  **/
-  function resetPassword(){
+function resetPassword(){
+   
     window.open(ruta_generica+"/password/reset",  '_blank');
-  }
+}
 
 /**
  *  @author   : Pablo Diaz
@@ -84,31 +84,32 @@ function ingresar() {
  *  @function : gridClientes
  **/
 function gridClientes(){    
+		
     $("#table-clients").html("");
     var token = session.get_token;
-
+	
     $.ajax({
         url: ruta_generica+"/api/v1/clients",
-        type: 'GET',
+        type: 'POST',
         dataType: 'JSON',
         data: {
             token:      token,
             cliente:    $("#cliente" ).val().trim()
         },
         success:function(resp) {
-
+            
             if( resp.status == 'ok' ) {
                $("#table-clients").append(resp.table);			   
             }
-            else {
+            else {		
                 $("#alertaLogin").html(resp.message).show();
             }
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-            console.log("Status: " + textStatus);
-            console.log("Error: " + errorThrown);
+        }, 
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            console.log("Status: " + textStatus); 
+            console.log("Error: " + errorThrown); 
         }
-    });
+    });        
 }
 
 /**
@@ -117,36 +118,35 @@ function gridClientes(){
  *  @date     : 02/02/2018
  *  @function : obtenerclients
  **/
-function obtenerclients(){
+function obtenerclients(){ 
 
     $("#table-clients-users").html("");
     var token = session.get_token;
-
+	
     $.ajax({
         url: ruta_generica+"/api/v1/clients",
         type: 'GET',
         dataType: 'JSON',
         data: {
             token:      token,
-            cliente:    $("#cliente").val().trim(),
-			id_user:    session.get_id_cliente	        
+            cliente:    $("#cliente").val().trim()			    
         },
         success:function(resp) {
-
+            
             if( resp.status == 'ok' ) {
 			   $("#table-clients-users").append(resp.user);
 				localStorage.removeItem("id_cliente");
             }
-            else {
+            else {		
                 $("#alertaCliente").html(resp.message).show();
             }
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-            console.log("Status: " + textStatus);
-            console.log("Error: " + errorThrown);
+        }, 
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            console.log("Status: " + textStatus); 
+            console.log("Error: " + errorThrown); 
         }
-    });
-
+    });   
+	
 }
 
 /**
@@ -157,7 +157,7 @@ function obtenerclients(){
  **/
 function delete_cliente(id){
     var token = session.get_token;
-
+	
     $.ajax({
         url: ruta_generica+"/api/v1/delete",
         type: 'POST',
@@ -167,19 +167,19 @@ function delete_cliente(id){
             id:    	id
         },
         success:function(resp) {
-
+			
             if( resp.status == 'ok' ) {
 				location.href="cliente_detalle.html";
             }
-            else {
+            else {						
                 $("#alertaCliente").html(resp.message).show();
             }
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-            console.log("Status: " + textStatus);
-            console.log("Error: " + errorThrown);
+        }, 
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            console.log("Status: " + textStatus); 
+            console.log("Error: " + errorThrown); 
         }
-    });
+    });  
 }
 
 /**
@@ -189,7 +189,7 @@ function delete_cliente(id){
  *  @function : detalle_cliente
  *  @description: guarda el id del cliente del cual se esta viendo el perfil.
  **/
-function detalle_cliente(id){
+function detalle_cliente(id){	
 	localStorage.setItem("id_cliente", id);
 	location.href = "alta_cliente.html";
 }
@@ -201,10 +201,10 @@ function detalle_cliente(id){
  *  @function : obtener_datos_cliente
  *  @description: obtiene los datos del cliente que se selecciono, para edición o ver cliente.
  **/
-function obtener_datos_cliente(){
-
-	var id = localStorage.getItem('id_cliente');
-
+function obtener_datos_cliente(){ 
+	
+	var id = localStorage.getItem('id_cliente');	
+	
 	if(id != null){
 		var token = session.get_token;
 
@@ -213,27 +213,26 @@ function obtener_datos_cliente(){
 			type: 'GET',
 			dataType: 'JSON',
 			data: {
-				token:    token,
-				id_user:  session.get_id_cliente
+				token:  token 
 			},
 			success:function(resp) {
 
-				if( resp.status == 'ok' ) {
+				if( resp.status == 'ok' ) {					
 
 					$("#name").val(resp.user[0]['name']);
 					$("#email").val(resp.user[0]['email']);
 					$("#cellphone").val(resp.user[0]['cellphone']);
 					$("#table_vehicle").append(resp.vehicle);
-
+					
 					localStorage.removeItem("id_vehiculo");
-
+					
 				}
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				console.log("Status: " + textStatus);
-				console.log("Error: " + errorThrown);
+			}, 
+			error: function(XMLHttpRequest, textStatus, errorThrown) { 				
+				console.log("Status: " + textStatus); 
+				console.log("Error: " + errorThrown); 
 			}
-		});
+		});  
 	}
 }
 
@@ -245,30 +244,30 @@ function obtener_datos_cliente(){
  *  @description: edita o agrega un cliente.
  **/
 function accion_cliente(){ // Obtener clientes marca error al obtener el token.
-
+	
 	emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
-
+	
 	var name = $("#name").val();
 	var email = $("#email").val();
 	var cellphone = $("#cellphone").val();
 	var password = $("#password").val();
 	var password2 = $("#password2").val();
-
-	if(password != password2)
+	
+	if(password != password2) 
 		$("#alertaCliente").html("Las contraseñas no coinciden").show();
-
-	else if(name == "" || email == "" || cellphone == "")
+	
+	else if(name == "" || email == "" || cellphone == "") 
 		$("#alertaCliente").html("Campos Vacíos").show();
-
+	
 	else if(!emailRegex.test(email))
 		$("#alertaCliente").html("Correo invalido").show();
-
-	else if(localStorage.getItem('id_cliente') == null)
+		
+	else if(localStorage.getItem('id_cliente') == null) 
 		agregar_cliente();
-
-	else
+	
+	else 
 		editar_cliente();
-
+	
 }
 
 
@@ -276,19 +275,20 @@ function accion_cliente(){ // Obtener clientes marca error al obtener el token.
  *  @author   : Andrea Luna
  *  @Contact  : andrea_luna@avansys.com.mx
  *  @date     : 08/02/2018
- *  @function : editar_cliente
+ *  @function : editar_cliente 
  **/
 function editar_cliente(){
-
+	
 	var name = $("#name").val();
 	var email = $("#email").val();
 	var cellphone = $("#cellphone").val();
-	var password = $("#password").val();
+	var password = $("#password").val();	
 	
+	alert("editar cliente");
 	var id = localStorage.getItem('id_cliente');
 
 	var token = session.get_token;
-
+	
 	if(password != "" && (password.length > 12 || password.length < 8)){
 		$("#alertaCliente").html("La contraseña debe ser mayor 8 y menor a 12 caracteres").show();
 	}else{
@@ -298,7 +298,7 @@ function editar_cliente(){
 			dataType: 'JSON',
 			data: {
 
-				token:      token,
+				token:      token, 
 				name:       name,
 				email:      email,
 				cellphone:  cellphone,
@@ -311,29 +311,29 @@ function editar_cliente(){
 
 					$("#alertaCliente").html("Datos Actualizados").show();
 				}
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				console.log("Status: " + textStatus);
-				console.log("Error: " + errorThrown);
+			}, 
+			error: function(XMLHttpRequest, textStatus, errorThrown) { 				
+				console.log("Status: " + textStatus); 
+				console.log("Error: " + errorThrown); 
 			}
-		});
-	}
+		}); 
+	}	 
 }
 
 /**
  *  @author   : Andrea Luna
  *  @Contact  : andrea_luna@avansys.com.mx
  *  @date     : 08/02/2018
- *  @function : agregar_cliente
+ *  @function : agregar_cliente 
  **/
 function agregar_cliente(){
-
+	
 	var name = $("#name").val();
 	var email = $("#email").val();
 	var cellphone = $("#cellphone").val();
 	var password = $("#password").val();
 	var password2 = $("#password2").val();
-
+	
 	if(password == ""){
 		$("#alertaCliente").html("Ingrese una contraseña").show();
 	}
@@ -341,9 +341,9 @@ function agregar_cliente(){
 		$("#alertaCliente").html("La contraseña debe ser mayor 8 y menor a 12 caracteres").show();
 	}
 	else{
-		
+		alert("agregar cliente");
 		var token = session.get_token;
-
+		
 		$.ajax({
 			url: ruta_generica+"/api/v1/clients/",
 			type: 'POST',
@@ -363,12 +363,12 @@ function agregar_cliente(){
 
 					location.href="alta_cliente.html";
 				}
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				console.log("Status: " + textStatus);
-				console.log("Error: " + errorThrown);
+			}, 
+			error: function(XMLHttpRequest, textStatus, errorThrown) { 				
+				console.log("Status: " + textStatus); 
+				console.log("Error: " + errorThrown); 
 			}
-		});
+		}); 
 	}
 }
 
@@ -376,9 +376,9 @@ function agregar_cliente(){
  *  @author   : Andrea Luna
  *  @Contact  : andrea_luna@avansys.com.mx
  *  @date     : 08/02/2018
- *  @function : detalle_vehiculo
+ *  @function : detalle_vehiculo 
  **/
-function detalle_vehiculo(id){
+function detalle_vehiculo(id){	
 	localStorage.setItem("id_vehiculo", id);
 	location.href = "alta_vehiculo.html";
 }
@@ -387,42 +387,41 @@ function detalle_vehiculo(id){
  *  @author   : Andrea Luna
  *  @Contact  : andrea_luna@avansys.com.mx
  *  @date     : 08/02/2018
- *  @function : alta_vehiculo
+ *  @function : alta_vehiculo 
  **/
-function obtener_datos_vehiculo(){
-
-	var id = localStorage.getItem('id_vehiculo');
-
-	obtener_datos_cliente();
-
+function obtener_datos_vehiculo(){	
+	
+	var id = localStorage.getItem('id_vehiculo');	
+	
+	obtener_datos_cliente();	
+	
 	if(id != null){
 		var token = session.get_token;
-
+	
 		$.ajax({
 			url: ruta_generica+"/api/v1/vehicles/"+id,
 			type: 'GET',
 			dataType: 'JSON',
 			data: {
-				token:  token,
-				id_user:  session.get_id_cliente
+				token:  token				
 			},
 			success:function(resp) {
 
 				if( resp.status == 'ok' ) {
 					$("#brand").val(resp.vehicle[0]['brand']);
 					$("#vin").val(resp.vehicle[0]['vin']);
-					$("#model").val(resp.vehicle[0]['model']);
+					$("#model").val(resp.vehicle[0]['model']);					
 					$("#license_plate").val(resp.vehicle[0]['license_plate']);
-
+					
 					localStorage.setItem("id_vehiculo", id);
 				}
-				else {
+				else {						
 					$("#alertaCliente").html(resp.message).show();
 				}
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				console.log("Status: " + textStatus);
-				console.log("Error: " + errorThrown);
+			}, 
+			error: function(XMLHttpRequest, textStatus, errorThrown) { 
+				console.log("Status: " + textStatus); 
+				console.log("Error: " + errorThrown); 
 			}
 		});
 	}
@@ -432,21 +431,21 @@ function obtener_datos_vehiculo(){
  *  @author   : Andrea Luna
  *  @Contact  : andrea_luna@avansys.com.mx
  *  @date     : 08/02/2018
- *  @function : agregar_vehiculo
+ *  @function : agregar_vehiculo 
  **/
 function accion_vehiculo(){
-
+	
 	var brand = $("#brand").val();
 	var vin = $("#vin").val();
 	var model = $("#model").val();
 	var license_plate = $("#license_plate").val();
-
-	if(brand == "" || vin == "" || model == "" || license_plate == "" )
+	
+	if(brand == "" || vin == "" || model == "" || license_plate == "" )		
 		$("#alerta").html("Campos vacíos").show();
-
+	
 	else if(localStorage.getItem('id_vehiculo') == null)
 		agregar_vehiculo();
-
+	
 	else editar_vehiculo();
 }
 
@@ -454,10 +453,10 @@ function accion_vehiculo(){
  *  @author   : Andrea Luna
  *  @Contact  : andrea_luna@avansys.com.mx
  *  @date     : 08/02/2018
- *  @function : agregar_vehiculo
+ *  @function : agregar_vehiculo 
  **/
 function agregar_vehiculo(){
-
+	
 	var token = session.get_token;
 	var user_id = localStorage.getItem('id_cliente');
 	var brand = $("#brand").val();
@@ -482,15 +481,15 @@ function agregar_vehiculo(){
 			if( resp.status == 'ok' ) {
 				location.href="alta_vehiculo.html";
 			}
-			else {
+			else {						
 				$("#alertaCliente").html(resp.message).show();
 			}
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			console.log("Status: " + textStatus);
-			console.log("Error: " + errorThrown);
+		}, 
+		error: function(XMLHttpRequest, textStatus, errorThrown) { 
+			console.log("Status: " + textStatus); 
+			console.log("Error: " + errorThrown); 
 		}
-	});
+	}); 
 
 }
 
@@ -498,7 +497,7 @@ function agregar_vehiculo(){
  *  @author   : Andrea Luna
  *  @Contact  : andrea_luna@avansys.com.mx
  *  @date     : 08/02/2018
- *  @function : editar_vehiculo
+ *  @function : editar_vehiculo 
  **/
 function editar_vehiculo(){
 	var token = session.get_token;
@@ -517,33 +516,33 @@ function editar_vehiculo(){
 			brand:  brand,
 			vin:  vin,
 			model:  model,
-			license_plate:  license_plate
+			license_plate:  license_plate			
 		},
 		success:function(resp) {
 
 			if( resp.status == 'ok' ) {
 				location.href="alta_vehiculo.html";
 			}
-			else {
+			else {						
 				$("#alertaCliente").html(resp.message).show();
 			}
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			console.log("Status: " + textStatus);
-			console.log("Error: " + errorThrown);
+		}, 
+		error: function(XMLHttpRequest, textStatus, errorThrown) { 
+			console.log("Status: " + textStatus); 
+			console.log("Error: " + errorThrown); 
 		}
-	});
+	}); 
 }
 
 /**
  *  @author   : Andrea Luna
  *  @Contact  : andrea_luna@avansys.com.mx
  *  @date     : 08/02/2018
- *  @function : eliminar_vehiculo
+ *  @function : eliminar_vehiculo 
  **/
 function eliminar_vehiculo(id){
 	var token = session.get_token;
-
+	
     $.ajax({
         url: ruta_generica+"/api/v1/vehicles/delete",
         type: 'POST',
@@ -553,150 +552,18 @@ function eliminar_vehiculo(id){
             id:    	id
         },
         success:function(resp) {
-
+			
             if( resp.status == 'ok' ) {
 				location.href="alta_cliente.html";
             }
-            else {
+            else {						
                 $("#alertaCliente").html(resp.message).show();
             }
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-            console.log("Status: " + textStatus);
-            console.log("Error: " + errorThrown);
+        }, 
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            console.log("Status: " + textStatus); 
+            console.log("Error: " + errorThrown); 
         }
-    });
+    }); 
 }
-
-/**
- *  @author   : Andrea Luna
- *  @Contact  : andrea_luna@avansys.com.mx
- *  @date     : 19/02/2018
- *  @function : apariencia
- **/
-function apariencia(name_logo){
-	
-	var fileTransfer = new FileTransfer();
-	var uri = encodeURI(ruta_generica+"/img/company/"+name_logo);
-	var fileURL = '/sdcard/Download/'+name_logo;
-	
-		
-	fileTransfer.download(
-		uri,
-		fileURL,
-		function(entry) {
-			$('#logo').attr("src",entry.toURL());
-		},
-		function(error) {
-			console.log('2');
-			console.log("download error source " + error.source);
-			console.log("download error target " + error.target);
-			console.log("download error code" + error.code);
-		},
-		false,
-		{			
-			headers: {
-				"Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
-			}
-		}
-	);
-}
-
-/**
- *  @author   : Andrea Luna
- *  @Contact  : andrea_luna@avansys.com.mx
- *  @date     : 19/02/2018
- *  @function : apariencia
- **/
-function get_logo(){
-	var token = session.get_token;
-
-    $.ajax({
-        url: ruta_generica+"/api/v1/get_logo",
-        type: 'POST',
-        dataType: 'JSON', 
-        data: {
-            token:  token
-        },
-        success:function(resp) {
-			var name_logo = JSON.stringify(resp.name_logo['logo']).replace(/['"]+/g, '');
-			var img = new Image();
-		    
-			img.src = '/sdcard/Download/'+name_logo;
-			
-			//Descargar imagen
-		    if(img.height == false)
-				apariencia(name_logo);
-				
-			//Mostrar imagen
-			$('#logo').attr("src",'/sdcard/Download/'+name_logo);
-			
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-            console.log("Status: " + textStatus);
-            console.log("Error: " + errorThrown);
-        }
-    });
-	
-	
-}
-
-
-/**
- *  @author   : Andrea Luna
- *  @Contact  : andrea_luna@avansys.com.mx
- *  @date     : 15/02/2018
- *  @function : apariencia
- *  @description : 
- 			parametros: 				
-				adjuntarArchivo: 1 = mostrar opcion, 0 = no mostrar opcion
-				cerrar: 1 = mostrar opcion, 0 = no mostrar opcion
-				agregar: 1 = agregar opcion, 0 = no agregar opcion
- **/
-function menu(adjuntarArchivo, cerrar){	
-		
-    $.ajax({
-        url: ruta_generica+"/api/v1/get_menu",
-        type: 'POST',
-        dataType: 'JSON',
-        data: {
-            token:  session.get_token,
-			id:     session.get_id_cliente
-        },
-        success:function(resp) {
-			var permiso = resp.permisos;
-			var marcar_atendido = false;
-			
-			$("#menudinamico").html(resp.table_menu).show();
-			
-			for (var valor of permiso)		  
-				if(valor['name'] == "mark_as_attended")
-					marcar_atendido = true;
-			
-			if(!adjuntarArchivo) $("#adjuntar").css('display', 'none');			
-			if(!cerrar) $("#cerrar").css('display', 'none');	
-			if(localStorage.getItem('id_cliente') == null) $("#agregarAutos").css('display', 'none');
-			if(marcar_atendido == false) $("#palomita").css('display', 'none');				
-			if(!resp.edit) {
-				if(localStorage.getItem('id_cliente') != null)
-					$("#guardarcliente").css('display', 'none');
-				if(localStorage.getItem('id_vehiculo') != null)
-					$("#guardarvehiculo").css('display', 'none');
-			}
-			if(!resp.add){ 
-				$("#addcliente").css('display', 'none'); 
-				$("#agregarAutos").css('display', 'none');
-			}
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-            console.log("Status: " + textStatus);
-            console.log("Error: " + errorThrown);
-        }
-    });
-	
-	get_logo(); 
-}
-
-
-
 

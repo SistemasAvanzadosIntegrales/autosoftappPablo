@@ -9,9 +9,9 @@
   <body>
     <!-- navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
-      <h4 class="text-muted titulo text-center">Clientes</h4>
+      <h4 class="text-muted titulo text-center">Inspección</h4>
       <div class="container-fluid">
-        <a class="navbar-link navbar-brand" href="#" onclick="history.go(-1);"><i class="fa fa-arrow-circle-left"></i></a>
+        <a class="navbar-link navbar-brand" href="#" onclick="history.go(-1);"><i class="fa fa-arrow-circle-left text-md"></i></a>
         <div class="navbar-header">
           <button type="button" class="navbar-link navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
@@ -28,10 +28,8 @@
             <li class="hidden-sm hidden-md hidden-lg"><a href="nueva_inspeccion.html" class="navbar-link">Nueva Inspeccion</a></li>
             <li class="hidden-sm hidden-md hidden-lg"><a href="realizar_inspeccion.html" class="navbar-link">Realizar Inspeccion</a></li>
             <li class="hidden-sm hidden-md hidden-lg"><a href="clientes.html" class="navbar-link">Clientes</a></li>
-            <li class="hidden-sm hidden-md hidden-lg"><a href="cliente_detalle.html" class="navbar-link">Clientes detall</a></li>
-			<li><a href="alta_cliente.html" class="navbar-link"><i class="fa fa-plus-circle"></i> Agregar cliente</a></li>
             <li class="dropdown visible-sm visible-md visible-lg">
-              <a href="#" class="dropdown-toggle navbar-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"> </i></a>
+              <a href="#" class="dropdown-toggle navbar-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars text-md"> </i></a>
               <ul class="dropdown-menu">
                 <li><a href="index.html" class="navbar-link">Log In</a></li>
                 <li><a href="asesor.html" class="navbar-link">Asesor</a></li>
@@ -39,7 +37,6 @@
                 <li><a href="nueva_inspeccion.html" class="navbar-link">Nueva Inspeccion</a></li>
                 <li><a href="realizar_inspeccion.html" class="navbar-link">Realizar Inspeccion</a></li>
                 <li><a href="clientes.html" class="navbar-link">Clientes</a></li>
-                <li><a href="cliente_detalle.html" class="navbar-link">Cliente detalle</a></li>
               </ul>
             </li>
           </ul>
@@ -57,38 +54,66 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <div class="input-group col-xs-6">
-                <input type="text" class="form-control" id="cliente" placeholder="Buscar">
-                <a class="input-group-addon btn btn-search link" onclick="obtenerclients();">
-                  <i class="fa fa-search "> </i>
+                <input type="text" class="form-control" id="exampleInputAmount" placeholder="Buscar">
+                <a class="input-group-addon btn btn-search link">
+                  <i class="fa fa-search text-color-marca"> </i>
                 </a>
               </div>
               <div class="input-group col-xs-6"></div>
             </div>
             <div class="table-responsive">
               <table class="table table-striped default-table">
-                <thead class="margin-0">
-                    <tr id="model">
-                       
-                    </tr>
+                <thead>
+                  <tr>
+                    <th class="text-left">Folio</th>
+                    <th class="text-left">Cliente</th>
+                    <th class="text-center">Marca</th>
+                    <th class="text-center">Modelo</th>
+                    <th class="text-center">Placas</th>
+                    <th class="text-center">Estatus</th>
+                  </tr>
                 </thead>
-                <tbody id="table-clients-users"></tbody>
+                <tbody>
+                  <tr>
+                    <td class="text-left">1112</td>
+                    <td class="text-left">Jose Luis Gonzalez Robles</td>
+                    <td class="text-center">Volkswagen</td>
+                    <td class="text-center">Up</td>
+                    <td class="text-center">JDS2131</td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-search text-color-marca"> </i> En revision</a></td>
+                  </tr>
+                  <tr>
+                    <td class="text-left">1112</td>
+                    <td class="text-left">Jose Luis Gonzalez Robles</td>
+                    <td class="text-center">Volkswagen</td>
+                    <td class="text-center">Up</td>
+                    <td class="text-center">JDS2131</td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-clock-o text-color-marca"> </i> Espera cliente</a></td>
+                  </tr>
+                  <tr>
+                    <td class="text-left">1112</td>
+                    <td class="text-left">Jose Luis Gonzalez Robles</td>
+                    <td class="text-center">Volkswagen</td>
+                    <td class="text-center">Up</td>
+                    <td class="text-center">JDS2131</td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-comments-o text-color-marca"> </i> Respondido</a></td>
+                  </tr>
+                  <tr>
+                    <td class="text-left">1112</td>
+                    <td class="text-left">Jose Luis Gonzalez Robles</td>
+                    <td class="text-center">Volkswagen</td>
+                    <td class="text-center">Up</td>
+                    <td class="text-center">JDS2131</td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-check-square-o text-color-marca"> </i> Revisado</a></td>
+                  </tr>
+                </tbody>
               </table>
-				<div id="alertaCliente" class="text-center text-red"></div>
             </div>
-            <div class="panel-footer"></div>
           </div>
         </div>
       </div>
     </div>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="js/detalle.js"></script>
-    <script type="text/javascript" src="js/localstorage.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            gridDetalleInspeccion();
-        });
-		
-     </script>
   </body>
+</html>

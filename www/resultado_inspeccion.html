@@ -11,7 +11,7 @@
     <nav class="navbar navbar-default navbar-fixed-top">
       <h4 class="text-muted titulo text-center">Resultado de inspección</h4>
       <div class="container-fluid">
-        <a class="navbar-link navbar-brand" href="javascript:history.go(-1);"><i class="fa fa-arrow-circle-left "></i></a>
+        <a class="navbar-link navbar-brand" href="#" onclick="history.go(-1);"><i class="fa fa-arrow-circle-left text-md"></i></a>
         <div class="navbar-header">
           <button type="button" class="navbar-link navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
@@ -19,119 +19,105 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-		  <a href="javascript:update_inspection('status', '3')" class="navbar-link navbar-toggle"><i class="fa fa-paper-plane "> </i></a>
-		  <a href="javascript:update_inspection('status', '2')" class="navbar-link navbar-toggle"><i class="fa fa-save "> </i></a>
-		  <a name="palomita" id="palomita" href="javascript:update_inspection('status', '5')" class="navbar-link navbar-toggle"><i class="fa fa-check "> </i></a>
-		  <!--<div id="buttonmenu" name="buttonmenu"></div>-->
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul id="menudinamico" name="menudinamico" class="nav navbar-nav navbar-right">
-			</ul>
-			<ul id="menudefault" name="menudefault" class="nav navbar-nav navbar-right">     
-			</ul>
-          <!--<ul class="nav navbar-nav navbar-right">
-            <li class="hidden-sm hidden-md hidden-lg"><a href="index.html" class="navbar-link"><i class="fa fa-sign-out"></i>Salir</a></li>
-            <li class="hidden-sm hidden-md hidden-lg"><a href="login.html" class="navbar-link"><i class="fa fa-home"></i> Home</a></li>
-            <li class="hidden-sm hidden-md hidden-lg"><a href="dashboard.html" class="navbar-link"><i class="fa fa-power-off"> Cerrar </i></a></li>
-            <li class="hidden-sm hidden-md hidden-lg">
-              <a class="navbar-link resumable-browse"><i class="fa fa-file"></i> Presupuesto</a>
-            </li>
-            <li></li>
-            <li></li>
-            <li></li>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="hidden-sm hidden-md hidden-lg"><a href="index.html" class="navbar-link">Log In</a></li>
+            <li class="hidden-sm hidden-md hidden-lg"><a href="asesor.html" class="navbar-link">Asesor</a></li>
+            <li class="hidden-sm hidden-md hidden-lg"><a href="tecnico.html" class="navbar-link">Tecnico</a></li>
+            <li class="hidden-sm hidden-md hidden-lg"><a href="nueva_inspeccion.html" class="navbar-link">Nueva Inspeccion</a></li>
+            <li class="hidden-sm hidden-md hidden-lg"><a href="realizar_inspeccion.html" class="navbar-link">Realizar Inspeccion</a></li>
+            <li class="hidden-sm hidden-md hidden-lg"><a href="clientes.html" class="navbar-link">Clientes</a></li>
+            <li><a href="#" class="navbar-link"><i class="fa fa-paper-plane text-md"> </i></a></li>
+            <li><a href="#" class="navbar-link"><i class="fa fa-save text-md"> </i></a></li>
             <li class="dropdown visible-sm visible-md visible-lg">
-              <a href="#" class="dropdown-toggle navbar-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars "> </i></a>
+              <a href="#" class="dropdown-toggle navbar-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars text-md"> </i></a>
               <ul class="dropdown-menu">
-                <li><a href="login.html"class="navbar-link"><i class="fa fa-sign-out"></i>Salir</a></li>
-                <li><a href="dashboard.html" class="navbar-link"><i class="fa fa-home"></i> Home</a></li>
-                <li><a class="navbar-link resumable-browse"><a class="navbar-link"><i class="fa fa-file"></i> Presupuesto</a></li>
-                <li><a href="javascript:update_inspection('status', '0')" class="navbar-link"><i class="fa fa-power-off"> Cerrar </i></a></li>
+                <li><a href="index.html" class="navbar-link">Log In</a></li>
+                <li><a href="asesor.html" class="navbar-link">Asesor</a></li>
+                <li><a href="tecnico.html" class="navbar-link">Tecnico</a></li>
+                <li><a href="nueva_inspeccion.html" class="navbar-link">Nueva Inspeccion</a></li>
+                <li><a href="realizar_inspeccion.html" class="navbar-link">Realizar Inspeccion</a></li>
+                <li><a href="clientes.html" class="navbar-link">Clientes</a></li>
               </ul>
             </li>
-          </ul>-->
+          </ul>
         </div>
       </div>
     </nav><!-- navbar -->
-    <div id="frame">
-      <div class="resumable-progress">
-        <table>
-          <tr>
-            <td width="100%"><div class="progress-container"><div class="progress-bar"></div></div></td>
-            <td class="progress-text" nowrap="nowrap"></td>
-            <td class="progress-pause" nowrap="nowrap">
-              <a href="#" onclick="r.upload(); return(false);" class="progress-resume-link"><img src="img/resume.png" title="Resume upload" /></a>
-              <a href="#" onclick="r.pause(); return(false);" class="progress-pause-link"><img src="img/pause.png" title="Pause upload" /></a>
-              <a href="#" onclick="r.cancel(); return(false);" class="progress-cancel-link"><img src="img/cancel.png" title="Cancel upload" /></a>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <ul class="resumable-list"></ul>
-    </div>
     <div class="container-fluid my-container">
       <div class="row">
         <div class="col-xs-1">
-          <h1><a href="dashboard.html"><img name="logo" id='logo' src="" width="70px"></a></h1>
+          <h1><img src="img/logo-bosh.jpg" width="70px"></h1>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h4 class="hide admin">Datos del cliente</4h>
               <form class="form-inline my-form">
                 <div class="form-group">
                   <div class="input-group">
-                    <div class="input-group-addon">Nombre</div>
-                    <input type="text" class="form-control" id="name" value="">
-                  </div>
-                  <div class="input-group">
-                    <div class="input-group-addon">Celular</div>
-                    <input type="text" class="form-control" id="cell" value="">
-                  </div>
-                  <div class="input-group">
-                    <div class="input-group-addon">Email</div>
-                    <input type="text" class="form-control" id="email" value="">
-                  </div>
-                </div>
-              </form>
-              <h4  class="hide admin user">Datos del vehiculo</4h>
-              <form class="form-inline my-form">
-                <div class="form-group  hide admin">
-                  <div class="input-group">
-                    <div class="input-group-addon">Marca</div>
-                    <input type="text" size="10" id="brand"  class="form-control" value="">
-                  </div>
-                  <div class="input-group   hide user">
                     <div class="input-group-addon">Modelo</div>
-                    <input type="text" size="10" class="form-control" value="" id="model">
-                    <input type="hidden" size="10" class="form-control" value="" id="vehicle_id">
-                    <input type="hidden" size="10" class="form-control" value="" id="inspection_id">
-
+                    <input type="text" class="form-control" value="Aveo">
                   </div>
-                  <div class="input-group   hide admin">
-                    <div class="input-group-addon">VIN</div>
-                    <input type="text" size="10" id="vin" class="form-control" value="">
-                  </div>
-                  <div class="input-group  hide admin user">
-                    <div class="input-group-addon">Placa</div>
-                    <input type="text" size="10" class="form-control" value="" id="license_plate">
+                  <div class="input-group">
+                    <div class="input-group-addon">Placas</div>
+                    <input type="text" class="form-control" value="JLF975">
                   </div>
                 </div>
+                <button type="submit" class="btn btn-primary">Filtrar</button>
               </form>
             </div>
             <div class="table-responsive">
               <table class="table table-striped default-table">
                 <thead>
                   <tr>
-                    <th class="text-center">Severidad</th>
+                    <th class="text-center">Resultado</th>
                     <th class="text-left">Inspeccion</th>
                     <th class="text-center">Evidencia</th>
-                    <th class="text-center">Precio</th>
-                    <th class="text-center">Eliminar</th>
+                    <th class="text-center">Audio</th>
+                    <th class="text-center">Ver</th>
                   </tr>
                 </thead>
-                <tbody id='table-body'></tbody>
+                <tbody id='table-inspections'>
+                  <tr>
+                    <td class="text-center">
+                      <a class="btn-round btn btn-success"><i class="fa fa-chevron-down"> </i></a>
+                    </td>
+                    <td class="text-left">Lectura de codigos</td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-eye"> </i> </a></td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-volume-up"> </i> </a></td>
+                    <td class="text-center"><a href="#" cl="btn-link btn-md"><i class="fa fa-trash"> </i> </a></td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">
+                      <a class="btn-round btn btn-danger"><i class="fa fa-times"> </i></a>
+                    </td>
+                    <td class="text-left">Funcionamiento de hidraulico</td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-eye"> </i> </a></td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-volume-up"> </i> </a></td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-trash"> </i> </a></td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">
+                      <a class="btn-round btn btn-warning"><i class="fa fa-exclamation"> </i></a>
+                    </td>
+                    <td class="text-left">Funcionamiento de freno de estacionamiento</td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-eye"> </i> </a></td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-volume-up"> </i> </a></td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-trash"> </i> </a></td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">
+                      N/A
+                    </td>
+                    <td class="text-left">Cinturones de seguridad</td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-eye"> </i> </a></td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-volume-up"> </i> </a></td>
+                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-trash"> </i> </a></td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </div>
@@ -140,18 +126,5 @@
     </div>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
-    <script src='cordova.js'></script>
-    <script type="text/javascript" src="js/config.js"></script>
-    <script type="text/javascript" src="js/localstorage.js"></script>
-    <script type="text/javascript" src="js/inspeccion_tecnico.js"></script>
-    <script type="text/javascript" src="js/inspections.js"></script>
-    <script type="text/javascript" src="js/resumable.js"></script>
-    <script type="text/javascript" src="js/attach_pdf.js"></script>
-    <script type="text/javascript" src="js/inspections.js"></script>
-	  <script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript">
-		$(document).ready(function() {
-			menu(1,1);
-        });
-    	document.addEventListener("deviceready", getInspectionsDetail, false);	
-   </script>
+    <script type="text/javascript" src="js/main.js"></script>    
+  </body>
