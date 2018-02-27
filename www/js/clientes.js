@@ -242,4 +242,3 @@ function agregar_cliente(){
 		});
 	}
 }
-document.addEventListener("deviceready", gridClientes);
