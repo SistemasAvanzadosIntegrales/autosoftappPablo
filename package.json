@@ -1,0 +1,1 @@
+{"name":"io.cordova.hellocordova","version":"0.0.1","displayName":"Autosoft Taller","cordova":{"platforms":["ios","android","browser"]},"dependencies":{"cordova-ios":"^4.5.4","cordova-android":"^7.0.0","cordova-browser":"^5.0.3"}}

@@ -2,7 +2,6 @@ var pdf = $('#pdf');
 pdf.change(function(){
   let urlParams =  (new URL(location)).searchParams;
   var formData = new FormData(document.getElementById("pdfform"));
-  var session=JSON.parse(localStorage.getItem('session'));
 
   formData.append('file', pdf[0].files[0]);
 

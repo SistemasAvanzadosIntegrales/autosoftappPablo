@@ -1,14 +1,12 @@
 /**
  *  @author Ivan Vazquez
  **/
-
-var xhr, token, role, session, data = {};
-document.addEventListener("deviceready", function(){
-  session=JSON.parse(localStorage.getItem('session'));
-  token = session.token;
-  role = session.rol;
-});
-
+ var xhr, token, role, session, data = {};
+ document.addEventListener("deviceready", function(){
+   session=JSON.parse(localStorage.getItem('session'));
+   token = session.token;
+   role = session.rol;
+ });
 function xhrError(XMLHttpRequest, textStatus, errorThrown) {
   navigator.notification.alert(
     textStatus,  // message
@@ -47,6 +45,7 @@ function getInspectionsDetail(){
           $("#vin").val(resp.inspection.vehicle.vin);
           $("#brand").val(resp.inspection.vehicle.brand);
           $('.'+role).removeClass('hide');
+
       }
 
     }
@@ -85,7 +84,7 @@ function update(id, field, value){
       var resp = JSON.parse(this.responseText);
         if (this.status === 200 && resp.status === 'ok') {
           navigator.notification.alert('Transaction succesfuly', function(){
-            location.href="dashboard.html";
+
           });
       }
       else {
@@ -97,6 +96,7 @@ function update(id, field, value){
 
 function getInspectionsList()
 {
+  navigator.splashscreen.show();
   $('.'+role).removeClass('hide');
   $("#table-body").html("");
 
@@ -110,10 +110,9 @@ function getInspectionsList()
       var resp = JSON.parse(xhr.responseText);
       if (this.status === 200 && resp.status === 'ok') {
         $("#table-body").append(resp.table);
-        $('.'+role).removeClass('hide');
-        $('#table-body').parent('table').find('tr:not(.'+role+')').remove();
         var myFilter = Filter;
         myFilter.constructor($('#search'), $('#word'),$('#inspections'));
+        permissions();
       }
       else {
           $("#alertaLogin").html(resp.message).show();

@@ -5,154 +5,47 @@
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/font-awesome.css" />
+    <title>Realizar inspección</title>
   </head>
   <body>
     <!-- navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <h4 class="text-muted titulo text-center">Inspecciónar</h4>
-      <div class="container-fluid">
-        <a class="navbar-link navbar-brand" href="#" onclick="history.go(-1);"><i class="fa fa-arrow-circle-left text-md"></i></a>
-        <div class="navbar-header">
-          <button type="button" class="navbar-link navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-		  <div id="buttonmenu" name="buttonmenu"></div>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
-            <li class="hidden-sm hidden-md hidden-lg"><a href="index.html" class="navbar-link">Log In</a></li>
-            <li class="hidden-sm hidden-md hidden-lg"><a href="dashboard.html" class="navbar-link">Dashboard</a></li>
-            <li class="hidden-sm hidden-md hidden-lg"><a href="nueva_inspeccion.html" class="navbar-link">Nueva Inspeccion</a></li>
-            <li class="hidden-sm hidden-md hidden-lg"><a href="realizar_inspeccion.html" class="navbar-link">Realizar Inspeccion</a></li>
-            <li class="hidden-sm hidden-md hidden-lg"><a href="clientes.html" class="navbar-link">Clientes</a></li>
-            <li><a href="#" class="navbar-link"><i class="fa fa-save text-md"> </i></a></li>
-            <li><a href="#" class="navbar-link"><i class="fa fa-paper-plane text-md"> </i></a></li>
-            <li class="dropdown visible-sm visible-md visible-lg">
-              <a href="#" class="dropdown-toggle navbar-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars text-md"> </i></a>
-              <ul class="dropdown-menu">
-                <li><a href="index.html" class="navbar-link">Log In</a></li>
-                <li><a href="dashboard.html" class="navbar-link">Dashboard</a></li>
-                <li><a href="nueva_inspeccion.html" class="navbar-link">Nueva Inspeccion</a></li>
-                <li><a href="realizar_inspeccion.html" class="navbar-link">Realizar Inspeccion</a></li>
-                <li><a href="clientes.html" class="navbar-link">Clientes</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav><!-- navbar -->
+    <div id="navbar"></div>
     <div class="container-fluid my-container">
       <div class="row">
         <div class="col-xs-1">
-          <h1><a href="dashboard.html"><img name="logo" id='logo' src="" width="70px"></a></h1>
+          <h1><img name="logo" id='logo' src="" width="70px"></h1>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h4>Datos del cliente</4h>
-              <form class="form-inline my-form">
                 <div class="form-group">
-                  <div class="input-group">
-                    <div class="input-group-addon">Nombre</div>
-                    <input type="text" class="form-control" value="Jose Luis Gonzales Robles">
-                  </div>
-                  <div class="input-group">
-                    <div class="input-group-addon">Celular</div>
-                    <input type="text" class="form-control" value="3322332233">
-                  </div>
-                  <div class="input-group">
-                    <div class="input-group-addon">Email</div>
-                    <input type="text" class="form-control" value="email@gmail.com">
-                  </div>
-                </div>
-              </form>
-              <h4>Datos del vehiculo</4h>
-              <form class="form-inline my-form">
-                <div class="form-group">
-                  <div class="input-group">
-                    <div class="input-group-addon">Marca</div>
-                    <input type="text" size="10" class="form-control" value="Ford">
-                  </div>
                   <div class="input-group">
                     <div class="input-group-addon">Modelo</div>
-                    <input type="text" size="10" class="form-control" value="Fiesta">
-                  </div>
-                  <div class="input-group">
-                    <div class="input-group-addon">VIN</div>
-                    <input type="text" size="10" class="form-control" value="431242">
+                    <input type="text" size="10" class="form-control" value="" id="model">
+                    <input type="hidden" size="10" class="form-control" value="" id="vehicle_id">
+                    <input type="hidden" size="10" class="form-control" value="" id="inspections_id">
                   </div>
                   <div class="input-group">
                     <div class="input-group-addon">Placa</div>
-                    <input type="text" size="10" class="form-control" value="JLK242">
+                    <input type="text" size="10" class="form-control" value="" id="license_plate">
                   </div>
                 </div>
-              </form>
             </div>
+            <div id="status"></div>
             <div class="table-responsive">
               <table class="table table-striped default-table">
                 <thead>
                   <tr>
                     <th class="text-center">Severidad</th>
-                    <th class="text-left">Inspeccion</th>
-                    <th class="text-center">Evidemcia</th>
-                    <th class="text-center">Precio</th>
-                    <th class="text-center">Eliminar</th>
+                    <th class="text-left">Inspecci&oacute;n</th>
+                    <th class="text-center">Multimedia</th>
+                    <th class="text-center">Audio</th>
+                    <th class="text-center">Ver</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td class="text-center">
-                      <a class="btn-round btn btn-success"><i class="fa fa-chevron-down"> </i></a>
-                      <a class="btn-round btn btn-warning"><i class="fa fa-exclamation"> </i></a>
-                      <a class="btn-round btn btn-danger"><i class="fa fa-times"> </i></a>
-                      N/A
-                    </td>
-                    <td class="text-left">Lectura de codigos</td>
-                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-camera"> </i> </a></td>
-                    <td class="text-center"><input type="text" class="form-control" placeholder="Precio"></td>
-                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-eye"> </i> </a></td>
-                  </tr>
-                  <tr>
-                    <td class="text-center">
-                      <a class="btn-round btn btn-success"><i class="fa fa-chevron-down"> </i></a>
-                      <a class="btn-round btn btn-warning"><i class="fa fa-exclamation"> </i></a>
-                      <a class="btn-round btn btn-danger"><i class="fa fa-times"> </i></a>
-                      N/A
-                    </td>
-                    <td class="text-left">Funcionamiento de hidraulico</td>
-                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-camera"> </i> </a></td>
-                    <td class="text-center"><input type="text" class="form-control" placeholder="Precio"></td>
-                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-eye"> </i> </a></td>
-                  </tr>
-                  <tr>
-                    <td class="text-center">
-                      <a class="btn-round btn btn-success"><i class="fa fa-chevron-down"> </i></a>
-                      <a class="btn-round btn btn-warning"><i class="fa fa-exclamation"> </i></a>
-                      <a class="btn-round btn btn-danger"><i class="fa fa-times"> </i></a>
-                      N/A
-                    </td>
-                    <td class="text-left">Funcionamiento de freno de estacionamiento</td>
-                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-camera"> </i> </a></td>
-                    <td class="text-center"><input type="text" class="form-control" placeholder="Precio"></td>
-                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-eye"> </i> </a></td>
-                  </tr>
-                  <tr>
-                    <td class="text-center">
-                      <a class="btn-round btn btn-success"><i class="fa fa-chevron-down"> </i></a>
-                      <a class="btn-round btn btn-warning"><i class="fa fa-exclamation"> </i></a>
-                      <a class="btn-round btn btn-danger"><i class="fa fa-times"> </i></a>
-                      N/A
-                    </td>
-                    <td class="text-left">Cinturones de seguridad</td>
-                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-camera"> </i> </a></td>
-                    <td class="text-center"><input type="text" class="form-control" placeholder="Precio"></td>
-                    <td class="text-center"><a href="#" class="btn-link btn-md"><i class="fa fa-eye"> </i> </a></td>
-                  </tr>
+                <tbody id='table-inspections'>
                 </tbody>
               </table>
             </div>
@@ -162,5 +55,13 @@
     </div>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="js/style.js"></script>
+    <script type="text/javascript" src="js/localstorage.js"></script>
+    <script type="text/javascript" src="js/commun.js"></script>
+    <script type="text/javascript" src="js/filter.js"></script>
+    <script type="text/javascript" src="js/inspections.js"></script>
+    <script type="text/javascript" src="js/capture_uploader.js"></script>
+    <script type="text/javascript" src="js/inspeccion_tecnico.js"></script>
+    <script type="text/javascript" src="js/push.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
   </body>
+</html>

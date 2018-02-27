@@ -5,33 +5,11 @@
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/font-awesome.css" />
+    <title>Resultado inspección</title>
   </head>
   <body>
     <!-- navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <h4 class="text-muted titulo text-center">Resultado de inspección</h4>
-      <div class="container-fluid">
-        <a class="navbar-link navbar-brand" href="javascript:history.go(-1);"><i class="fa fa-arrow-circle-left "></i></a>
-        <div class="navbar-header">
-          <button type="button" class="navbar-link navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-		  <a href="javascript:update_inspection('status', '3')" class="navbar-link navbar-toggle"><i class="fa fa-paper-plane "> </i></a>
-		  <a href="javascript:update_inspection('status', '2')" class="navbar-link navbar-toggle"><i class="fa fa-save "> </i></a>
-		  <a name="palomita" id="palomita" href="javascript:update_inspection('status', '5')" class="navbar-link navbar-toggle"><i class="fa fa-check "> </i></a>
-		  <!--<div id="buttonmenu" name="buttonmenu"></div>-->
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul id="menudinamico" name="menudinamico" class="nav navbar-nav navbar-right">
-			</ul>
-			<ul id="menudefault" name="menudefault" class="nav navbar-nav navbar-right">
-			</ul>
-        </div>
-      </div>
-    </nav><!-- navbar -->
+    <div id="navbar"></div>
     <div class="container-fluid my-container">
       <div class="row">
         <div class="col-xs-1">
@@ -42,7 +20,7 @@
         <div class="col-xs-12">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h4 class="hide asesor">Datos del cliente</4h>
+              <h4 class="">Datos del cliente</4h>
               <form class="form-inline my-form">
                 <div class="form-group">
                   <div class="input-group">
@@ -59,36 +37,32 @@
                   </div>
                 </div>
               </form>
-              <h4  class="hide asesor tecnico">Datos del vehiculo</4h>
+              <h4  class=" ">Datos del vehiculo</4h>
               <form class="form-inline my-form">
-                <div class="form-group hide asesor">
+                <div class="form-group ">
                   <div class="input-group">
                     <div class="input-group-addon">Marca</div>
                     <input type="text" size="10" id="brand"  class="form-control" value="">
                   </div>
                 </div>
-                  <div class="input-group hide tecnico">
+                  <div class="input-group  ">
                     <div class="input-group-addon">Modelo</div>
                     <input type="text" size="10" class="form-control" value="" id="model">
                     <input type="hidden" size="10" class="form-control" value="" id="vehicle_id">
                     <input type="hidden" size="10" class="form-control" value="" id="inspection_id">
                   </div>
-                  <div class="input-group  hide asesor">
+                  <div class="input-group  ">
                     <div class="input-group-addon">VIN</div>
 
                     <input type="text" size="10" id="vin" class="form-control" value="">
                   </div>
-                  <div class="input-group  hide asesor tecnico">
+                  <div class="input-group   ">
                     <div class="input-group-addon">Placa</div>
                     <input type="text" size="10" class="form-control" value="" id="license_plate">
                   </div>
-                </div>
               </form>
             </div>
-            <form id="pdfform"  enctype="multipart/form-data">
-              <label class="btn btn-link" for="pdf">Pdf</label>
-              <input id="pdf" class="hide" type="file" />
-            </form>
+
             <div class="table-responsive">
               <table class="table table-striped default-table">
                 <thead>
@@ -96,13 +70,17 @@
                     <th class="text-center">Severidad</th>
                     <th class="text-left">Inspeccion</th>
                     <th class="text-center">Evidencia</th>
-                    <th class="text-center permissions asesor hide">Precio</th>
-                    <th class="text-center permissions asesor hide">Eliminar</th>
+                    <th class="text-center">Precio</th>
+                    <th class="text-center">Eliminar</th>
                   </tr>
                 </thead>
                 <tbody id='table-body'></tbody>
               </table>
             </div>
+            <form id="pdfform"  enctype="multipart/form-data">
+              <label class="btn btn-link" for="pdf">Pdf</label>
+              <input id="pdf" class="pdf" type="file" />
+            </form>
           </div>
         </div>
       </div>
@@ -110,18 +88,13 @@
   </body>
   <script type="text/javascript" src="js/jquery.js"></script>
   <script type="text/javascript" src="js/bootstrap.js"></script>
-  <script src='cordova.js'></script>
-  <script type="text/javascript" src="js/config.js"></script>
   <script type="text/javascript" src="js/localstorage.js"></script>
+  <script type="text/javascript" src="js/commun.js"></script>
   <script type="text/javascript" src="js/attach_pdf.js"></script>
+  <script type="text/javascript" src="js/filter.js"></script>
   <script type="text/javascript" src="js/inspections.js"></script>
-  <script type="text/javascript" src="js/main.js"></script>
-  <script type="text/javascript" src="js/style.js"></script>
-
+  <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript">
-	$(document).ready(function() {
-		menu(1,1);
-  });
   	document.addEventListener("deviceready", getInspectionsDetail, false);
- </script>
+   </script>
  </html>

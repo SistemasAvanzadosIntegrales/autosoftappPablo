@@ -218,3 +218,6 @@ body {
 .navbar-toggle{
 	margin-right: 5px;
 }
+#logo{
+  display: none;
+}

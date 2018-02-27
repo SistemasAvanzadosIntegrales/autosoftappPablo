@@ -5,35 +5,15 @@
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/font-awesome.css" />
+    <title>Cliente</title>
   </head>
   <body>
     <!-- navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <h4 class="text-muted titulo text-center">Clientes</h4>
-      <div class="container-fluid">
-        <a class="navbar-link navbar-brand" href="#" onclick="history.go(-1);"><i class="fa fa-arrow-circle-left"></i></a>
-        <div class="navbar-header">
-          <button type="button" class="navbar-link navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-		  <a id="addcliente" name="addcliente" href="alta_cliente.html" class="navbar-link navbar-toggle"><i class="fa fa-plus-circle"></i></a>
-		  <!--<div id="buttonmenu" name="buttonmenu"></div>-->
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul id="menudinamico" name="menudinamico" class="nav navbar-nav navbar-right">
-			</ul>
-			<ul id="menudefault" name="menudefault" class="nav navbar-nav navbar-right">
-			</ul>
-        </div>
-      </div>
-    </nav><!-- navbar -->
+    <div id="navbar"></div>
     <div class="container-fluid my-container">
       <div class="row">
         <div class="col-xs-1">
-          <h1><a href="dashboard.html"><img name="logo" id='logo' src="" width="70px"></a></h1>
+          <h1><img name="logo" id='logo' src="" width="70px"></h1>
         </div>
       </div>
       <div class="row">
@@ -67,22 +47,15 @@
       </div>
     </div>
     <script type="text/javascript" src="js/jquery.js"></script>
-
     <script type="text/javascript" src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="js/config.js"></script>
-    <script type="text/javascript" src="js/detalle.js"></script>
     <script type="text/javascript" src="js/localstorage.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="js/style.js"></script>
-    <script type="text/javascript" src="js/push.js"></script>
-
+    <script type="text/javascript" src="js/commun.js"></script>
+    <script type="text/javascript" src="js/filter.js"></script>
+    <script type="text/javascript" src="js/inspections.js"></script>
+    <script type="text/javascript" src="js/vehiculos.js"></script>
+    <script type="text/javascript" src="js/clientes.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            //gridDetalleInspeccion();
-            obtenerclients();
-			menu(0,0);
-        });
-
+      document.addEventListener("deviceready", obtenerclients, false);
      </script>
   </body>

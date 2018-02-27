@@ -6,10 +6,15 @@
  * @date:        24/01/2018
  * @Description: Libreria para app de Autosoft.
  **/
-document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady() {
+ var session;
+ var xhr, token, role, session, data = {};
+document.addEventListener("deviceready", function(){
+  session=JSON.parse(localStorage.getItem('session'));
+  token = session.token;
+  role = session.rol;
+  gridInspections();
  console.log(navigator.device.audiorecorder.recordAudio);
-}
+});
 
 /**
  *  @author   : Pablo Diaz
@@ -22,10 +27,9 @@ function severo(severity ,botton){
   botton.parent().find('input[type="hidden"]').val(severity);
   botton.parent().find('a').removeClass("btn-success btn-warning btn-danger btn-info");
   botton.addClass(botton.attr('data-class'));
-}
+};
 function push(rol){
-
-        var token = session.get_token();
+        var session=JSON.parse(localStorage.getItem('session'));
         $.ajax({
             url: ruta_generica+"/api/v1/send_notification",
             type: 'POST',
@@ -61,21 +65,22 @@ function guardar(rol){
     var arr=new Array();
     var flag=true;
     $(".severity").each(function(){
-        if( $(this).val() == "" ){
-            var attr=$(this).attr("class").split(" ");
-             navigator.notification.alert(
-                "No ha inspeccionado: "+attr[1].replace(/-/g, " "),  // message
-                false,         // callback
-                'Aviso',            // title
-                'Aceptar'                  // buttonName
-            );
+      var attr = $(this).attr("class").split(" ");
+      var self = $(this);
+      if( $(this).val() == "" ){
+         navigator.notification.alert(
+            "No ha inspeccionado: "+attr[1].replace(/_/g, " "),  // message
+            false,         // callback
+            'Aviso',            // title
+            'Aceptar'                  // buttonName
+        );
 
-            flag=false;
-            return false;
-        }
+        flag=false;
+        return false;
+      }
         if( $(this).val() == "3" ){
-                if($(".p"+attr[1]).html()=""){
-                    alert("Agrege evidencia para: "+attr[1].replace(/-/g, " "));
+                if($("#"+self.attr('data-media')).html()==""){
+                    alert("Agrege evidencia para: "+attr[1].replace(/_/g, " "));
                     flag=false;
                     return false;
                 }
@@ -94,7 +99,6 @@ function guardar(rol){
 }
 
 function guarda_todo(arr,arrPhoto,rol){
-     var token = session.get_token();
      $.ajax({
         url: ruta_generica+"/api/v1/save_inspections",
         type: 'POST',
@@ -153,7 +157,6 @@ function cameraSuccess(imageURI)
     var pic = $("#"+name[0]+name[1]+"-photo");
     pic.append("<img class='img-responsive' src='"+imageURI+"'/>");
     var id = name[1];
-    var tokens = session.get_token();
     var options = new FileUploadOptions();
     var vehicle = $("#vehicle_id").val();
 
@@ -161,12 +164,12 @@ function cameraSuccess(imageURI)
      options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
      options.mimeType = "image/jpeg";
      var params = new Object();
-     params.token= tokens;
+     params.token= token;
      params.id= id;
      params.vehicle_id =vehicle;
      options.params = params;
      options.chunkedMode = false;
-     var headers={'token':session.get_token};
+     var headers={'token':token};
      options.headers = headers;
 
 
@@ -207,13 +210,12 @@ function gridInspections(){
     $("#table-inspections").html("");
     let params =  (new URL(location)).searchParams;
 
-    var token = session.get_token;
     $.ajax({
         url: ruta_generica+"/api/v1/inspections",
         type: 'POST',
         dataType: 'JSON',
         data: {
-            token:      token,
+            token:token,
             vehicle_id: params.get('vehicle_id')
         },
         success:function(resp) {
@@ -262,7 +264,6 @@ function successAudio(mediaFiles) {
 	           "</audio>"+
 	           "</div>");
    // pic.append("<img class='img-responsive' src='"+imageURI+"'/>");
-    var tokens = session.get_token();
     var options = new FileUploadOptions();
     var vehicle = $("#vehicle_id").val();
 
@@ -270,12 +271,12 @@ function successAudio(mediaFiles) {
      options.fileName = audioURI.substr(audioURI.lastIndexOf('/') + 1);
      options.mimeType = "image/jpeg";
      var params = new Object();
-     params.token= tokens;
+     params.token= token;
      params.id= id;
      params.vehicle_id =vehicle;
      options.params = params;
      options.chunkedMode = false;
-     var headers={'token':session.get_token};
+     var headers={'token':token};
      options.headers = headers;
 
 
