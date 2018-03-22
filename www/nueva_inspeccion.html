@@ -5,9 +5,12 @@
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/font-awesome.css" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="icon" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="shortcut icon" />
     <title>Nueva inspección</title>
   </head>
   <body>
+    <div id="loading"><div id="loader"></div></div>
     <!-- navbar -->
     <div id="navbar"></div>
     <div class="container-fluid my-container">
@@ -37,11 +40,11 @@
               <table class="table table-striped default-table">
                 <thead>
                   <tr>
-                    <th class="text-left">Cliente</th>
-                    <th class="text-center">Marca</th>
-                    <th class="text-center">Modelo</th>
-                    <th class="text-center">Placas</th>
-                    <th class="text-center"></th>
+                    <th>Cliente</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Placas</th>
+                    <th class="text-center">Tecnico</th>
                   </tr>
                 </thead>
                 <tbody id="table-clients"></tbody>

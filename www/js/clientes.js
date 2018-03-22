@@ -1,8 +1,15 @@
-
+var session;
+var app_settings;
+document.addEventListener("deviceready", function(){
+  session=JSON.parse(localStorage.getItem('session'));
+  app_settings = JSON.parse(localStorage.getItem('app_settings'));
+});
 function gridClientes(){
-    session=JSON.parse(localStorage.getItem('session'));
     $("#table-clients").html("");
     var token = session.token;
+
+    if ($("#cliente" ).length == 0)
+        return;
 
     $.ajax({
         url: ruta_generica+"/api/v1/clients",
@@ -29,19 +36,21 @@ function gridClientes(){
 }
 
 function obtenerclients(){
-
+    session=JSON.parse(localStorage.getItem('session'));
+    app_settings = JSON.parse(localStorage.getItem('app_settings'));
     $("#table-clients-users").html("");
-    var token = session.get_token;
-
+    var token = session.token;
+    var data = {
+        token:      token,
+        cliente:    $("#cliente").val().trim(),
+        id_user:    session.id_cliente
+    };
+    console.log(data);
     $.ajax({
         url: ruta_generica+"/api/v1/clients",
         type: 'GET',
         dataType: 'JSON',
-        data: {
-            token:      token,
-            cliente:    $("#cliente").val().trim(),
-			id_user:    session.get_id_cliente
-        },
+        data: data,
         success:function(resp) {
 
             if( resp.status == 'ok' ) {
@@ -61,7 +70,9 @@ function obtenerclients(){
 }
 
 function delete_cliente(id){
-    var token = session.get_token;
+    session=JSON.parse(localStorage.getItem('session'));
+    app_settings = JSON.parse(localStorage.getItem('app_settings'));
+    var token = session.token;
 
     $.ajax({
         url: ruta_generica+"/api/v1/delete",
@@ -93,11 +104,12 @@ function detalle_cliente(id){
 }
 
 function obtener_datos_cliente(){
-
+    session=JSON.parse(localStorage.getItem('session'));
+    app_settings = JSON.parse(localStorage.getItem('app_settings'));
 	var id = localStorage.getItem('id_cliente');
 
 	if(id != null){
-		var token = session.get_token;
+		var token = session.token;
 
 		$.ajax({
 			url: ruta_generica+"/api/v1/clients/"+id,
@@ -161,10 +173,11 @@ function editar_cliente(){
 	var email = $("#email").val();
 	var cellphone = $("#cellphone").val();
 	var password = $("#password").val();
-
+    session=JSON.parse(localStorage.getItem('session'));
+    app_settings = JSON.parse(localStorage.getItem('app_settings'));
 	var id = localStorage.getItem('id_cliente');
 
-	var token = session.get_token;
+	var token = session.token;
 
 	if(password != "" && (password.length > 12 || password.length < 8)){
 		navigator.notification.alert("La contraseña debe ser mayor 8 y menor a 12 caracteres", null, 'Aviso', 'Aceptar');
@@ -212,8 +225,9 @@ function agregar_cliente(){
 		navigator.notification.alert("La contraseña debe ser mayor 8 y menor a 12 caracteres", null, 'Aviso', 'Aceptar');
 	}
 	else{
-
-		var token = session.get_token;
+        session=JSON.parse(localStorage.getItem('session'));
+        app_settings = JSON.parse(localStorage.getItem('app_settings'));
+		var token = session.token;
 
 		$.ajax({
 			url: ruta_generica+"/api/v1/clients/",

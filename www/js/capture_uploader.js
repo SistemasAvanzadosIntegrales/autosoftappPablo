@@ -14,12 +14,11 @@ var options = { limit: 1, quality: 1 };
 
 function captureSuccess(file)
 {
+session=JSON.parse(localStorage.getItem('session'));
 videoURI=file[0].fullPath;
 var pic = $("#"+inspection_id+catalogo_id+"-photo");
 var id = catalogo_id;
-pic.append("<video width='100%' controls>"+
-           "<source src='"+videoURI+"' type='video/mp4''>"+
-		   "</video>");
+
  var tokens = session.get_token;
  var options = new FileUploadOptions();
  var vehicle = $("#vehicle_id").val();
@@ -28,7 +27,7 @@ pic.append("<video width='100%' controls>"+
  options.fileName = videoURI.substr(videoURI.lastIndexOf('/') + 1);
  options.mimeType = "video/mp4";
  var params = new Object();
- params.token= tokens;
+ params.token= session.token;
  params.id= catalogo_id;
  params.vehicle_id =vehicle;
  options.params = params;
@@ -54,10 +53,11 @@ ft.onprogress = function(progressEvent) {
 function(result){
 statusDom.innerHTML = "";
      resp=JSON.parse(result.response);
-     pic.append("<input type='hidden' size='10' class='photo' value='"+id+"-"+resp.message+"' >");
+     pic.append("<video  data-inspection-id='"+resp.id+"' width='100%' class='media' data-name='"+resp.message+"' controls>"+
+                "<source src='"+videoURI+"' type='video/mp4''>"+
+     		   "</video>");
  },
 function(error){
-     alert(result.response);
      navigator.notification.alert(
         JSON.stringify(error),  // message
         false,         // callback

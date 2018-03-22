@@ -1,11 +1,15 @@
+//var ruta_generica = "http://172.16.0.8:8000";
+//var ruta_generica = "http://autosoft";
+//var ruta_generica = "http://192.168.0.16:8000";
 var ruta_generica = "http://autosoft2.avansys.com.mx";
+
 function resetPassword(){
   window.open(ruta_generica+"/password/reset",  '_blank');
 }
 
 
 function ingresar() {
-     localStorage.clear();
+
     if( $("#email" ).val().trim() == '' ) {
         navigator.notification.alert('Debes escribir tu email', null, 'Aviso', 'Aceptar');
     }
@@ -16,7 +20,6 @@ function ingresar() {
         navigator.notification.alert('Debes escribir el token', null, 'Aviso', 'Aceptar');
     }
     else {
-
         $.ajax({
             url: ruta_generica+"/api/v1/login",
             type: 'POST',
@@ -34,7 +37,7 @@ function ingresar() {
                     location.href="dashboard.html";
                 }
                 else {
-                    navigator.notification.alert(resp.message, null, 'Aviso', 'Aceptar');
+                  navigator.notification.alert(resp.message, null, 'Aviso', 'Aceptar');
                 }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {

@@ -5,9 +5,14 @@
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/font-awesome.css" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="icon" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="shortcut icon" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="icon" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="shortcut icon" />
     <title>Dashboard</title>
   </head>
   <body>
+    <div id="loading"><div id="loader"></div></div>
     <!-- navbar -->
     <div id="navbar"></div>
     <div class="container-fluid my-container">
@@ -38,7 +43,7 @@
                     <th data-permissions="true" class="permission_see_clients text-left">Marca</th>
                     <th class="text-left">Modelo</th>
                     <th class="text-left">Placas</th>
-                    <th class="text-left">Estatus</th>
+                    <th  data-permissions="true" class="permission_see_inspections permission_advisory_group text-left">Estatus</th>
                     <th data-permissions="true" class="permission_edit_inspections text-center">Modificar</th>
                   </tr>
                 </thead>

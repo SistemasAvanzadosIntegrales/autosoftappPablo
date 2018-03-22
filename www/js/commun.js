@@ -1,5 +1,9 @@
+//var ruta_generica = "http://192.168.0.16:8000";
+//var ruta_generica = "http://172.16.0.8:8000";
+//var ruta_generica = "http://autosoft";
 var ruta_generica = "http://autosoft2.avansys.com.mx";
-
+var session;
+var app_settings;
 /*
 var ruta_generica = "http://localhos:8000";
 
@@ -11,12 +15,7 @@ $.get("css.html", function(data){
   $("#css").append(data);
 });
 */
-var session=JSON.parse(localStorage.getItem('session'));
-var app_settings = JSON.parse(localStorage.getItem('app_settings'));
-$.get("navbar.html", function(data){
-  $("#navbar").append(data);
-  $('#NavbarTitle').html($('title').html());
-});
+
 
 /**
  *  @author   : Pablo Diaz
@@ -28,10 +27,24 @@ function muestra(nombre){
    $('.'+nombre).toggle();
 }
 
-if (!app_settings && location.pathname != "/index.html")
-{
-  //location.href="index.html";
-}
+/**
+ * Get the URL parameters
+ * source: https://css-tricks.com/snippets/javascript/get-url-variables/
+ * @param  {String} url The URL
+ * @return {Object}     The URL parameters
+ */
+var getParams = function (url) {
+	var params = {};
+	var parser = document.createElement('a');
+	parser.href = url;
+	var query = parser.search.substring(1);
+	var vars = query.split('&');
+	for (var i = 0; i < vars.length; i++) {
+		var pair = vars[i].split('=');
+		params[pair[0]] = decodeURIComponent(pair[1]);
+	}
+	return params;
+};
 
 function salir(){
    localStorage.clear();
@@ -42,9 +55,9 @@ function style()
 {
   var session=JSON.parse(localStorage.getItem('session'));
   var app_settings = JSON.parse(localStorage.getItem('app_settings'));
-  app_settings = app_settings ? app_settings : {"contrast_color": "dddddd", "base_color": "323232"};
-  $('.table thead tr th').css('background', '#'+app_settings.contrast_color);
-  $(document.body).css('background', '#'+app_settings.base_color);
+  app_settings = app_settings ? app_settings : {"config_company": {"contrast_color": "dddddd", "base_color": "323232"}};
+  $('.table thead tr th').css('background', '#'+app_settings.config_company.contrast_color);
+  $(document.body).css('background', '#'+app_settings.config_company.base_color);
 }
 
 /*
@@ -79,56 +92,76 @@ function permissions(){
   var elements_to_verify = $('*[data-permissions="true"]');
   var session=JSON.parse(localStorage.getItem('session'));
   var app_settings = JSON.parse(localStorage.getItem('app_settings'));
+  var screen =  (new URL(location)).pathname;
+  screen = screen.split('/');
+  screen = screen[screen.length - 1];
 
-  if (!app_settings && location.pathname == "/index.html")
-  {
-    $('.container-fluid').removeClass('hide');
-    return elements_to_verify.remove();
-  }
   if(!app_settings.user_permissions)
   {
     elements_to_verify.remove();
   }
+  var item_screen = '';
   elements_to_verify.each(function(i, item){
-    for (var x = 0; x < app_settings.user_permissions.length; x++)
+    var item = $(item);
+    item_screen = item.attr('data-screen');
+    if (item_screen && item_screen != screen)
     {
-      var permmision = 'permission_' + app_settings.user_permissions[x];
-      var access = $(item).hasClass(permmision);
-      if (access)
-      {
-        console.log(permmision + ' is ' + access);
-        $(item).removeClass('to-remove');
-        $(item).removeClass('hide');
-        break;
-      }
-      else
-      {
-        $(item).addClass('to-remove');
-        $(item).addClass('hide');
-      }
+        item.addClass('to-remove');
+    }
+    else
+    {
+        for (var x = 0; x < app_settings.user_permissions.length; x++)
+        {
+          var permmision = 'permission_' + app_settings.user_permissions[x];
+          var access = item.hasClass(permmision);
+          if (access)
+          {
+            //console.log(permmision + ' is ' + access);
+            item.removeClass('to-remove');
+            item.removeClass('hide');
+            break;
+          }
+          else
+          {
+            item.addClass('to-remove');
+            item.addClass('hide');
+          }
+        }
     }
   });
 
-  navigator.splashscreen.hide();
-  setTimeout(function(){
-    $('.to-remove').remove();
-  }, 500);
+  $('.to-remove').remove();
+  $('#loading').fadeOut();
 
-
-  console.log('permissions was checked');
+  //console.log('permissions was checked');
 }
-
 function logo(){
   var logo = $('#logo');
   if (logo && app_settings) {
-    logo.attr('src', 'data:image/png;base64,'+app_settings.logo)
+      if (app_settings.logo)
+      {
+          logo.attr('src', 'data:image/png;base64,'+app_settings.logo)
+      }
+      else {
+          logo.attr('src', 'img/logo.png')
+      }
     logo.fadeIn();
+    //console.log('logo success');
   }
-  console.log('logo success');
 }
 document.addEventListener("deviceready", function(){
-  permissions();
-  logo();
-  $('.container-fluid').removeClass('hide');
-  console.log('device is now ready');
+  session=JSON.parse(localStorage.getItem('session'));
+  app_settings = JSON.parse(localStorage.getItem('app_settings'));
+  if (!app_settings && location.pathname != "/index.html")
+  {
+    location.href="index.html";
+  }
+  $.get("navbar.html", function(data){
+    $("#navbar").append(data);
+    $('#NavbarTitle').html($('title').html());
+    logo();
+    style();
+    permissions();
+  });
+  //console.log('device is now ready');
 }, false);

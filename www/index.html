@@ -5,9 +5,12 @@
       <link rel="stylesheet" href="css/bootstrap.css" />
       <link rel="stylesheet" href="css/main.css" />
       <link rel="stylesheet" href="css/font-awesome.css" />
+      <link type="image/x-icon" href="/img/logo.ico" rel="icon" />
+      <link type="image/x-icon" href="/img/logo.ico" rel="shortcut icon" />
       <title>Login</title>
     </head>
-    <body>
+    <body style="background:#012d4a">
+      <div id="loading"><div id="loader"></div></div>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 text-left mt-4">
@@ -34,7 +37,7 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-key"> </i></span>
-                                <input type="token" id="token" class="form-control" placeholder="Token">
+                                <input value="" type="token" id="token" class="form-control" placeholder="Token">
                             </div>
                         </div>
                         <button type="submit" class="pull-right btn btn-primary mt-4" ><i class="fa fa-sign-in"> </i> Ingresar</button>
@@ -50,10 +53,16 @@
         </div>
     </body>
     <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/localstorage.js"></script>
+    <script type="text/javascript" src="js/auth.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/auth.js"></script>
     <script type="text/javascript">
-      localStorage.clear();
+      document.addEventListener("deviceready",function(){
+          localStorage.clear();
+            $('#loading').fadeOut();
+      });
+
     </script>
 </html>

@@ -13,7 +13,6 @@ document.addEventListener("deviceready", function(){
   token = session.token;
   role = session.rol;
   gridInspections();
- console.log(navigator.device.audiorecorder.recordAudio);
 });
 
 /**
@@ -30,6 +29,9 @@ function severo(severity ,botton){
 };
 function push(rol){
         var session=JSON.parse(localStorage.getItem('session'));
+        var url = window.location.href;
+        params = getParams(url);
+
         $.ajax({
             url: ruta_generica+"/api/v1/send_notification",
             type: 'POST',
@@ -37,6 +39,7 @@ function push(rol){
             data: {
                 tipo:"rol",
                 value:rol,
+                inspection_id: params.inspection_id,
                 token:token,
                 mensaje:"Vehículo: "+$("#model").val()+" Placa: "+$("#license_plate").val()
             },
@@ -62,12 +65,12 @@ function push(rol){
  *  @function : guardar
  **/
 function guardar(rol){
+    var arrPhoto = [];
     var arr=new Array();
     var flag=true;
-    $(".severity").each(function(){
-      var attr = $(this).attr("class").split(" ");
-      var self = $(this);
-      if( $(this).val() == "" ){
+    $(".severity").each(function(i, item){
+      var attr = $(item).attr("class").split(" ");
+      if(  $(item).val() == "" ){
          navigator.notification.alert(
             "No ha inspeccionado: "+attr[1].replace(/_/g, " "),  // message
             false,         // callback
@@ -76,39 +79,47 @@ function guardar(rol){
         );
 
         flag=false;
-        return false;
       }
-        if( $(this).val() == "3" ){
-                if($("#"+self.attr('data-media')).html()==""){
-                    alert("Agrege evidencia para: "+attr[1].replace(/_/g, " "));
-                    flag=false;
-                    return false;
-                }
-            }
-        arr.push($(this).attr("id")+"_"+$(this).val());
+
+        if(parseInt($(item).val()) == 3 &&  $("#"+ $(item).attr('data-media')).html().trim() == ''){
+            navigator.notification.alert("Agrege evidencia para: "+attr[1].replace(/_/g, " "));
+            flag=false;
+        }
+
+        arr.push($(item).attr("id")+"_"+ $(item).val());
+        arrPhoto[parseInt($(item).attr("id").replace(/severity_/g, ""))] = [];
 
     });
-    var arrPhoto=new Array();
-    $(".photo").each(function(){
-        arrPhoto.push($(this).val());
+    console.log(arrPhoto);
+
+    $(".media").each(function(i, item){
+        console.log(item);
+        arrPhoto[$(item).attr('data-inspection-id')].push($(item).attr('data-name'));
     });
+
+    setTimeout(function(){
+        console.log(arrPhoto);
     if(!flag)
-        return false;
-    else
-        guarda_todo(arr,arrPhoto,rol);
+            return false;
+        else
+            guarda_todo(arr,arrPhoto,rol);
+    },500)
+
 }
 
 function guarda_todo(arr,arrPhoto,rol){
+    var url = window.location.href;
+    params = getParams(url);
      $.ajax({
         url: ruta_generica+"/api/v1/save_inspections",
         type: 'POST',
         dataType: 'JSON',
         data: {
             token:      token,
-            vehicle_id: $("#vehicle_id").val(),
+            vehicle_id: params.vehicle_id,
+            inspection_id: params.inspection_id,
             dataForm: arr,
             dataPhoto: arrPhoto
-
         },
         success:function(resp) {
 
@@ -155,7 +166,7 @@ function cameraSuccess(imageURI)
 {
     var name=pos.split("_");
     var pic = $("#"+name[0]+name[1]+"-photo");
-    pic.append("<img class='img-responsive' src='"+imageURI+"'/>");
+
     var id = name[1];
     var options = new FileUploadOptions();
     var vehicle = $("#vehicle_id").val();
@@ -183,9 +194,8 @@ function cameraSuccess(imageURI)
 };
  ft.upload(imageURI, ruta_generica+"/api/v1/upload",
 function(result){
-
      resp=JSON.parse(result.response);
-     pic.append("<input type='hidden' size='10' class='photo' value='"+name[1]+"-"+resp.message+"' >");
+     pic.append("<img data-inspection-id='"+resp.id+"' class='img-responsive media' data-name='"+resp.message+"' src='"+imageURI+"'/>");
  },
 function(error){
      navigator.notification.alert(
@@ -208,7 +218,8 @@ options);
  **/
 function gridInspections(){
     $("#table-inspections").html("");
-    let params =  (new URL(location)).searchParams;
+    var url = window.location.href;
+    params = getParams(url);
 
     $.ajax({
         url: ruta_generica+"/api/v1/inspections",
@@ -216,7 +227,8 @@ function gridInspections(){
         dataType: 'JSON',
         data: {
             token:token,
-            vehicle_id: params.get('vehicle_id')
+            vehicle_id: params.vehicle_id,
+            inspection_id: params.inspection_id
         },
         success:function(resp) {
 
@@ -257,12 +269,7 @@ function successAudio(mediaFiles) {
     var name=pos.split("_");
     var pic = $("#"+name[0]+name[1]+"-photo");
     var id = name[1];
-    pic.append(" <div class='custom-big-link-grid audio'>"+
-	           "<i class='fa fa-volume-up'></i>"+
-	           "<audio width='100%' height='100%' controls>"+
-	           "<source src='"+mediaFiles.full_path+"'>"+
-	           "</audio>"+
-	           "</div>");
+
    // pic.append("<img class='img-responsive' src='"+imageURI+"'/>");
     var options = new FileUploadOptions();
     var vehicle = $("#vehicle_id").val();
@@ -292,7 +299,14 @@ function successAudio(mediaFiles) {
 function(result){
 
      resp=JSON.parse(result.response);
-     pic.append("<input type='hidden' size='10' class='photo' value='"+name[1]+"-"+resp.message+"' >");
+     console.log(resp.message);
+
+     pic.append(" <div class='custom-big-link-grid audio media' data-name='"+resp.message+"'>"+
+               "<i class='fa fa-volume-up'></i>"+
+               "<audio width='100%' height='100%' controls>"+
+               "<source src='"+mediaFiles.full_path+"'>"+
+               "</audio>"+
+               "</div>");
  },
 function(error){
      navigator.notification.alert(
