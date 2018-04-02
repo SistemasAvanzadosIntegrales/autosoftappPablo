@@ -14,7 +14,7 @@ function obtenerTecnicos(){
         type: 'GET',
         dataType: 'JSON',
         data: data,
-        success:function(resp) {]
+        success:function(resp) {
 		   $("#tecnicos").append(resp.table+"<br>ja");
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
