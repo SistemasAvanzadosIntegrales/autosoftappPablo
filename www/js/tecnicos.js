@@ -10,14 +10,11 @@ function obtenerTecnicos(){
         vehicle_id: params.vehicle_id
     };
     $.ajax({
-        url: ruta_generica+"/api/v1/tecnicos",
+        url: ruta_generica+"/api/v1/techs",
         type: 'GET',
         dataType: 'JSON',
         data: data,
-        success:function(resp) {
-            console.log(resp.ok);
-            console.log(resp.table);
-            console.log(resp);
+        success:function(resp) {]
 		   $("#tecnicos").append(resp.table+"<br>ja");
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
