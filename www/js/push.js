@@ -12,8 +12,8 @@ document.addEventListener('deviceready', function () {
         .handleNotificationOpened(notificationOpenedCallback)
         .endInit();
     var session=JSON.parse(localStorage.getItem('session'));
-    window.plugins.OneSignal.sendTag("rol",session.rol()+session.token);
-    window.plugins.OneSignal.sendTag("id", session.id_cliente()+session.token);
+    window.plugins.OneSignal.sendTag("rol",session.rol+session.token);
+    window.plugins.OneSignal.sendTag("id", session.id_cliente+session.token);
 
 
 }, false);

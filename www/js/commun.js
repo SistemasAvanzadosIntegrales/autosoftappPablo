@@ -1,6 +1,28 @@
 var ruta_generica = "http://autosoft2.avansys.com.mx";
 var session;
 var app_settings;
+
+document.addEventListener("online", onOnline, false);
+
+function onOnline() {
+    $('#online-status').addClass('hide');
+}
+
+// Wait for Cordova to load
+//
+document.addEventListener("deviceready", onDeviceReady, false);
+
+// Cordova is ready
+//
+function onDeviceReady() {
+    var db = window.openDatabase("test", "1.0", "Test DB", 1000000);
+}
+document.addEventListener("offline", onOffline, false);
+
+function onOffline() {
+    $('#online-status').removeClass('hide');
+}
+
 /*
 var ruta_generica = "http://localhos:8000";
 
@@ -89,6 +111,11 @@ function permissions(){
   var elements_to_verify = $('*[data-permissions="true"]');
   var session=JSON.parse(localStorage.getItem('session'));
   var app_settings = JSON.parse(localStorage.getItem('app_settings'));
+  if (app_settings.licensing_access == 'readonly'){
+    $('.fullaccess').remove();
+    $('#readonly-alert').removeClass('hide');
+  }
+
   var screen =  (new URL(location)).pathname;
   screen = screen.split('/');
   screen = screen[screen.length - 1];
@@ -129,6 +156,7 @@ function permissions(){
 
   $('.to-remove').remove();
   $('#loading').fadeOut();
+
 
   //console.log('permissions was checked');
 }

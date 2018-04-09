@@ -110,21 +110,23 @@ function update(id, field, value){
     });
 }
 
-function getInspectionsList()
+
+function getInspectionsList(take, skip, target = null)
 {
-
-  $("#table-body").html("");
-
   $.ajax({
       url: ruta_generica+"/api/v1/inspections_list",
       type: 'POST',
       dataType: 'JSON',
       data: {
           token: token,
+          take: take,
+          skip: skip,
           user_id: user_id
       },
       success:function(resp) {
           if(resp.status === 'ok') {
+              if (target)
+                $(target).parent().parent().hide();
               $("#table-body").append(resp.table);
               var myFilter = Filter;
               myFilter.constructor($('#search'), $('#word'),$('#inspections'));
