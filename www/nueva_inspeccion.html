@@ -13,7 +13,7 @@
     <div id="loading"><div id="loader"></div></div>
     <!-- navbar -->
     <div id="navbar"></div>
-    <div class="container-fluid my-container">
+    <div class="container-fluid my-container fullaccess">
       <div class="row">
         <div class="col-xs-1">
           <h1><img name="logo" id='logo' src="" width="70px"></h1>
@@ -24,16 +24,14 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <div class="input-group col-xs-12">
-                <form class="form-inline">
                   <div class="form-group">
                     <div class="input-group">
-                      <input type="text" class="form-control" id="cliente" placeholder="Buscar">
-                      <a class="input-group-addon btn btn-search link" onclick="gridClientes();">
-                        <i class="fa fa-search "> </i>
+                      <input type="text" class="form-control" id="word" placeholder="Buscar">
+                        <a id="search" class="input-group-addon btn btn-search link">
+                        <i class="fa fa-search text-color-marca"> </i>
                       </a>
                     </div>
                   </div>
-                </form>
               </div>
             </div>
             <div class="table-responsive">
@@ -64,6 +62,12 @@
     <script type="text/javascript" src="js/clientes.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
-      document.addEventListener("deviceready", gridClientes, false);
+      document.addEventListener("deviceready", function(){
+        gridClientes(1, -1);
+        $("#search").click(function(){
+            $("#table-clients").html("");
+            gridClientes(1, -1, null, $("#word").val());
+        })
+      }, false);
      </script>
   </body>
