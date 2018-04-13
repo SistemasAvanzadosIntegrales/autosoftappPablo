@@ -21,7 +21,7 @@
           <h1><img name="logo" id='logo' src="" width="70px"></h1>
         </div>
       </div>
-      <div class="row">
+      <div id="dashboard" class="row">
         <div class="col-xs-12">
           <div class="panel panel-default">
             <div class="panel-heading">
@@ -59,13 +59,20 @@
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/localstorage.js"></script>
     <script type="text/javascript" src="js/commun.js"></script>
-          <script type="text/javascript" src="js/push.js"></script>
+    <script type="text/javascript" src="js/push.js"></script>
     <script type="text/javascript" src="js/filter.js"></script>
     <script type="text/javascript" src="js/inspections.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
       document.addEventListener("deviceready", function(){
-          getInspectionsList(take = 1, skip = -1);
+          getInspectionsList(10, -10, null);
+
+          $("#search").click(function(){
+              $("#table-body").html("");
+              getInspectionsList(10, -10, null, $("#word").val());
+          })
+
+
       }, false);
      </script>
   </body>

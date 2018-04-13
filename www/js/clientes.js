@@ -1,32 +1,37 @@
 var session;
 var app_settings;
+
 document.addEventListener("deviceready", function(){
   session=JSON.parse(localStorage.getItem('session'));
   app_settings = JSON.parse(localStorage.getItem('app_settings'));
 });
-function gridClientes(){
-    $("#table-clients").html("");
+
+function gridClientes(take, skip, target = null, search = null){
     var token = session.token;
 
-    if ($("#cliente" ).length == 0)
-        return;
-
     $.ajax({
-        url: ruta_generica+"/api/v1/clients",
+        url: ruta_generica+"/api/v1/new_inspection",
         type: 'GET',
         dataType: 'JSON',
         data: {
             token:      token,
-            cliente:    $("#cliente" ).val().trim()
+            take: take,
+            skip: skip,
+            search: search
         },
         success:function(resp) {
 
             if( resp.status == 'ok' ) {
+                if(target)
+                {
+                    $(target).parent().parent().remove();
+                }
                $("#table-clients").append(resp.table);
             }
             else {
                 navigator.notification.alert(resp.message, null, 'Aviso', 'Aceptar');
             }
+            permissions();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             console.log("Status: " + textStatus);
@@ -35,38 +40,40 @@ function gridClientes(){
     });
 }
 
-function obtenerclients(){
+function obtenerclients(take, skip, target = null, search = null){
     session=JSON.parse(localStorage.getItem('session'));
     app_settings = JSON.parse(localStorage.getItem('app_settings'));
-    $("#table-clients-users").html("");
     var token = session.token;
     var data = {
-        token:      token,
-        cliente:    $("#cliente").val().trim(),
-        id_user:    session.id_cliente
+        token: token,
+        take: take,
+        skip: skip,
+        search: search,
+        id_user: session.id_cliente
     };
-    console.log(data);
     $.ajax({
         url: ruta_generica+"/api/v1/clients",
         type: 'GET',
         dataType: 'JSON',
         data: data,
         success:function(resp) {
-
             if( resp.status == 'ok' ) {
-			   $("#table-clients-users").append(resp.user);
+			   $("#table-clients-users").append(resp.table);
+               if(target) {
+                   $(target).parent().parent().remove();
+               }
 				localStorage.removeItem("id_cliente");
             }
             else {
                 navigator.notification.alert(resp.message, null, 'Aviso', 'Aceptar');
             }
+             permissions();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             console.log("Status: " + textStatus);
             console.log("Error: " + errorThrown);
         }
     });
-
 }
 
 function delete_cliente(id){
@@ -103,7 +110,7 @@ function detalle_cliente(id){
 	location.href = "alta_cliente.html";
 }
 
-function obtener_datos_cliente(){
+function obtener_datos_cliente(take, skip, target = null){
     session=JSON.parse(localStorage.getItem('session'));
     app_settings = JSON.parse(localStorage.getItem('app_settings'));
 	var id = localStorage.getItem('id_cliente');
@@ -116,13 +123,17 @@ function obtener_datos_cliente(){
 			type: 'GET',
 			dataType: 'JSON',
 			data: {
-				token:    token,
+				token: token,
+                take: take,
+                skip: skip,
 				id_user:  session.get_id_cliente
 			},
 			success:function(resp) {
 
 				if( resp.status == 'ok' ) {
-
+                    if(target) {
+                        $(target).parent().parent().remove();
+                    }
 					$("#name").val(resp.user[0]['name']);
 					$("#email").val(resp.user[0]['email']);
 					$("#cellphone").val(resp.user[0]['cellphone']);

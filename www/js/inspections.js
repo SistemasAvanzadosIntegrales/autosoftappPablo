@@ -44,6 +44,7 @@ function getInspectionsDetail(){
             $("#cell").val(resp.inspection.vehicle.owner.cellphone);
             $("#vin").val(resp.inspection.vehicle.vin);
             $("#brand").val(resp.inspection.vehicle.brand);
+            permissions();
         }
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -111,7 +112,7 @@ function update(id, field, value){
 }
 
 
-function getInspectionsList(take, skip, target = null)
+function getInspectionsList(take, skip, target = null, search = null)
 {
   $.ajax({
       url: ruta_generica+"/api/v1/inspections_list",
@@ -121,15 +122,16 @@ function getInspectionsList(take, skip, target = null)
           token: token,
           take: take,
           skip: skip,
+          search: search,
           user_id: user_id
       },
       success:function(resp) {
           if(resp.status === 'ok') {
-              if (target)
+              if (target){
                 $(target).parent().parent().hide();
+              }
               $("#table-body").append(resp.table);
-              var myFilter = Filter;
-              myFilter.constructor($('#search'), $('#word'),$('#inspections'));
+
               permissions();
         }
           else {
@@ -141,5 +143,4 @@ function getInspectionsList(take, skip, target = null)
           console.log("Error: " + errorThrown);
       }
   });
-
 }

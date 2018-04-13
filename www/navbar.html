@@ -10,16 +10,16 @@
         <span class="icon-bar"></span>
       </button>
       <div id="buttonmenu" name="buttonmenu" style="width: auto;height: 50px; text-align: right; padding-top: 14px;">
-          <a data-permissions="true" data-screen="realizar_inspeccion.html" class="navbar-link permission_technical_group" onclick="guardar(0)"><i class="fa fa-save"></i></a>
-          <a data-permissions="true" data-screen="clientes.html" class="navbar-link permission_add_clients" href="alta_cliente.html" ><i class="fa fa-plus"></i></a>
-          <a data-permissions="true" data-screen="alta_cliente.html" class="navbar-link permission_add_clients" href="alta_vehiculo.html" ><i class="fa fa-car"></i></a>
-          <a data-permissions="true" data-screen="alta_cliente.html" class="navbar-link permission_add_clients" onclick="accion_cliente();" ><i class="fa fa-save"></i></a>
-          <a data-permissions="true" data-screen="alta_vehiculo.html" class="navbar-link permission_add_clients" onclick="accion_vehiculo();" ><i class="fa fa-save"></i></a>
-          <a data-permissions="true" data-screen="realizar_inspeccion.html" class="navbar-link permission_technical_group" onclick="guardar('Asesor')" ><i class="fa fa-paper-plane"></i></a>
+          <a data-permissions="true" data-screen="realizar_inspeccion.html" class="fullaccess navbar-link permission_technical_group" onclick="guardar(0)"><i class="fa fa-save"></i></a>
+          <a data-permissions="true" data-screen="clientes.html" class="fullaccess navbar-link permission_add_clients" href="alta_cliente.html " ><i class="fa fa-plus"></i></a>
+          <a data-permissions="true" data-screen="alta_cliente.html" class="fullaccess navbar-link permission_add_clients" href="alta_vehiculo.html" ><i class="fa fa-car"></i></a>
+          <a data-permissions="true" data-screen="alta_cliente.html" class="fullaccess navbar-link permission_add_clients" onclick="accion_cliente();" ><i class="fa fa-save"></i></a>
+          <a data-permissions="true" data-screen="alta_vehiculo.html" class="fullaccess navbar-link permission_add_clients" onclick="accion_vehiculo();" ><i class="fa fa-save"></i></a>
+          <a data-permissions="true" data-screen="realizar_inspeccion.html" class="fullaccess navbar-link permission_technical_group" onclick="guardar('Asesor')" ><i class="fa fa-paper-plane"></i></a>
 
-          <a data-permissions="true" data-screen="resultado_inspeccion.html" class="navbar-link permission_advisory_group" onclick="update_inspection('status', '5')" ><i class="fa fa-check "></i></a>
-          <a data-permissions="true" data-screen="resultado_inspeccion.html" class="navbar-link permission_advisory_group" onclick="update_inspection('status', '2')" ><i class="fa fa-save "></i></a>
-          <a data-permissions="true" data-screen="resultado_inspeccion.html" class="navbar-link permission_advisory_group" onclick="update_inspection('status', '3')" ><i class="fa fa-paper-plane "></i></a>
+          <a data-permissions="true" data-screen="resultado_inspeccion.html" class="fullaccess navbar-link permission_advisory_group" onclick="update_inspection('status', '5')" ><i class="fa fa-check "></i></a>
+          <a data-permissions="true" data-screen="resultado_inspeccion.html" class="fullaccess navbar-link permission_advisory_group" onclick="update_inspection('status', '2')" ><i class="fa fa-save "></i></a>
+          <a data-permissions="true" data-screen="resultado_inspeccion.html" class="fullaccess navbar-link permission_advisory_group" onclick="update_inspection('status', '3')" ><i class="fa fa-paper-plane "></i></a>
       </div>
     </div>
 
@@ -27,19 +27,19 @@
       <ul class="nav navbar-nav navbar-right">
         <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections"><a href="dashboard.html" class="navbar-link"><i class="fa fa-home"></i> Inicio </a></li>
         <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_clients"><a class="navbar-link" href="clientes.html"><i class="fa fa-user"></i> Clientes</a></li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_add_inspections permission_technical_group"><a class="navbar-link" href="nueva_inspeccion.html"><i class="fa fa-plus"></i> Inspección</a></li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections"><a data-permissions="true" data-screen="resultado_inspeccion.html" onclick="upload_pdf()"class="navbar-link permission_advisory_group"><i class="fa fa-paperclip"></i> Presupuesto</a></li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections"><a data-permissions="true" data-screen="resultado_inspeccion.html" class="navbar-link permission_advisory_group"><i class="fa fa-power-off"></i> Cerrar</a></li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_close"><a class="navbar-link" href="index.html"><i class="fa fa-sign-out"></i>Salir</a></li>
+        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_add_inspections fullaccess permission_technical_group"><a class="navbar-link" href="nueva_inspeccion.html"><i class="fa fa-plus"></i> Inspección</a></li>
+        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections fullaccess"><a data-permissions="true" data-screen="resultado_inspeccion.html" onclick="upload_pdf()"class="navbar-link permission_advisory_group"><i class="fa fa-paperclip"></i> Presupuesto</a></li>
+        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections fullaccess"><a data-permissions="true" data-screen="resultado_inspeccion.html" class="navbar-link permission_advisory_group"><i class="fa fa-power-off"></i> Cerrar</a></li>
+        <li class="hidden-sm hidden-md hidden-lg"><a class="navbar-link" href="index.html"><i class="fa fa-sign-out"></i>Salir</a></li>
         <li class="dropdown visible-sm visible-md visible-lg">
           <a href="#" class="dropdown-toggle navbar-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
           <ul class="dropdown-menu">
             <li data-permissions="true" class="permission_see_inspections"><a href="dashboard.html" class="navbar-link"><i class="fa fa-home"></i> Inicio</a></li>
             <li data-permissions="true" class="permission_see_clients"><a class="navbar-link" href="clientes.html"><i class="fa fa-user"></i> Clientes</a></li>
-            <li data-permissions="true" class="permission_add_inspections permission_technical_group"><a class="navbar-link" href="nueva_inspeccion.html"><i class="fa fa-plus"></i> Inspección</a></li>
-            <li data-permissions="true" class="permission_see_inspections"><a data-permissions="true" data-screen="resultado_inspeccion.html" onclick="upload_pdf()"class="navbar-link permission_advisory_group"><i class="fa fa-paperclip"></i> Presupuesto</a></li>
-            <li data-permissions="true" class="permission_see_inspections"><a data-permissions="true" data-screen="resultado_inspeccion.html" class="navbar-link permission_advisory_group"><i class="fa fa-power-off"></i> Cerrar</a></li>
-            <li data-permissions="true" class="permission_close"><a class="navbar-link" href="index.html"><i class="fa fa-sign-out"></i> Salir</a></li>
+            <li data-permissions="true" class="permission_add_inspections permission_technical_group fullaccess"><a class="navbar-link" href="nueva_inspeccion.html"><i class="fa fa-plus"></i> Inspección</a></li>
+            <li data-permissions="true" class="permission_see_inspections fullaccess"><a data-permissions="true" data-screen="resultado_inspeccion.html" onclick="upload_pdf()"class="navbar-link permission_advisory_group"><i class="fa fa-paperclip"></i> Presupuesto</a></li>
+            <li data-permissions="true" class="permission_see_inspections fullaccess"><a data-permissions="true" data-screen="resultado_inspeccion.html" class="navbar-link permission_advisory_group"><i class="fa fa-power-off"></i> Cerrar</a></li>
+            <li><a class="navbar-link" href="index.html"><i class="fa fa-sign-out"></i> Salir</a></li>
             <!--
             <li class="dropdown-header">Realizar Inspección</li>
             <li data-permissions="true" class="permission_add_inspections"><a  onclick="guardar('Asesor')" class="navbar-link"><i class="fa fa-paper-plane"></i> Enviar al asesor</a></li>
@@ -60,5 +60,5 @@
     </div>
   </div>
 </nav>
-<div id="readonly-alert" style="z-index: 100010; position: absolute; width: 100%;" class="text-center alert alert-danger hide "><b>Readonly Access</b> Su cuenta ha expirado, activar licencia full access <a href="#">aqui</a> </div>
-<div id="online-status" style="z-index: 100010; position: absolute; width: 100%;margin-top:50px" class="text-center alert alert-warning hide"><b>Offline Access</b> Revise su conexion de red, funcionalidad limitada</div>
+<div id="readonly-alert" style="z-index: 100; top:50px; position: absolute; width: 100%;" class="text-center alert alert-danger hide "><b>Readonly Access</b> Su cuenta ha expirado, activar licencia full access <a href="#">aqui</a> </div>
+<div id="online-status" style="z-index: 102; top:50px;  position: absolute; width: 100%;" class="text-center alert alert-warning hide"><b>Offline Access</b> Revise su conexion de red, funcionalidad limitada</div>

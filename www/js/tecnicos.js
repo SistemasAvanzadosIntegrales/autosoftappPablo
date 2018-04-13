@@ -1,21 +1,28 @@
-function obtenerTecnicos(){
+function obtenerTecnicos(take, skip, target = null, search = null){
     session=JSON.parse(localStorage.getItem('session'));
     app_settings = JSON.parse(localStorage.getItem('app_settings'));
     $("#table-clients-users").html("");
     var token = session.token;
     var url = window.location.href;
     params = getParams(url);
-    var data = {
-        token:      token,
-        vehicle_id: params.vehicle_id
-    };
+
     $.ajax({
         url: ruta_generica+"/api/v1/techs",
         type: 'GET',
         dataType: 'JSON',
-        data: data,
+        data: {
+            token: token,
+            take: take,
+            search:search,
+            skip: skip,
+            vehicle_id: params.vehicle_id
+        },
         success:function(resp) {
-		   $("#tecnicos").append(resp.table+"<br>ja");
+                console.log(resp.sql);
+		   $("#tecnicos").append(resp.table);
+           if (target){
+             $(target).parent().parent().remove();
+           }
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             console.log("Status: " + textStatus);

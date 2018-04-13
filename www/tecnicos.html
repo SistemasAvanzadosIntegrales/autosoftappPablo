@@ -24,10 +24,10 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <div class="input-group col-xs-6">
-                <input type="text" class="form-control" id="cliente" placeholder="Buscar">
-                <a class="input-group-addon btn btn-search link" onclick="obtenerclients();">
-                  <i class="fa fa-search "> </i>
-                </a>
+                  <input type="text" class="form-control" id="word" placeholder="Buscar">
+                  <a id="search" class="input-group-addon btn btn-search link">
+                    <i class="fa fa-search text-color-marca"> </i>
+                  </a>
               </div>
               <div class="input-group col-xs-6"></div>
             </div>
@@ -35,13 +35,13 @@
               <table class="table table-striped default-table">
                 <thead class="margin-0">
                     <tr>
-                        <th width="80%">Técnico</th>
+                        <th width="80%">Tecnico</th>
                         <th class="text-center">Asignar</th>
                     </tr>
                 </thead>
                 <tbody id="tecnicos"></tbody>
               </table>
-				      <div id="alertaCliente" class="text-center text-red"></div>
+			 <div id="alertaCliente" class="text-center text-red"></div>
             </div>
           </div>
         </div>
@@ -57,6 +57,12 @@
     <script type="text/javascript" src="js/tecnicos.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
-      document.addEventListener("deviceready", obtenerTecnicos, false);
+      document.addEventListener("deviceready", function(){
+          obtenerTecnicos(1, -1);
+          $("#search").click(function(){
+              $("#tecnicos").html("");
+              obtenerTecnicos(1, -1, null, $("#word").val());
+          })
+      }, false);
      </script>
   </body>
