@@ -1,0 +1,84 @@
+{
+  "_args": [
+    [
+      "cordova-plugin-audio-recorder@1.0.5",
+      "/home/ivan/Development/autosoftappPablo"
+    ]
+  ],
+  "_from": "cordova-plugin-audio-recorder@1.0.5",
+  "_id": "cordova-plugin-audio-recorder@1.0.5",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/cordova-plugin-audio-recorder",
+  "_nodeVersion": "6.11.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-audio-recorder-1.0.5.tgz_1504546696419_0.45857030851766467"
+  },
+  "_npmUser": {
+    "email": "penimusar@nypato.com",
+    "name": "cocowalla"
+  },
+  "_npmVersion": "3.10.10",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "cordova-plugin-audio-recorder",
+    "raw": "cordova-plugin-audio-recorder@1.0.5",
+    "rawSpec": "1.0.5",
+    "scope": null,
+    "spec": "1.0.5",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-audio-recorder/-/cordova-plugin-audio-recorder-1.0.5.tgz",
+  "_shasum": "3400c176bcbb1759c038d9517497c6c92f6716f0",
+  "_shrinkwrap": null,
+  "_spec": "cordova-plugin-audio-recorder@1.0.5",
+  "_where": "/home/ivan/Development/autosoftappPablo",
+  "author": {
+    "name": "OutSystems"
+  },
+  "contributors": [
+    {
+      "name": "cocowalla",
+      "url": "https://github.com/cocowalla"
+    }
+  ],
+  "cordova_name": "AudioRecorder",
+  "dependencies": {},
+  "description": "Record Audio easily with the device microphone",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "3400c176bcbb1759c038d9517497c6c92f6716f0",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-audio-recorder/-/cordova-plugin-audio-recorder-1.0.5.tgz"
+  },
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.5.0"
+    }
+  ],
+  "gitHead": "a48d2a5c964786e5574675af423b41a60ddd90a1",
+  "issue": "",
+  "keywords": [],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "cocowalla",
+      "email": "colin.anderson333@gmail.com"
+    }
+  ],
+  "name": "cordova-plugin-audio-recorder",
+  "optionalDependencies": {},
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "readme": "ERROR: No README data found!",
+  "repo": "https://github.com/cocowalla/cordova-plugin-audiorecorder",
+  "scripts": {},
+  "version": "1.0.5"
+}
