@@ -1,12 +1,13 @@
 var pdf = $('#pdf');
 pdf.change(function(){
-  let urlParams =  (new URL(location)).searchParams;
+  var url = window.location.href;
+  params = getParams(url);
   var formData = new FormData(document.getElementById("pdfform"));
 
   formData.append('file', pdf[0].files[0]);
 
   $.ajax({
-    url : ruta_generica+'/api/v1/upload_price_quote?token=' + session.token + '&inspection_id=' + urlParams.get('id'),
+    url : ruta_generica+'/api/v1/upload_price_quote?token=' + session.token + '&inspection_id=' + params.id,
     type : 'POST',
     dataType: 'JSON',
     data : formData,
