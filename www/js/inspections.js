@@ -83,7 +83,26 @@ function update_inspection(field, value){
   });
 }
 
-function update(id, field, value){
+function update(id, field, value, target=null){
+    if (field === "status" && value === 0)
+    {
+
+        navigator.notification.confirm("Eliminar punto de inspeccion?", function(result){
+            if(result === 1){
+
+                set_update(id, field, value, target);
+             }
+        },
+        'Confirmar', ["Cancelar","Aceptar"]);
+    }
+    else
+    {
+        set_update(id, field, value, target)
+    }
+}
+
+function set_update(id, field, value, target=null){
+
     $.ajax({
         url: ruta_generica+"/api/v1/inspection_point_update",
         type: 'POST',
@@ -96,9 +115,11 @@ function update(id, field, value){
         },
         success:function(resp) {
             if(resp.status === 'ok') {
-              navigator.notification.alert('Transaction succesfuly', function(){
-                location.href="dashboard.html";
-              });
+                if (target && field === "status" && value === 0) {
+                    console.log($(target));
+                    $(target).parent().parent().remove();
+                }
+              navigator.notification.alert('Transaction succesfuly');
           }
             else {
               navigator.notification.alert(resp.message);
