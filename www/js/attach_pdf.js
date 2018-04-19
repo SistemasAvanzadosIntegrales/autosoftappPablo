@@ -1,6 +1,5 @@
 var pdf = $('#pdf');
 pdf.change(function(){
-	alert('ja');
   var url = window.location.href;
   params = getParams(url);
   var formData = new FormData(document.getElementById("pdfform"));
