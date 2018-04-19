@@ -5,6 +5,7 @@ var app_settings;
 document.addEventListener("online", onOnline, false);
 
 function onOnline() {
+    alert('online');
     $('#network').addClass('hide').attr('status', 'online');
      localStorage.setItem("network", 'online');
 }
@@ -16,11 +17,13 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 //
 function onDeviceReady() {
+    alert('onDeviceReady');
     var db = window.openDatabase("test", "1.0", "Test DB", 1000000);
 }
 document.addEventListener("offline", onOffline, false);
 
 function onOffline() {
+    alert('onOffline');
     $('#network').removeClass('hide').attr('status', 'offline');
      localStorage.setItem("network", 'offline');
 }
