@@ -297,7 +297,7 @@ function successAudio(mediaFiles) {
 };
  ft.upload(audioURI, ruta_generica+"/api/v1/upload",
 function(result){
-
+alert(JSON.stringify(result));
      resp=JSON.parse(result.response);
      console.log(resp.message);
 
