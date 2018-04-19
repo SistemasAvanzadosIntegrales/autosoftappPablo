@@ -138,7 +138,7 @@ function set_update(id, field, value, target=null){
 var getInspectionsListClones = [];
 
 function getInspectionsList(take, skip, search = null)
-{console.log(localStorage.getItem("network") );
+{console.log(localStorage.getItem("network") || true );
   if (localStorage.getItem("network") == 'online'){
       if (skip === 0){
            localStorage.setItem("InspectionsList", JSON.stringify([]));
