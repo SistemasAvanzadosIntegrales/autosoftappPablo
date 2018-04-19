@@ -5,7 +5,8 @@ var app_settings;
 document.addEventListener("online", onOnline, false);
 
 function onOnline() {
-    $('#online-status').addClass('hide');
+    $('#network').addClass('hide').attr('status', 'online');
+     localStorage.setItem("network", 'online');
 }
 
 // Wait for Cordova to load
@@ -20,7 +21,8 @@ function onDeviceReady() {
 document.addEventListener("offline", onOffline, false);
 
 function onOffline() {
-    $('#online-status').removeClass('hide');
+    $('#network').removeClass('hide').attr('status', 'offline');
+     localStorage.setItem("network", 'offline');
 }
 
 /*

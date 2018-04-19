@@ -59,10 +59,10 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
       document.addEventListener("deviceready", function(){
-          obtenerclients(1,-1);
+          obtenerclients(10,0);
           $("#search").click(function(){
               $("#table-clients-users").html("");
-              obtenerclients(1, -1, null, $("#word").val());
+              obtenerclients(10, 0, null, $("#word").val());
           })
       }, false);
      </script>

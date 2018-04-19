@@ -59,15 +59,19 @@ function obtenerclients(take, skip, target = null, search = null){
         success:function(resp) {
             if( resp.status == 'ok' ) {
 			   $("#table-clients-users").append(resp.table);
-               if(target) {
+               if(target ){
                    $(target).parent().parent().remove();
                }
-				localStorage.removeItem("id_cliente");
+               if(parseInt(resp.count_rows) + 1 <= $("#table-clients-users tr").length) {
+
+    			   localStorage.removeItem("id_cliente");
+                }
             }
             else {
                 navigator.notification.alert(resp.message, null, 'Aviso', 'Aceptar');
             }
              permissions();
+          
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             console.log("Status: " + textStatus);

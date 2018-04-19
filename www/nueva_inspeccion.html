@@ -63,10 +63,10 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
       document.addEventListener("deviceready", function(){
-        gridClientes(1, -1);
+        gridClientes(10, 0);
         $("#search").click(function(){
             $("#table-clients").html("");
-            gridClientes(1, -1, null, $("#word").val());
+            gridClientes(10, 0, null, $("#word").val());
         })
       }, false);
      </script>

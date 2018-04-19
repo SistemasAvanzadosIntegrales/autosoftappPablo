@@ -132,36 +132,68 @@ function set_update(id, field, value, target=null){
     });
 }
 
+var getInspectionsListClones = [];
 
-function getInspectionsList(take, skip, target = null, search = null)
+function getInspectionsList(take, skip, search = null)
 {
-  $.ajax({
-      url: ruta_generica+"/api/v1/inspections_list",
-      type: 'POST',
-      dataType: 'JSON',
-      data: {
-          token: token,
-          take: take,
-          skip: skip,
-          search: search,
-          user_id: user_id
-      },
-      success:function(resp) {
-          if(resp.status === 'ok') {
-              if (target){
-                $(target).parent().parent().hide();
-              }
-              $("#table-body").append(resp.table);
-
-              permissions();
-        }
-          else {
-            navigator.notification.alert(resp.message);
-          }
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) {
-          console.log("Status: " + textStatus);
-          console.log("Error: " + errorThrown);
+  if (localStorage.getItem("network") === 'online'){
+      if (skip === 0){
+           localStorage.setItem("InspectionsList", JSON.stringify([]));
       }
-  });
+      $.ajax({
+          url: ruta_generica+"/api/v1/inspections_list",
+          type: 'POST',
+          dataType: 'JSON',
+          data: {
+              token: token,
+              take: take,
+              skip: skip,
+              search: search,
+              user_id: user_id
+          },
+          success:function(resp) {
+              if(resp.status === 'ok') {
+
+                  for(i in resp.inspections){
+                    var clone = $('#table-body #clone').clone();
+                    clone.attr('id', 'clone'+i);
+                    clone.find(".fill-data").each(function(x, item){
+                        field = $(item).attr('data-field').split('.');
+                        if(field)
+                        {
+                            $(item).append(resp.inspections[i][field]);
+                        }
+                    });
+                    clone.removeClass('hide');
+
+                    $('#table-body').append(clone);
+                    $('#show_more').unbind('click');
+                    if($('#table-body tr:not(.hide)').length < resp.count_rows){
+                        $('#show_more').click(function(){
+                            getInspectionsList(take, skip + take, search)
+                        });
+                    }else {
+                        $('#show_more').parent().parent().remove();
+                    }
+                    getInspectionsListClones.push("<tr>" + clone.html() + "</tr>");
+                  }
+                  setTimeout(function(){
+                      localStorage.setItem("InspectionsList", JSON.stringify(getInspectionsListClones));
+                      console.log(getInspectionsListClones);
+                  }, 100);
+                  $("#table-body").append(resp.table);
+                  permissions();
+            }
+              else {
+                navigator.notification.alert(resp.message);
+              }
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+              console.log("Status: " + textStatus);
+              console.log("Error: " + errorThrown);
+          }
+      });
+  }else {
+       $("#table-body").append(JSON.parse(localStorage.getItem("InspectionsList")));
+  }
 }

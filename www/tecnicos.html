@@ -58,10 +58,10 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
       document.addEventListener("deviceready", function(){
-          obtenerTecnicos(1, -1);
+          obtenerTecnicos(10, 0);
           $("#search").click(function(){
               $("#tecnicos").html("");
-              obtenerTecnicos(1, -1, null, $("#word").val());
+              obtenerTecnicos(10, 0, null, $("#word").val());
           })
       }, false);
      </script>
