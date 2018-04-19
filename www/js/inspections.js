@@ -34,7 +34,7 @@ function getInspectionsDetail(){
       },
       success:function(resp) {
         if(resp.status === 'ok') {
-            $("#table-body").append(resp.table ? resp.table : '<h3 class="text-danger text-center">Ningun punto inspeccionado</h3>');
+            $("#table-body").append(resp.table != "" ? resp.table : '<h3 class="text-danger text-center">Ningun punto inspeccionado</h3>');
             $("#model").val(resp.inspection.vehicle.model);
             $("#license_plate").val(resp.inspection.vehicle.license_plate);
             $("#vehicle_id").val(resp.inspection.vehicle.id);
@@ -68,9 +68,7 @@ function update_inspection(field, value){
       },
       success:function(resp) {
           if(resp.status === 'ok') {
-            navigator.notification.alert('Transaction succesfuly', function(){
               location.href="dashboard.html";
-            });
         }
           else {
             navigator.notification.alert(resp.message);
@@ -88,7 +86,7 @@ function update(id, field, value, target=null){
     {
 
         navigator.notification.confirm("Eliminar punto de inspeccion?", function(result){
-            if(result === 1){
+            if(result == 2){
 
                 set_update(id, field, value, target);
              }
