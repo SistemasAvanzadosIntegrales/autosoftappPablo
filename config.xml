@@ -61,6 +61,8 @@
         <preference name="android-signed" value="false" />
         <preference name="AndroidLaunchMode" value="singleTop" />
     </platform>
+    <preference name="android-manifest/application/activity/@android:theme" value="@android:style/Theme.Holo"/>
+
     <config-file mode="merge" parent="/manifest/application" platform="android">
         <activity android:launchMode="singleTop" />
     </config-file>
