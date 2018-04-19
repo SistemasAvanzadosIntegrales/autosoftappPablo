@@ -19,6 +19,9 @@ body {
 .add-on input{
     min-width: 200px!important;
 }
+.navbar-link{
+	font-size:1.5em;
+}
 #loading{
   padding: 0;
   margin: 0;
