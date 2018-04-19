@@ -46,7 +46,7 @@ function getInspectionsDetail(){
             $("#brand").val(resp.inspection.vehicle.brand);
             $("#brand").val(resp.inspection.vehicle.brand);
             var next_status = parseInt(resp.inspection.status) + 1;
-         $('a[onclick="update_inspection('status', '+next_status+')"]').removeClass('hide');
+         $('a.update_inspection_'+next_status).removeClass('hide');
             permissions();
         }
       },
