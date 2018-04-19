@@ -49,7 +49,7 @@ function getInspectionsDetail(){
          if($('a.update_inspection_status_'+next_status).length){
           $('a.update_inspection_status_'+next_status).removeClass('hide');
          }
-        
+
             permissions();
         }
       },
@@ -138,8 +138,8 @@ function set_update(id, field, value, target=null){
 var getInspectionsListClones = [];
 
 function getInspectionsList(take, skip, search = null)
-{
-  if (localStorage.getItem("network") === 'online' || true){
+{console.log(localStorage.getItem("network") );
+  if (localStorage.getItem("network") == 'online'z){
       if (skip === 0){
            localStorage.setItem("InspectionsList", JSON.stringify([]));
       }
