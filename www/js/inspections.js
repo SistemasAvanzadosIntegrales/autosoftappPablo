@@ -119,7 +119,6 @@ function set_update(id, field, value, target=null){
                     console.log($(target));
                     $(target).parent().parent().remove();
                 }
-              navigator.notification.alert('Transaction succesfuly');
           }
             else {
               navigator.notification.alert(resp.message);
@@ -136,7 +135,7 @@ var getInspectionsListClones = [];
 
 function getInspectionsList(take, skip, search = null)
 {
-  if (localStorage.getItem("network") === 'online'){
+  if (localStorage.getItem("network") === 'online' || true){
       if (skip === 0){
            localStorage.setItem("InspectionsList", JSON.stringify([]));
       }
