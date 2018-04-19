@@ -33,6 +33,7 @@ function getInspectionsDetail(){
           id: params.id
       },
       success:function(resp) {
+       alert("jaaaaa");
         if(resp.status === 'ok') {
             $("#table-body").append(resp.table != "" ? resp.table : '<h3 class="text-danger text-center">Ningun punto inspeccionado</h3>');
             $("#model").val(resp.inspection.vehicle.model);
