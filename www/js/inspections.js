@@ -44,6 +44,9 @@ function getInspectionsDetail(){
             $("#cell").val(resp.inspection.vehicle.owner.cellphone);
             $("#vin").val(resp.inspection.vehicle.vin);
             $("#brand").val(resp.inspection.vehicle.brand);
+            $("#brand").val(resp.inspection.vehicle.brand);
+            var next_status = parseInt(resp.inspection.status) + 1;
+         $("a[onclick='update_inspection('status', '"+next_status+"')]").removeClass('hide');
             permissions();
         }
       },
