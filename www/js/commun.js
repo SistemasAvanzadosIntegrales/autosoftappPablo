@@ -144,13 +144,11 @@ function permissions(){
           {
             //console.log(permmision + ' is ' + access);
             item.removeClass('to-remove');
-            item.removeClass('hide');
             break;
           }
           else
           {
             item.addClass('to-remove');
-            item.addClass('hide');
           }
         }
     }
