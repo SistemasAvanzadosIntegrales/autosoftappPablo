@@ -136,7 +136,7 @@ var getInspectionsListClones = [];
 
 function getInspectionsList(take, skip, search = null)
 {
-  if (localStorage.getItem("network") === 'online' || true){
+  if (localStorage.getItem("network") === 'online'){
       if (skip === 0){
            localStorage.setItem("InspectionsList", JSON.stringify([]));
       }
@@ -152,7 +152,6 @@ function getInspectionsList(take, skip, search = null)
               user_id: user_id
           },
           success:function(resp) {
-              alert(JSON.stringify(resp))
               if(resp.status === 'ok') {
 
                   for(i in resp.inspections){
@@ -190,8 +189,7 @@ function getInspectionsList(take, skip, search = null)
               }
           },
           error: function(XMLHttpRequest, textStatus, errorThrown) {
-             alert("Status: " + textStatus);
-             alert("Error: " + errorThrown);
+
           }
       });
   }else {
