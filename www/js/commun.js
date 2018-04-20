@@ -14,7 +14,6 @@ function checkConnection() {
     states[Connection.CELL]     = 'Cell generic connection';
     states[Connection.NONE]     = 'No network connection';
 
-    alert('Connection type: ' + states[networkState]);
 }
 
 
@@ -33,13 +32,11 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 //
 function onDeviceReady() {
-    alert('onDeviceReady');
     var db = window.openDatabase("test", "1.0", "Test DB", 1000000);
 }
 document.addEventListener("offline", onOffline, false);
 
 function onOffline() {
-    alert('onOffline');
     $('#network').removeClass('hide').attr('status', 'offline');
      localStorage.setItem("network", 'offline');
 }
@@ -208,7 +205,6 @@ document.addEventListener("deviceready", function(){
     style();
     permissions();
 	    checkConnection();
-	  alert('connect');
 
   });
   //console.log('device is now ready');
