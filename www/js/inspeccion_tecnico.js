@@ -307,12 +307,7 @@ alert(JSON.stringify(result));
                "<source src='"+mediaFiles.full_path+"'>"+
                "</audio>"+
                "</div>");
-               alert(" <div class='custom-big-link-grid audio media' data-inspection-id='"+resp.id+"'  data-name='"+resp.message+"'>"+
-                         "<i class='fa fa-volume-up'></i>"+
-                         "<audio width='100%' height='100%' controls>"+
-                         "<source src='"+mediaFiles.full_path+"'>"+
-                         "</audio>"+
-                         "</div>");
+              
  },
 function(error){
      navigator.notification.alert(
