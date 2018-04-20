@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/font-awesome.css" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="icon" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="shortcut icon" />
+    <title>Inspección</title>
+  </head>
+  <body>
+    <div id="loading"><div id="loader"></div></div>
+    <!-- navbar -->
+    <div id="navbar"></div>
+    <div class="container-fluid my-container">
+      <div class="row">
+        <div class="col-xs-1">
+            <h1><img name="logo" id='logo' src="" width="70px"></h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="">Datos del cliente</4h>
+              <form class="form-inline my-form">
+                <div class="form-group">
+                  <div class="add-on input-group">
+                    <label class="input-group-addon">Nombre</label>
+                    <input type="text" readonly disabled  class="form-control" id="name" value="">
+                  </div>
+                   </div>
+                  <div class="form-group ">
+                      <div class="add-on input-group">
+                        <label class="input-group-addon">Celular</label>
+                        <input type="text" readonly disabled  class="form-control" id="cell" value="">
+                      </div>
+                   </div>
+                   <div class="form-group ">
+                  <div class="add-on input-group">
+                    <label class="input-group-addon">Email</label>
+                    <input type="text" readonly disabled  class="form-control" id="email" value="">
+                    </div>
+                  </div>
+              </form>
+              <h4  class=" ">Datos del vehiculo</4h>
+              <form class="form-inline my-form">
+                  <input type="hidden" size="10" class="form-control" value="" id="vehicle_id">
+                  <input type="hidden" size="10" class="form-control" value="" id="inspection_id">
+                <div class="form-group ">
+                  <div class="add-on input-group">
+                    <label class="input-group-addon">Marca</label>
+                    <input type="text" readonly disabled  size="10" id="brand"  class="form-control" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="add-on input-group">
+                    <label class="input-group-addon">Modelo</label>
+                    <input type="text" readonly disabled  size="10" class="form-control" value="" id="model">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="add-on input-group">
+                    <label class="input-group-addon">VIN</label>
+                    <input type="text" readonly disabled  size="10" id="vin" class="form-control" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="add-on input-group">
+                        <label class="input-group-addon">Placa</label>
+                        <input type="text" readonly disabled  size="10" class="form-control" value="" id="license_plate">
+                    </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-striped default-table">
+                <thead>
+                  <tr>
+                    <th class="text-center">Severidad</th>
+                    <th class="text-left">Inspeccion</th>
+                    <th class="text-center">Evidencia</th>
+                    <th class="text-center">Precio</th>
+                    <th class="text-center">Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody id='table-body'></tbody>
+              </table>
+            </div>
+            <form id="pdfform"  enctype="multipart/form-data">
+              <input id="pdf"  class="pdf hide" type="file" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="js/localstorage.js"></script>
+  <script type="text/javascript" src="js/commun.js"></script>
+  <script type="text/javascript" src="js/attach_pdf.js"></script>
+  <script type="text/javascript" src="js/filter.js"></script>
+  <script type="text/javascript" src="js/inspections.js"></script>
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript">
+  	document.addEventListener("deviceready", getInspectionsDetail, false);
+   </script>
+ </html>

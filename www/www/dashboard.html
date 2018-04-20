@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/font-awesome.css" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="icon" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="shortcut icon" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="icon" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="shortcut icon" />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <div id="loading"><div id="loader"></div></div>
+    <!-- navbar -->
+    <div id="navbar"></div>
+    <div class="container-fluid my-container">
+      <div class="row">
+        <div class="col-xs-1">
+          <h1><img name="logo" id='logo' src="" width="70px"></h1>
+        </div>
+      </div>
+      <div id="dashboard" class="row">
+        <div class="col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="input-group col-xs-12">
+                <input type="text" class="form-control" id="word" placeholder="Buscar">
+                <a id="search" class="input-group-addon btn btn-search link">
+                  <i class="fa fa-search text-color-marca"> </i>
+                </a>
+                <a data-permissions="true"  onclick="location.href='nueva_inspeccion.html';" class="permission_technical_group permission_add_inspections fullaccess btn btn-primary pull-right"><i class="fa fa-plus"> </i> Agregar</a>
+              </div>
+            </div>
+            <div id="alertaLogin" class="text-center text-red"></div>
+            <div class="table-responsive">
+              <table id="inspections" class="table table-striped default-table">
+                <thead>
+                  <tr>
+                    <th data-permissions="true" class="permission_see_clients text-left">Folio</th>
+                    <th data-permissions="true" class="permission_see_clients text-left">Cliente</th>
+                    <th data-permissions="true" class="permission_see_clients text-left">Marca</th>
+                    <th class="text-left">Modelo</th>
+                    <th class="text-left">Placas</th>
+                    <th  data-permissions="true" class="permission_see_inspections permission_advisory_group text-left ">Estatus</th>
+                    <th data-permissions="true" class="permission_edit_inspections text-center fullaccess">Modificar</th>
+                  </tr>
+                </thead>
+                <tbody id='table-body'>
+                	<tr id="clone" class="hide">
+                	  <td data-field='folio' data-permissions="true" class="fill-data permission_see_clients"></td>
+                	  <td data-field='name' data-permissions="true" class="fill-data permission_see_clients"></td>
+                	  <td data-field='brand' data-permissions="true" class="fill-data permission_see_clients"></td>
+                	  <td data-field='model' class="fill-data "></td>
+                	  <td data-field='license_plate' class="fill-data "></td>
+                	  <td data-field='status' data-permissions="true" class="fill-data permission_see_inspections permission_advisory_group"> </td>
+                	  <td data-field='edit_link'  data-permissions="true" class="fill-data text-center permission_edit_inspections fullaccess"></td>
+                	</tr>
+                </tbody>
+                <tfoot>
+                    <tr><td colspan ="8" class="text-center"><a id="show_more">Ver más registros</a></td></tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/localstorage.js"></script>
+    <script type="text/javascript" src="js/commun.js"></script>
+    <script type="text/javascript" src="js/push.js"></script>
+    <script type="text/javascript" src="js/filter.js"></script>
+    <script type="text/javascript" src="js/inspections.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript">
+      document.addEventListener("deviceready", function(){
+          getInspectionsList(10, 0, null);
+
+          $("#search").click(function(){
+              $("#table-body").html("");
+              getInspectionsList(10, 0, null, $("#word").val());
+          })
+
+
+      }, false);
+     </script>
+  </body>
+</html>
