@@ -49,7 +49,7 @@ function getInspectionsDetail(){
 
             var status = ['Cerrado', 'En revision','Verificación','Espera cliente','Respondido','Revisado','Cerrado'];
             permissions();
-                   alert('Status actual '+status[resp.inspections.status] + 'es posible actualizar a ' + status[next_status]);
+                   alert('Status actual '+status[resp.inspections.status] + ' es posible actualizar a ' + status[next_status]);
          if($('a.update_inspection_status_'+next_status).length){
 
           $('a.update_inspection_status_'+next_status).removeClass('hide');
