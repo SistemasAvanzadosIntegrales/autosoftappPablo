@@ -142,7 +142,7 @@ var getInspectionsListClones = [];
 
 function getInspectionsList(take, skip, search = null)
 {
-  if (localStorage.getItem("network") == 'online' || true ){
+  if (localStorage.getItem("network") == 'online'  ){
       if (skip === 0){
            localStorage.setItem("InspectionsList", JSON.stringify([]));
       }
