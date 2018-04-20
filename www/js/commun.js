@@ -20,7 +20,6 @@ function checkConnection() {
 document.addEventListener("online", onOnline, false);
 
 function onOnline() {
-    alert('online');
     $('#network').addClass('hide').attr('status', 'online');
      localStorage.setItem("network", 'online');
 }
@@ -37,6 +36,7 @@ function onDeviceReady() {
 document.addEventListener("offline", onOffline, false);
 
 function onOffline() {
+$('tfoot').remove();
     $('#network').removeClass('hide').attr('status', 'offline');
      localStorage.setItem("network", 'offline');
 }
