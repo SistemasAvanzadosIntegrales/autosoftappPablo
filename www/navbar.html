@@ -10,17 +10,20 @@
         <span class="icon-bar"></span>
       </button>
       <div id="buttonmenu" name="buttonmenu" style="width: auto;height: 50px; text-align: right; padding-top: 14px;">
-          <a data-permissions="true" data-screen="realizar_inspeccion.html" class="fullaccess navbar-link hide update_inspection_status_1 permission_technical_group edit_inspections" onclick="guardar(0)"><i class="fa fa-save"></i></a>
+         
           <a data-permissions="true" data-screen="clientes.html" class="fullaccess navbar-link permission_add_clients" href="alta_cliente.html " ><i class="fa fa-plus"></i></a>
           <a data-permissions="true" data-screen="alta_cliente.html" class="fullaccess navbar-link permission_add_clients" href="alta_vehiculo.html" ><i class="fa fa-car"></i></a>
           <a data-permissions="true" data-screen="alta_cliente.html" class="fullaccess navbar-link permission_add_clients" onclick="accion_cliente();" ><i class="fa fa-save"></i></a>
           <a data-permissions="true" data-screen="alta_vehiculo.html" class="fullaccess navbar-link permission_add_clients" onclick="accion_vehiculo();" ><i class="fa fa-save"></i></a>
-          <a data-permissions="true" data-screen="realizar_inspeccion.html" class="fullaccess navbar-link update_inspection_status_2 hide permission_technical_group edit_inspections" onclick="guardar('Asesor')" ><i class="fa fa-paper-plane"></i></a>
+         <a data-permissions="true" data-screen="realizar_inspeccion.html" class="fullaccess navbar-link hide update_inspection_status_2 permission_technical_group" onclick="guardar(0)"><i class="fa fa-save"></i></a>
+        
+          <a data-permissions="true" data-screen="realizar_inspeccion.html" class="fullaccess navbar-link update_inspection_status_2 hide permission_technical_group" onclick="guardar('Asesor')" ><i class="fa fa-paper-plane"></i></a>
 
-          <a data-permissions="true" data-screen="resultado_inspeccion.html" class="fullaccess hide navbar-link permission_advisory_group hide update_inspection_status_1" onclick="update_inspection('status', '1')" ><i class="fa fa-check "></i></a>
-          <a data-permissions="true" data-screen="resultado_inspeccion.html" class="fullaccess hide navbar-link permission_advisory_group hide update_inspection_status_5" onclick="update_inspection('status', '5')" ><i class="fa fa-check "></i></a>
-          <a data-permissions="true" data-screen="resultado_inspeccion.html" class="fullaccess hide navbar-link permission_advisory_group hide update_inspection_status_2" onclick="update_inspection('status', '2')" ><i class="fa fa-save "></i></a>
-          <a data-permissions="true" data-screen="resultado_inspeccion.html" class="fullaccess hide navbar-link permission_advisory_group hide update_inspection_status_3" onclick="update_inspection('status', '3')" ><i class="fa fa-paper-plane "></i></a>
+          <a data-permissions="true" data-screen="resultado_inspeccion.html" class="fullaccess navbar-link permission_advisory_group hide update_inspection_status_3" onclick="update_inspection('status', '3')" ><i class="fa fa-paper-plane "></i></a>
+                  <a data-permissions="true" data-screen="resultado_inspeccion.html" class="fullaccess hide navbar-link permission_advisory_group hide update_inspection_status_5" onclick="update_inspection('status', '5')" ><i class="fa fa-check "></i></a>
+          <a data-permissions="true" data-screen="resultado_inspeccion.html" class="fullaccess hide navbar-link permission_advisory_group hide update_inspection_status_5" onclick="update_inspection('status', '1')" ><i class="fa fa-wrench "></i></a>
+
+       
       </div>
     </div>
 
@@ -30,7 +33,7 @@
         <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_clients"><a class="navbar-link" href="clientes.html"><i class="fa fa-user"></i> Clientes</a></li>
         <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_add_inspections fullaccess permission_technical_group"><a class="navbar-link" href="nueva_inspeccion.html"><i class="fa fa-plus"></i> Inspección</a></li>
         <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections fullaccess"><a data-permissions="true" data-screen="resultado_inspeccion.html" onclick="upload_pdf()"class="navbar-link permission_advisory_group"><i class="fa fa-paperclip"></i> Presupuesto</a></li>
-        <li data-permissions="true" class=" hidden-sm hidden-md hidden-lg permission_see_inspections fullaccess"><a data-permissions="true" data-screen="resultado_inspeccion.html" onclick="update_inspection('status', '6')" class="update_inspection_status_6 navbar-link permission_advisory_group"><i class="fa fa-power-off"></i> Cerrar</a></li>
+        <li data-permissions="true" class=" hidden-sm hidden-md hidden-lg permission_close fullaccess"><a data-permissions="true" data-screen="resultado_inspeccion.html" onclick="update_inspection('status', '6')" class=" navbar-link hide  update_inspection_status_5 update_inspection_status_4 update_inspection_status_6 "><i class="fa fa-power-off"></i> Cerrar</a></li>
         <li class="hidden-sm hidden-md hidden-lg"><a class="navbar-link" href="index.html"><i class="fa fa-sign-out"></i>Salir</a></li>
         <li class="dropdown visible-sm visible-md visible-lg">
           <a href="#" class="dropdown-toggle navbar-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
@@ -38,23 +41,10 @@
             <li data-permissions="true" class="permission_see_inspections"><a href="dashboard.html" class="navbar-link"><i class="fa fa-home"></i> Inicio</a></li>
             <li data-permissions="true" class="permission_see_clients"><a class="navbar-link" href="clientes.html"><i class="fa fa-user"></i> Clientes</a></li>
             <li data-permissions="true" class="permission_add_inspections permission_technical_group fullaccess"><a class="navbar-link" href="nueva_inspeccion.html"><i class="fa fa-plus"></i> Inspección</a></li>
-            <li data-permissions="true" class="permission_see_inspections fullaccess"><a data-permissions="true" data-screen="resultado_inspeccion.html" onclick="upload_pdf()"class="navbar-link permission_advisory_group"><i class="fa fa-paperclip"></i> Presupuesto</a></li>
-            <li data-permissions="true" class="hide permission_see_inspections fullaccess"><a data-permissions="true" data-screen="resultado_inspeccion.html" class=" update_inspection_status_6 navbar-link permission_advisory_group" onclick="update_inspection('status', '6')" ><i class="fa fa-power-off"></i> Cerrar</a></li>
+            <li data-permissions="true" class="permission_see_inspections fullaccess"><a data-permissions="true" data-screen="resultado_inspeccion.html" onclick="upload_pdf()" class="navbar-link permission_attach_budget"><i class="fa fa-paperclip"></i> Presupuesto</a></li>
+            <li data-permissions="true" class="hide permission_close fullaccess"><a data-permissions="true" data-screen="resultado_inspeccion.html" class="navbar-link hide  update_inspection_status_5 update_inspection_status_4 update_inspection_status_6" ><i class="fa fa-power-off"></i> Cerrar</a></li>
             <li><a class="navbar-link" href="index.html"><i class="fa fa-sign-out"></i> Salir</a></li>
-            <!--
-            <li class="dropdown-header">Realizar Inspección</li>
-            <li data-permissions="true" class="permission_add_inspections"><a  onclick="guardar('Asesor')" class="navbar-link"><i class="fa fa-paper-plane"></i> Enviar al asesor</a></li>
-            <li data-permissions="true" class="permission_add_inspections"><a id="guardar" href="#" onclick="guardar(0)" class="navbar-link"><i class="fa fa-save"></i> Guardar inspeccion (tecnico) </a></li>
-            <li class="dropdown-header">Clientes</li>
-            <li data-permissions="true" class="permission_see_inspections"><a title="Agregar vehiculo" id="agregarAutos" utos"  href="alta_vehiculo.html" class="navbar-link"><i class="fa fa-car"></i></a></li>
-            <li data-permissions="true" class="permission_see_inspections"><a title="Guardar cliente" id="guardarcliente" name="guardarcliente" onclick="accion_cliente();" class="navbar-link"><i class="fa fa-save"></i> Guardar cliente</a></li>
-            <li data-permissions="true" class="permission_see_inspections"><a title="Guardar vehiculo" id="guardarvehiculo" name="guardarvehiculo" onclick="accion_vehiculo();" class="navbar-link"><i class="fa fa-save"></i> Guardar vehiculo</a></li>
-            <li class="dropdown-header">Resultado Inspección</li>
-            <li data-permissions="true" class="permission_see_inspections"><a title="Inspección revisada" onclick="update_inspection('status', '5')" class="navbar-link"><i class="fa fa-check "></i> Inspección revisada</a></li>
-            <li data-permissions="true" class="permission_see_inspections"><a title="Guardar inspeccion" onclick="update_inspection('status', '2')" class="navbar-link"><i class="fa fa-save "></i> Guardar inspeccion (asesor)</a></li>
-            <li data-permissions="true" class="permission_see_inspections"><a title="Enviar inspección" onclick="update_inspection('status', '3')" class="navbar-link"><i class="fa fa-paper-plane "></i> Enviar al cliente</a></li>
-            <li data-permissions="true" class="permission_see_inspections"><a title="Adjuntar presupuesto" class="navbar-link"><i class="fa fa-file"></i>Presupuesto </label></a></li>
-            -->
+    
           </ul>
         </li>
       </ul>
