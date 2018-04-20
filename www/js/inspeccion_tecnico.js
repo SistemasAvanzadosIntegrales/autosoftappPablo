@@ -238,11 +238,15 @@ function gridInspections(){
                $("#model").val(resp.model);
                $("#license_plate").val(resp.license_plate);
                $("#vehicle_id").val(resp.vehicle_id);
+$("#inspection_id").val(resp.inspections.id);
+            }
+                        permissions();
+                            var next_status = parseInt(resp.inspections.status) + 1;
+                               alert('a.update_inspection_status_'+next_status);
+                     if($('a.update_inspection_status_'+next_status).length){
 
-            }
-            else {
-                $("#alertaLogin").html(resp.message).show();
-            }
+                      $('a.update_inspection_status_'+next_status).removeClass('hide');
+                     }
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             console.log("Status: " + textStatus);

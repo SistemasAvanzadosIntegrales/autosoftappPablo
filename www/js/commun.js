@@ -157,7 +157,7 @@ function permissions(){
     }
   });
 
-  $('.to-remove').remove();
+  $('.to-remove').addClass('hide');
   $('#loading').fadeOut();
 
 

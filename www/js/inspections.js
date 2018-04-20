@@ -52,7 +52,7 @@ function getInspectionsDetail(){
             permissions();
                    alert('a.update_inspection_status_'+next_status);
          if($('a.update_inspection_status_'+next_status).length){
-         
+
           $('a.update_inspection_status_'+next_status).removeClass('hide');
          }
         }
