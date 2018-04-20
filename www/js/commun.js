@@ -34,7 +34,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
 //
 function onDeviceReady() {
   //  alert('onDeviceReady');
-  checkConnection();
     var db = window.openDatabase("test", "1.0", "Test DB", 1000000);
 }
 document.addEventListener("offline", onOffline, false);
@@ -195,6 +194,7 @@ function logo(){
   }
 }
 document.addEventListener("deviceready", function(){
+	
   session=JSON.parse(localStorage.getItem('session'));
   app_settings = JSON.parse(localStorage.getItem('app_settings'));
   if (!app_settings && location.pathname != "/index.html")
@@ -207,6 +207,11 @@ document.addEventListener("deviceready", function(){
     logo();
     style();
     permissions();
+	    checkConnection();
+	  alert('connect');
+
   });
   //console.log('device is now ready');
 }, false);
+
+
