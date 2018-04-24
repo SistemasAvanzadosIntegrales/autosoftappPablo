@@ -49,7 +49,7 @@ function getInspectionsDetail(){
 
             var status = ['Cerrado', 'En revision','Verificación','Espera cliente','Respondido','Revisado','Cerrado'];
             permissions();
-                   alert('Status actual '+status[resp.inspections.status] + ' es posible actualizar a ' + status[next_status]);
+                ///   alert('Status actual '+status[resp.inspections.status] + ' es posible actualizar a ' + status[next_status]);
          if($('a.update_inspection_status_'+next_status).length){
 
           $('a.update_inspection_status_'+next_status).removeClass('hide');
@@ -142,7 +142,7 @@ var getInspectionsListClones = [];
 
 function getInspectionsList(take, skip, search = null)
 {
-  if (localStorage.getItem("network") == 'online' || true ){
+  if (localStorage.getItem("network") == 'online' ){
       if (skip === 0){
            localStorage.setItem("InspectionsList", JSON.stringify([]));
       }
@@ -161,6 +161,7 @@ function getInspectionsList(take, skip, search = null)
               if(resp.status === 'ok') {
 
                   for(i in resp.inspections){
+                    console.log(resp.inspections[i]);
                     var clone = $('#table-body #clone').clone();
                     clone.attr('id', 'clone'+i);
                     clone.find(".fill-data").each(function(x, item){
@@ -174,11 +175,13 @@ function getInspectionsList(take, skip, search = null)
 
                     $('#table-body').append(clone);
                     $('#show_more').unbind('click');
-                    if($('#table-body tr:not(.hide)').length < resp.count_rows){
+                    $('#show_more').parent().parent().removeClass('hide');
+                    if(skip + take < resp.count_rows){
                         $('#show_more').click(function(){
                             getInspectionsList(take, skip + take, search)
                         });
-                    }else {
+                    }
+                    else {
                         $('#show_more').parent().parent().addClass('hide');
                     }
                     getInspectionsListClones.push("<tr>" + clone.html() + "</tr>");

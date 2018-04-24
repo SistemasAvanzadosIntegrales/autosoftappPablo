@@ -82,7 +82,7 @@ function guardar(rol){
       }
 
         if(parseInt($(item).val()) == 3 &&  $("#"+ $(item).attr('data-media')).html().trim() == ''){
-            navigator.notification.alert("Agrege evidencia para: "+attr[1].replace(/_/g, " "));
+            navigator.notification.alert("Agregue evidencia para: "+attr[1].replace(/_/g, " "), null, 'Alerta', 'Aceptar');
             flag=false;
         }
 
@@ -244,7 +244,6 @@ $("#inspection_id").val(resp.inspections.id);
 
                         var status = ['Cerrado', 'En revision','Verificación','Espera cliente','Respondido','Revisado','Cerrado'];
                         permissions();
-                               alert('Status actual '+status[resp.inspections.status] + ' y es posible actualizar a ' + status[next_status]);
                      if($('a.update_inspection_status_'+next_status).length){
 
                       $('a.update_inspection_status_'+next_status).removeClass('hide');
@@ -297,7 +296,6 @@ function successAudio(mediaFiles) {
 
  ft.upload(audioURI, ruta_generica+"/api/v1/upload",
 function(result){
-alert(JSON.stringify(result));
      resp=JSON.parse(result.response);
      console.log(resp.message);
 
@@ -307,13 +305,7 @@ alert(JSON.stringify(result));
                "<source src='"+mediaFiles.full_path+"'>"+
                "</audio>"+
                "</div>");
-               alert(" <div class='custom-big-link-grid audio media' data-inspection-id='"+resp.id+"'  data-name='"+resp.message+"'>"+
-                         "<i class='fa fa-volume-up'></i>"+
-                         "<audio width='100%' height='100%' controls>"+
-                         "<source src='"+mediaFiles.full_path+"'>"+
-                         "</audio>"+
-                         "</div>");
- },
+    },
 function(error){
      navigator.notification.alert(
         JSON.stringify(error),  // message

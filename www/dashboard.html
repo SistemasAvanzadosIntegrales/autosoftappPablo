@@ -77,11 +77,11 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
       document.addEventListener("deviceready", function(){
-          getInspectionsList(10, 0, null);
+          getInspectionsList(10, 0);
 
           $("#search").click(function(){
-              $("#table-body").html("");
-              getInspectionsList(10, 0, null, $("#word").val());
+              $("#table-body tr:not(#clone)").html("");
+              getInspectionsList(10, 0, $("#word").val());
           })
 
 

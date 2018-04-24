@@ -14,14 +14,14 @@ function checkConnection() {
     states[Connection.CELL]     = 'Cell generic connection';
     states[Connection.NONE]     = 'No network connection';
 
-    alert('Connection type: ' + states[networkState]);
+//    alert('Connection type: ' + states[networkState]);
 }
 
 
 document.addEventListener("online", onOnline, false);
 
 function onOnline() {
-    alert('online');
+   // alert('online');
     $('#network').addClass('hide').attr('status', 'online');
      localStorage.setItem("network", 'online');
 }
@@ -33,13 +33,13 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 //
 function onDeviceReady() {
-    alert('onDeviceReady');
-    var db = window.openDatabase("test", "1.0", "Test DB", 1000000);
+  //  alert('onDeviceReady');
+  checkConnection();
 }
 document.addEventListener("offline", onOffline, false);
 
 function onOffline() {
-    alert('onOffline');
+   // alert('onOffline');
     $('#network').removeClass('hide').attr('status', 'offline');
      localStorage.setItem("network", 'offline');
 }
@@ -194,7 +194,6 @@ function logo(){
   }
 }
 document.addEventListener("deviceready", function(){
-	
   session=JSON.parse(localStorage.getItem('session'));
   app_settings = JSON.parse(localStorage.getItem('app_settings'));
   if (!app_settings && location.pathname != "/index.html")
@@ -207,11 +206,6 @@ document.addEventListener("deviceready", function(){
     logo();
     style();
     permissions();
-	    checkConnection();
-	  alert('connect');
-
   });
   //console.log('device is now ready');
 }, false);
-
-
