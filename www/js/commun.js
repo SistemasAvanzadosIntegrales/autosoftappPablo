@@ -21,7 +21,10 @@ function checkConnection() {
 document.addEventListener("online", onOnline, false);
 
 function onOnline() {
+<<<<<<< HEAD
    // alert('online');
+=======
+>>>>>>> ca11e44010a4c783867874ac9164771dd890e983
     $('#network').addClass('hide').attr('status', 'online');
      localStorage.setItem("network", 'online');
 }
@@ -33,13 +36,21 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 //
 function onDeviceReady() {
+<<<<<<< HEAD
   //  alert('onDeviceReady');
   checkConnection();
+=======
+    var db = window.openDatabase("test", "1.0", "Test DB", 1000000);
+>>>>>>> ca11e44010a4c783867874ac9164771dd890e983
 }
 document.addEventListener("offline", onOffline, false);
 
 function onOffline() {
+<<<<<<< HEAD
    // alert('onOffline');
+=======
+$('tfoot').remove();
+>>>>>>> ca11e44010a4c783867874ac9164771dd890e983
     $('#network').removeClass('hide').attr('status', 'offline');
      localStorage.setItem("network", 'offline');
 }
@@ -206,6 +217,11 @@ document.addEventListener("deviceready", function(){
     logo();
     style();
     permissions();
+<<<<<<< HEAD
+=======
+	    checkConnection();
+
+>>>>>>> ca11e44010a4c783867874ac9164771dd890e983
   });
   //console.log('device is now ready');
 }, false);

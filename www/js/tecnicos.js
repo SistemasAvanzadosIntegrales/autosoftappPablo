@@ -36,7 +36,7 @@ function asignar(vehicle_id, user_id){
     session=JSON.parse(localStorage.getItem('session'));
     app_settings = JSON.parse(localStorage.getItem('app_settings'));
     navigator.notification.confirm(
-     'Confirme la asignación de técnico',  // message
+        'Confirme la asignación de técnico',  // message
         function(result){
             if(result === 1){
                 $.ajax({
