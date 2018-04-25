@@ -8,10 +8,7 @@ function sync(data){
 
     db.transaction(function(tx) {
         tx.executeSql('CREATE TABLE IF NOT EXISTS techs (id, name)');
-        data.techs.each(function(i, tech){
-            tx.executeSql('INSERT INTO techs VALUES (?,?)', [tech.id, tech.name]);
-            alert('INSERT INTO techs VALUES ('+tech.id+ ' , ' +tech.name+')';
-        });
+        alert(JSON.stringify(data.techs));
 
     }, function(error) {
         console.log('Transaction ERROR: ' + error.message);
