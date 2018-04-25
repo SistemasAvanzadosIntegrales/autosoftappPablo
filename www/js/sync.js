@@ -7,10 +7,12 @@ function sync(data){
     });
 
     db.transaction(function(tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS DemoTable (name, score)');
-        alert(JSON.stringify(data));
-        tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Alice', 101]);
-        tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
+        tx.executeSql('CREATE TABLE IF NOT EXISTS techs (id, name)');
+        data.techs.each(function(i, tech){
+            tx.executeSql('INSERT INTO techs VALUES (?,?)', [tech.id, tech.name]);
+            alert('INSERT INTO techs VALUES ('+tech.id+ ' , ' +tech.name+')';
+        });
+
     }, function(error) {
         console.log('Transaction ERROR: ' + error.message);
     }, function() {
