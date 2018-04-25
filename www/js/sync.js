@@ -8,7 +8,10 @@ function sync(data){
 
     db.transaction(function(tx) {
         tx.executeSql('CREATE TABLE IF NOT EXISTS techs (id, name)');
-        alert(JSON.stringify(data.techs));
+        for(let i = 0; i < data.techs.length; i++)
+        {
+            alert(data.techs[i].name);
+        }
 
     }, function(error) {
         console.log('Transaction ERROR: ' + error.message);
