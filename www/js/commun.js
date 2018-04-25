@@ -1,59 +1,19 @@
 var ruta_generica = "http://autosoft2.avansys.com.mx";
 var session;
 var app_settings;
-function checkConnection() {
-    var networkState = navigator.connection.type;
 
-    var states = {};
-    states[Connection.UNKNOWN]  = 'Unknown connection';
-    states[Connection.ETHERNET] = 'Ethernet connection';
-    states[Connection.WIFI]     = 'WiFi connection';
-    states[Connection.CELL_2G]  = 'Cell 2G connection';
-    states[Connection.CELL_3G]  = 'Cell 3G connection';
-    states[Connection.CELL_4G]  = 'Cell 4G connection';
-    states[Connection.CELL]     = 'Cell generic connection';
-    states[Connection.NONE]     = 'No network connection';
-
-//    alert('Connection type: ' + states[networkState]);
-}
-
-
-document.addEventListener("online", onOnline, false);
-
-function onOnline() {
-<<<<<<< HEAD
-   // alert('online');
-=======
->>>>>>> ca11e44010a4c783867874ac9164771dd890e983
+document.addEventListener("online", function() {
     $('#network').addClass('hide').attr('status', 'online');
      localStorage.setItem("network", 'online');
-}
+}, false);
 
-// Wait for Cordova to load
-//
-document.addEventListener("deviceready", onDeviceReady, false);
-
-// Cordova is ready
-//
-function onDeviceReady() {
-<<<<<<< HEAD
-  //  alert('onDeviceReady');
-  checkConnection();
-=======
-    var db = window.openDatabase("test", "1.0", "Test DB", 1000000);
->>>>>>> ca11e44010a4c783867874ac9164771dd890e983
-}
-document.addEventListener("offline", onOffline, false);
-
-function onOffline() {
-<<<<<<< HEAD
-   // alert('onOffline');
-=======
-$('tfoot').remove();
->>>>>>> ca11e44010a4c783867874ac9164771dd890e983
+document.addEventListener("offline", function(){
+    $('tfoot').remove();
     $('#network').removeClass('hide').attr('status', 'offline');
-     localStorage.setItem("network", 'offline');
-}
+    localStorage.setItem("network", 'offline');
+}, false);
+
+
 
 /*
 var ruta_generica = "http://localhos:8000";
@@ -200,10 +160,11 @@ function logo(){
       else {
           logo.attr('src', 'img/logo.png')
       }
-    logo.fadeIn();
+      logo.fadeIn();
     //console.log('logo success');
   }
 }
+
 document.addEventListener("deviceready", function(){
   session=JSON.parse(localStorage.getItem('session'));
   app_settings = JSON.parse(localStorage.getItem('app_settings'));
@@ -217,11 +178,7 @@ document.addEventListener("deviceready", function(){
     logo();
     style();
     permissions();
-<<<<<<< HEAD
-=======
-	    checkConnection();
 
->>>>>>> ca11e44010a4c783867874ac9164771dd890e983
   });
   //console.log('device is now ready');
 }, false);

@@ -21,7 +21,8 @@ function ver(str)
   $('#'+str).toggle();
 }
 function getInspectionsDetail(){
-  $("#table-body").html("");session.token;
+  $("#table-body").html("");
+  ;
   var url = window.location.href;
   params = getParams(url);
   $.ajax({
@@ -29,7 +30,7 @@ function getInspectionsDetail(){
       type: 'POST',
       dataType: 'JSON',
       data: {
-          token: token,
+          token: session.token,
           id: params.id
       },
       success:function(resp) {

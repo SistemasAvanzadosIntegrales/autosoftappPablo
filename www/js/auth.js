@@ -4,9 +4,8 @@ function resetPassword(){
   window.open(ruta_generica+"/password/reset",  '_blank');
 }
 
-
 function ingresar() {
-
+    localStorage.setItem('need_sync_get_data', true);
     if( $("#email" ).val().trim() == '' ) {
         navigator.notification.alert('Debes escribir tu email', null, 'Aviso', 'Aceptar');
     }
