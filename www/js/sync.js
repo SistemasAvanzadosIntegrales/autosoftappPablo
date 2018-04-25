@@ -8,7 +8,7 @@ var sync = {
     },
     save_clients : function(clients){
         var db = window.sqlitePlugin.openDatabase({name: "my.db"});
-
+        alert(JSON.stringify(db));
         db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS test_table');
         tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
