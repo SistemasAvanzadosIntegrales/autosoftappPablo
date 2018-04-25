@@ -1,36 +1,42 @@
-// Wait for Cordova to load
-//
-document.addEventListener("deviceready", onDeviceReady, false);
-
-// Cordova is ready
-//
-function onDeviceReady() {
+function sync(data){
+    console.log(data);
     var db = window.sqlitePlugin.openDatabase({
-      name: 'my.db',
-      location: 'default',
-      androidDatabaseImplementation: 2
+        name: 'my.db',
+        location: 'default',
+        androidDatabaseImplementation: 2
     });
-    db.transaction(populateDB, errorCB, successCB);
+
+    db.transaction(function(tx) {
+        tx.executeSql('CREATE TABLE IF NOT EXISTS DemoTable (name, score)');
+        alert(JSON.stringify(data));
+        tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Alice', 101]);
+        tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
+    }, function(error) {
+        console.log('Transaction ERROR: ' + error.message);
+    }, function() {
+        console.log('Populated database OK');
+    }).bind(data);
+}
+function get_data(){
+    if(localStorage.getItem('need_sync_get_data')){
+        let session = JSON.parse(localStorage.getItem('session'));
+        $.ajax({
+            url: ruta_generica+"/api/v1/sync_get_data",
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                token: session.token,
+            },
+            success:function(data) {
+                sync(data)
+            }
+        });
+        localStorage.setItem('need_sync_get_data', true);
+    }
 }
 
-// Populate the database
-//
-function populateDB(tx) {
-    tx.executeSql('DROP TABLE IF EXISTS DEMO');
-    tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, data)');
-    tx.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "First row")');
-    tx.executeSql('INSERT INTO DEMO (id, data) VALUES (2, "Second row")');
-}
 
-// Transaction error callback
-//
-function errorCB(tx, err) {
-    alert("Error processing SQL: "+err);
-    console.log(err);
-}
 
-// Transaction success callback
-//
-function successCB() {
-    alert("success!");
-}
+document.addEventListener("deviceready", function(){
+    get_data();
+}, false);
