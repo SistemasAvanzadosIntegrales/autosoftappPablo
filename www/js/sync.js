@@ -1,47 +1,85 @@
-var sync = {
-    save_local_data: function(data){
-        alert('save local data');
-        this.save_clients(data.clients);
-        this.save_vehicles(data.vehicles);
-        this.save_techs(data.techs);
-        this.save_cataloge(data.cataloge);
-    },
-    save_clients : function(clients){
-        var db = window.sqlitePlugin.openDatabase({name: "my.db"});
+function get(data){
+    var db;
+    if (device.platform == "browser")
+        db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+    else
+        db = window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default', androidDatabaseImplementation: 2});
 
-        db.transaction(function(tx) {
-        tx.executeSql('DROP TABLE IF EXISTS test_table');
-        tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
+    db.transaction(function(tx) {
+        tx.executeSql('DROP TABLE IF EXISTS techs;');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS techs (id, name)');
+        for(let i = 0; i < data.techs.length; i++)
+        {
+            tx.executeSql("INSERT INTO techs (id, name) VALUES ("+data.techs[i].id+", '"+data.techs[i].name+"')");
+        }
+    });
 
-        tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100], function(tx, res) {
-          alert("insertId: " + res.insertId + " -- probably 1");
-          alert("rowsAffected: " + res.rowsAffected + " -- should be 1");
+    db.transaction(function(tx) {
+        tx.executeSql('DROP TABLE IF EXISTS vehicles;');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS vehicles (id, brand, model, license_plate, user_id, vin)');
+        for(let i = 0; i < data.vehicles.length; i++)
+        {
+            let vehicle = data.vehicles[i];
+            let sql = "INSERT INTO vehicles (id, brand, model, license_plate, user_id, vin) VALUES ("+vehicle.id+", '"+vehicle.brand+"', '"+vehicle.model+"', '"+vehicle.license_plate+"', '"+vehicle.user_id+"', '"+vehicle.vin+"')";
+            tx.executeSql(sql);
+        }
+    });
 
-          db.transaction(function(tx) {
-            tx.executeSql("select count(id) as cnt from test_table;", [], function(tx, res) {
-              alert("res.rows.length: " + res.rows.length + " -- should be 1");
-              alert("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
-            });
-          });
 
-        }, function(e) {
-          alert("ERROR: " + e.message);
-        });
-        });
-    },
-    save_vehicles : function(vehicles){
+    db.transaction(function(tx) {
+        tx.executeSql('DROP TABLE IF EXISTS clients;');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS clients (id, name)');
+        for(let i = 0; i < data.clients.length; i++)
+        {
+            let client =  data.clients[i];
+            tx.executeSql("INSERT INTO clients (id, name) VALUES ("+client.id+", '"+client.name+"')");
+        }
+    });
 
-    },
-    save_techs : function(techs){
+    db.transaction(function(tx) {
+        tx.executeSql('DROP TABLE IF EXISTS catalogue;');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS catalogue (id, inspection_id, name, category_name)');
+        for(let i = 0; i < data.catalogue.length; i++)
+        {
+            let catalogue =  data.catalogue[i];
+            tx.executeSql("INSERT INTO catalogue (id, inspection_id, name, category_name) VALUES ("+catalogue.id+", '"+catalogue.inspection_id+"', '"+catalogue.name+"', '"+catalogue.category_name+"')");
+        }
+    });
 
-    },
-    save_cataloge : function(cataloge){
+    db.transaction(function(tx) {
+        tx.executeSql('DROP TABLE IF EXISTS inspections;');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS inspections (id, vehicle_id, user_id, status)');
+        tx.executeSql('DROP TABLE IF EXISTS vehicle_inspections;');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS vehicle_inspections (id, inspections_id, price, severity, status, cataloge, category)');
+        for(let i = 0; i < data.inspections.length; i++)
+        {
+            let inspection =  data.inspections[i];
+            let sql = "INSERT INTO inspections (id, vehicle_id, user_id, status) VALUES ("+inspection.id+", '"+inspection.vehicle_id+"', '"+inspection.user_id+"', '"+inspection.status+"')";
+            tx.executeSql(sql);
+            let vehicle_inspections = inspection.vehicle_inspections;
+            for(let x = 0; x < vehicle_inspections.length; x++)
+            {
+                let poin = vehicle_inspections[x];
+                let sql2 = "INSERT INTO vehicle_inspections (id, inspections_id, price, severity, status, cataloge, category) VALUES ("+poin.id+", '"+poin.inspections_id+"', '"+poin.price+"', '"+poin.severity+"', '"+poin.status+"', '"+poin.catalogue.name+"', '"+poin.catalogue.inspection.name+"')";
+                tx.executeSql(sql2);
+            }
+        }
+    }, function(error) {
+        debug('algo fallo', true);
+    }, function() {
+        $('#dbRefresh').attr('class', 'text-success');
+        setTimeout(function(){
+            $('#dbRefresh').attr('class', 'text-danger hide')
+            debug('Data base has been saved');
+        }, 21000);
+    });
 
-    },
+    return true;
 }
 
-function sync_get_data(){
-    if(localStorage.getItem('need_sync_get_data')){
+function get_data(){
+    if(JSON.parse(localStorage.getItem('need_sync_get_data')) === true &&  localStorage.getItem("network") == 'online'){
+        $('#dbRefresh').attr('class', 'text-danger')
         let session = JSON.parse(localStorage.getItem('session'));
         $.ajax({
             url: ruta_generica+"/api/v1/sync_get_data",
@@ -50,16 +88,25 @@ function sync_get_data(){
             data: {
                 token: session.token,
             },
-            success:function(resp) {
-                sync.save_local_data(resp);
+            success:function(data) {
+                localStorage.setItem('need_sync_get_data', false);
+                get(data);
             }
         });
-        localStorage.setItem('need_sync_get_data', true);
+
     }
+}
+function debug(message, debug)
+{
+    if (device.platform == "browser")
+        console.log(message);
+
+    if(debug)
+        alert(JSON.stringify(message));
 }
 
 
 
 document.addEventListener("deviceready", function(){
-    sync_get_data();
+    get_data();
 }, false);

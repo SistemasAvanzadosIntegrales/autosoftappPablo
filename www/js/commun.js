@@ -2,16 +2,19 @@ var ruta_generica = "http://autosoft2.avansys.com.mx";
 var session;
 var app_settings;
 
+
+
 document.addEventListener("online", function() {
-    $('#network').addClass('hide').attr('status', 'online');
+    $('#netStatus').attr('class', 'text-success');
      localStorage.setItem("network", 'online');
 }, false);
 
 document.addEventListener("offline", function(){
-    $('tfoot').remove();
-    $('#network').removeClass('hide').attr('status', 'offline');
+    localStorage.setItem('need_sync_get_data', true);
+    $('#netStatus').attr('class', 'text-danger');
     localStorage.setItem("network", 'offline');
 }, false);
+
 
 
 

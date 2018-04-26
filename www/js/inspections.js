@@ -124,7 +124,6 @@ function set_update(id, field, value, target=null){
         success:function(resp) {
             if(resp.status === 'ok') {
                 if (target && field === "status" && value === 0) {
-                    console.log($(target));
                     $(target).parent().parent().remove();
                 }
           }
@@ -143,66 +142,92 @@ var getInspectionsListClones = [];
 
 function getInspectionsList(take, skip, search = null)
 {
-  if (localStorage.getItem("network") == 'online' ){
-      if (skip === 0){
-           localStorage.setItem("InspectionsList", JSON.stringify([]));
-      }
-      $.ajax({
-          url: ruta_generica+"/api/v1/inspections_list",
-          type: 'POST',
-          dataType: 'JSON',
-          data: {
-              token: token,
-              take: take,
-              skip: skip,
-              search: search,
-              user_id: user_id
-          },
-          success:function(resp) {
-              if(resp.status === 'ok') {
+    if (localStorage.getItem("network") == 'online' ){
+        if (skip === 0){
+            localStorage.setItem("InspectionsList", JSON.stringify([]));
+        }
+        $.ajax({
+            url: ruta_generica+"/api/v1/inspections_list",
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                token: token,
+                take: take,
+                skip: skip,
+                search: search,
+                user_id: user_id
+            },
+            success:function(data) {
+                if(data.status === 'ok')
+                    buildSDashboardTable(data, skip, take);
+                else
+                    navigator.notification.alert(resp.message);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
 
-                  for(i in resp.inspections){
-                    console.log(resp.inspections[i]);
-                    var clone = $('#table-body #clone').clone();
-                    clone.attr('id', 'clone'+i);
-                    clone.find(".fill-data").each(function(x, item){
-                        field = $(item).attr('data-field').split('.');
-                        if(field)
-                        {
-                            $(item).append(resp.inspections[i][field]);
-                        }
-                    });
-                    clone.removeClass('hide');
-
-                    $('#table-body').append(clone);
-                    $('#show_more').unbind('click');
-                    $('#show_more').parent().parent().removeClass('hide');
-                    if(skip + take < resp.count_rows){
-                        $('#show_more').click(function(){
-                            getInspectionsList(take, skip + take, search)
-                        });
-                    }
-                    else {
-                        $('#show_more').parent().parent().addClass('hide');
-                    }
-                    getInspectionsListClones.push("<tr>" + clone.html() + "</tr>");
-                  }
-                  setTimeout(function(){
-                      localStorage.setItem("InspectionsList", JSON.stringify(getInspectionsListClones));
-                      console.log(getInspectionsListClones);
-                  }, 100);
-                  $("#table-body").append(resp.table);
-                  permissions();
             }
-              else {
-                navigator.notification.alert(resp.message);
-              }
-          },
-          error: function(XMLHttpRequest, textStatus, errorThrown) {
+        });
+    }
+    else {
 
+        let data;
+        var db;
+        if (device.platform == "browser")
+            db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+        else
+            db = window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default', androidDatabaseImplementation: 2});
+
+            alert(JSON.stringify(db));
+        db.transaction(function(tx) {
+            let sql = " SELECT inspections.* FROM inspections JOIN vehicles ON vehicles.id = inspections.vehicle_id "
+            alert(sql);
+            tx.executeSql(sql, [], function (tx, results) {
+                console.log(JSON.stringify(results));
+                //buildSDashboardTable(data);
+            });
+            tx.executeSql('select * from inspections as i', [], function (tx, results) {
+                console.log(JSON.stringify(results));
+                //buildSDashboardTable(data);
+            });
+            tx.executeSql('select * from vehicles as v', [], function (tx, results) {
+                console.log(JSON.stringify(results));
+                //buildSDashboardTable(data);
+            });
+        },function(error){
+            alert(JSON.stringify(error));
+        },function(){
+            alert('succeess');
+        });
+    }
+}
+
+
+function buildSDashboardTable(data, skip, take)
+{
+    for(i in data.inspections){
+      var clone = $('#table-body #clone').clone();
+      clone.attr('id', 'clone'+i);
+      clone.find(".fill-data").each(function(x, item){
+          field = $(item).attr('data-field').split('.');
+          if(field)
+          {
+              $(item).append(data.inspections[i][field]);
           }
       });
-  }else {
-       $("#table-body").append(JSON.parse(localStorage.getItem("InspectionsList")));
-  }
+      clone.removeClass('hide');
+
+      $('#table-body').append(clone);
+      $('#show_more').unbind('click');
+      $('#show_more').parent().parent().removeClass('hide');
+      if(skip + take < data.count_rows){
+          $('#show_more').click(function(){
+              getInspectionsList(take, skip + take, search)
+          });
+      }
+      else {
+          $('#show_more').parent().parent().addClass('hide');
+      }
+      getInspectionsListClones.push("<tr>" + clone.html() + "</tr>");
+    }
+    permissions();
 }

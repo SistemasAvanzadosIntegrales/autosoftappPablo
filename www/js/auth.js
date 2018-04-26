@@ -30,6 +30,8 @@ function ingresar() {
                 if( resp.status == 'ok' ) {
                     session.login($("#token").val().trim(),resp.rol,resp.user.id);
                     localStorage.setItem("app_settings", JSON.stringify(resp));
+                    localStorage.setItem('need_sync_get_data', true);
+                    localStorage.setItem("network", 'online');
                     location.href="dashboard.html";
                 }
                 else {
