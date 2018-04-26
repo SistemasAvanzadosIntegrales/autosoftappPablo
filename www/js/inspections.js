@@ -170,35 +170,49 @@ function getInspectionsList(take, skip, search = null)
     }
     else {
 
-        let data;
-        var db;
-        if (device.platform == "browser")
-            db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-        else
-            db = window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default', androidDatabaseImplementation: 2});
-
-            alert(JSON.stringify(db));
-        db.transaction(function(tx) {
-            let sql = " SELECT inspections.* FROM inspections JOIN vehicles ON vehicles.id = inspections.vehicle_id "
-            alert(sql);
-            tx.executeSql(sql, [], function (tx, results) {
-                console.log(JSON.stringify(results));
-                //buildSDashboardTable(data);
-            });
-            tx.executeSql('select * from inspections as i', [], function (tx, results) {
-                console.log(JSON.stringify(results));
-                //buildSDashboardTable(data);
-            });
-            tx.executeSql('select * from vehicles as v', [], function (tx, results) {
-                console.log(JSON.stringify(results));
-                //buildSDashboardTable(data);
-            });
-        },function(error){
-            alert(JSON.stringify(error));
-        },function(){
-            alert('succeess');
-        });
     }
+
+    var db;
+    if (device.platform == "browser")
+        db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+    else
+        db = window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default', androidDatabaseImplementation: 2});
+
+    db.transaction(function(tx) {
+        tx.executeSql(" SELECT * FROM inspections AS i INNER JOIN vehicles AS v ON v.id = i.vehicle_id ", [], function (tx, results) {
+            debug(results, true);
+            //buildSDashboardTable(data);
+        });
+    });
+
+    db.transaction(function(tx) {
+        tx.executeSql(" SELECT v.brand FROM inspections AS i LEFT JOIN vehicles AS v ON v.id = i.vehicle_id ", [], function (tx, results) {
+            debug(results, true);
+            //buildSDashboardTable(data);
+        });
+    });
+
+    db.transaction(function(tx) {
+        tx.executeSql(" SELECT * FROM inspections AS i JOIN vehicles AS v ON v.id = i.vehicle_id ", [], function (tx, results) {
+            debug(results, true);
+            //buildSDashboardTable(data);
+        });
+    });
+
+    db.transaction(function(tx) {
+        tx.executeSql(" SELECT * FROM inspections ", [], function (tx, results) {
+            debug(results, true);
+            //buildSDashboardTable(data);
+        });
+    });
+
+    db.transaction(function(tx) {
+        tx.executeSql(" SELECT * FROM vehicles ", [], function (tx, results) {
+            console.log(results);
+            //buildSDashboardTable(data);
+        });
+    });
+
 }
 
 
