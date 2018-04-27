@@ -26,6 +26,8 @@ function ingresar() {
             },
             success:function(resp) {
                 debug(resp, true);
+                var resp = JSON.parse(resp);
+                debug(resp.status, 1);
                 if( resp.status == 'ok' || 1) {
                     session.login($("#token").val().trim(),resp.rol,resp.user.id);
                     localStorage.setItem("app_settings", JSON.stringify(resp));
