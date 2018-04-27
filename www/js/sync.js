@@ -1,6 +1,6 @@
 function __sync_get_data(data, callback = null){
     var  db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-    
+
     debug(db, 1);
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS techs;');
@@ -42,12 +42,7 @@ function __sync_get_data(data, callback = null){
             tx.executeSql("INSERT INTO catalogue (id, inspection_id, name, category_name) VALUES ("+catalogue.id+", '"+catalogue.inspection_id+"', '"+catalogue.name+"', '"+catalogue.category_name+"')");
         }
     });
-        db.transaction(function(tx) {
-    var sql = " SELECT  *  FROM techs";
-    tx.executeSql(sql, [], function (tx, results){
-        debug(results, true);
-    });
-});
+
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS inspections;');
         tx.executeSql('CREATE TABLE IF NOT EXISTS inspections (id, vehicle_id, user_id, status)');
