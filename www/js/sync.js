@@ -69,8 +69,6 @@ function __sync_get_data(data, call_back_function = null){
         $('#dbRefresh').attr('class', 'text-danger hide')
         debug('Data base has been saved');
         call_back_function.call();
-        call_back_function();
-        this[call_back_function]();
     });
 }
 
@@ -92,8 +90,6 @@ function sync_get_data(call_back_function = null){
     }
     else {
         call_back_function.call();
-        call_back_function();
-        this[call_back_function]();
 
     }
 }

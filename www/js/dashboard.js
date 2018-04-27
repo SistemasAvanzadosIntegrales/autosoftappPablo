@@ -1,6 +1,6 @@
 
 function dashboard(take, skip, search = null)
-{    
+{
     sync_get_data(function(){
         var db;
         db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
