@@ -71,11 +71,11 @@ function __sync_get_data(data, callback = null){
         $('#dbRefresh').attr('class', 'text-success');
         $('#dbRefresh').attr('class', 'text-danger hide')
         debug('Data base has been saved', true);
-        if (callback)
-        {
-            return callback(true);
-        }
-        return true;
+        let sql = " SELECT  *  FROM techs";
+        debug(sql, true)
+        tx.executeSql(sql, [], function (tx, results){
+            debug(results, true);
+        });
     });
 }
 
