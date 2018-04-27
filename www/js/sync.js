@@ -1,10 +1,6 @@
 function __sync_get_data(data, callback = null){
-    var db;
-    debug(data, 1);
-    if (device.platform == "browser")
-        db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-    else
-        db = window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default', androidDatabaseImplementation: 2});
+    var  db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+    
     debug(db, 1);
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS techs;');
