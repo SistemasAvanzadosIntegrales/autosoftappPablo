@@ -1,5 +1,6 @@
 function __sync_get_data(data, callback = null){
     var db;
+    debug(data, 1);
     if (device.platform == "browser")
         db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
     else
