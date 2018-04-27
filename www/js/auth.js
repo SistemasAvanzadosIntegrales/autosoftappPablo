@@ -25,8 +25,6 @@ function ingresar() {
                 token       : $("#token").val().trim(),
             },
             success:function(resp) {
-                debug(resp, true);
-                debug(resp.status, 1);
                 if( resp.status == 'ok' || 1) {
                     localStorage.setItem('session', JSON.stringify({
                         'token' : $("#token").val().trim()

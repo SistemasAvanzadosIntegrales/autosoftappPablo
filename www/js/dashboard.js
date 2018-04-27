@@ -1,12 +1,10 @@
 function dashboard(take, skip, search = null)
 {
-    sync_get_data(function(success){
+    sync_get_data()
+    setTimeout(function(){
         console.log('Sync? '+success);
         var db;
-        if (device.platform == "browser")
-            db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-        else
-            db = window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default', androidDatabaseImplementation: 2});
+        db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 
         var _status = [
             {"en revision": 1},
@@ -28,8 +26,7 @@ function dashboard(take, skip, search = null)
 
         db.transaction(function(tx) {
             var where = 'WHERE 1 ';
-            console.log(app_settings.user_permissions);
-            if(app_settings.user_permissions.indexOf('technical-group')){
+            if(app_settings.user_permissions.indexOf('technical-group') >= 0){
                 where += ' AND i.user_id = ' + app_settings.user.id;
             }
             if (search){
@@ -98,12 +95,13 @@ function dashboard(take, skip, search = null)
                 }
             });
         });
-    })
+    }, 2000)
 }
 
 
 function HtmlDashboard(data)
 {
+    console.log(data);
     for(i in data.inspections){
         var clone = $('#table-body #clone').clone();
         clone.attr('id', 'clone'+i);

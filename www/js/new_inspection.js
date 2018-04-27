@@ -1,11 +1,7 @@
 function new_inspection(take, skip, search = null){
     sync_get_data(function(success){
         console.log(success ? 'sync' : 'no syncs');
-        var db;
-        if (device.platform == "browser")
-            db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-        else
-            db = window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default', androidDatabaseImplementation: 2});
+        var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 
 
         db.transaction(function(tx) {

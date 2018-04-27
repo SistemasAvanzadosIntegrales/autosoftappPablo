@@ -1,7 +1,6 @@
 function __sync_get_data(data, callback = null){
     var  db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 
-    debug(db, 1);
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS techs;');
         tx.executeSql('CREATE TABLE IF NOT EXISTS techs (id, name)');
