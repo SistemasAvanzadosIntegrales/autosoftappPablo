@@ -5,7 +5,7 @@ function __sync_get_data(data, callback = null){
         db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
     else
         db = window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default', androidDatabaseImplementation: 2});
-
+    debug(db, 1);
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS techs;');
         tx.executeSql('CREATE TABLE IF NOT EXISTS techs (id, name)');
@@ -80,6 +80,7 @@ function __sync_get_data(data, callback = null){
 }
 
 function sync_get_data(callback = null){
+    debug(localStorage.getItem("network"), true);
     if(localStorage.getItem("network") == 'online'){
         $('#dbRefresh').attr('class', 'text-danger')
         let session = JSON.parse(localStorage.getItem('session'));
