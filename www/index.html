@@ -55,13 +55,11 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/localstorage.js"></script>
-    <script type="text/javascript" src="js/commun.js"></script>
-    <script type="text/javascript" src="js/sync.js"></script>
     <script type="text/javascript" src="js/auth.js"></script>
-
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
       document.addEventListener("deviceready",function(){
+          localStorage.clear();
           $('#loading').fadeOut();
       });
 

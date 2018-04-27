@@ -31,11 +31,7 @@ function ingresar() {
                     }));
                     localStorage.setItem("app_settings", JSON.stringify(resp));
                     localStorage.setItem("network", 'online');
-                    sync_get_data();
-                    setTimeout(function(){
-                        location.href="dashboard.html";
-                    }, 2000)
-
+                    location.href="dashboard.html";
                 }
                 else {
                   navigator.notification.alert(resp.message, null, 'Aviso', 'Aceptar');
