@@ -26,9 +26,11 @@ function ingresar() {
             },
             success:function(resp) {
                 debug(resp, true);
-                var resp = JSON.parse(resp);
                 debug(resp.status, 1);
                 if( resp.status == 'ok' || 1) {
+                    localStorage.setItem('session', JSON.stringify({
+                        'token' : $("#token").val().trim()
+                    }));
                     localStorage.setItem("app_settings", JSON.stringify(resp));
                     localStorage.setItem("network", 'online');
                     sync_get_data();
