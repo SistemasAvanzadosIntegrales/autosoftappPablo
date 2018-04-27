@@ -80,7 +80,6 @@ function __sync_get_data(data, callback = null){
 }
 
 function sync_get_data(callback = null){
-    debug(localStorage.getItem("network"), true);
     if(localStorage.getItem("network") == 'online'){
         $('#dbRefresh').attr('class', 'text-danger')
         let session = JSON.parse(localStorage.getItem('session'));

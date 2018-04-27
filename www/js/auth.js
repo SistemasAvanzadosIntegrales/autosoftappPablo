@@ -5,7 +5,6 @@ function resetPassword(){
 }
 
 function ingresar() {
-    localStorage.setItem('need_sync_get_data', true);
     if( $("#email" ).val().trim() == '' ) {
         navigator.notification.alert('Debes escribir tu email', null, 'Aviso', 'Aceptar');
     }
@@ -30,9 +29,9 @@ function ingresar() {
                 if( resp.status == 'ok' ) {
                     session.login($("#token").val().trim(),resp.rol,resp.user.id);
                     localStorage.setItem("app_settings", JSON.stringify(resp));
-                    localStorage.setItem('need_sync_get_data', true);
                     localStorage.setItem("network", 'online');
-                    location.href="dashboard.html";
+                    sync_get_data();
+    //                location.href="dashboard.html";
                 }
                 else {
                   navigator.notification.alert(resp.message, null, 'Aviso', 'Aceptar');
