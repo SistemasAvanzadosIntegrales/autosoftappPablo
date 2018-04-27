@@ -31,7 +31,7 @@ document.addEventListener("offline", function(){
    session=JSON.parse(localStorage.getItem('session'));
    app_settings=JSON.parse(localStorage.getItem('app_settings'));
    if(!session){
-     return location.href = "index.html";
+    // return location.href = "index.html";
    }
    token = session.token;
    user_id = app_settings.user.id;
@@ -192,7 +192,7 @@ document.addEventListener("deviceready", function(){
   app_settings = JSON.parse(localStorage.getItem('app_settings'));
   if (!app_settings && location.pathname != "/index.html")
   {
-    location.href="index.html";
+    //location.href="index.html";
   }
   $.get("navbar.html", function(data){
     $("#navbar").append(data);
