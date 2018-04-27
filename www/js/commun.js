@@ -1,7 +1,15 @@
 var ruta_generica = "http://autosoft2.avansys.com.mx";
 var session;
 var app_settings;
-
+var inspectionStatus = [
+    {text: "Nueva",         icon: "fa fa-question"},
+    {text: "En revisión",   icon: "fa fa-wrench"},
+    {text: "Verificación",  icon: "fa fa-stethoscope"},
+    {text: "Espera cliente",icon: "fa fa-clock-o"},
+    {text: "Respondido",    icon: "fa fa-comments-o"},
+    {text: "Revisado",      icon: "fa fa-check-square-o"},
+    {text: "Cerrado",       icon: "fa fa-power-off"}
+ ];
 
 
 document.addEventListener("online", function() {
@@ -10,13 +18,24 @@ document.addEventListener("online", function() {
 }, false);
 
 document.addEventListener("offline", function(){
-    localStorage.setItem('need_sync_get_data', true);
     $('#netStatus').attr('class', 'text-danger');
     localStorage.setItem("network", 'offline');
 }, false);
 
 
-
+/**
+ *  @author Ivan Vazquez
+ **/
+ var xhr, token, user_id, session, data = {};
+ document.addEventListener("deviceready", function(){
+   session=JSON.parse(localStorage.getItem('session'));
+   app_settings=JSON.parse(localStorage.getItem('app_settings'));
+   if(!session){
+     return location.href = "index.html";
+   }
+   token = session.token;
+   user_id = app_settings.user.id;
+ });
 
 /*
 var ruta_generica = "http://localhos:8000";

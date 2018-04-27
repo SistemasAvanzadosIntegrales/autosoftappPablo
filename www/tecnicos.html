@@ -39,7 +39,15 @@
                         <th class="text-center">Asignar</th>
                     </tr>
                 </thead>
-                <tbody id="tecnicos"></tbody>
+                <tbody id="tecnicos">
+                    <tr id="clone" class="hide">
+                        <td class="fill-data" data-field="name"></td>
+                        <td class="fill-data text-center" data-field="link"></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                      <tr><td colspan ="2" class="text-center"><a id="show_more">Ver más registros</a></td></tr>
+                  </tfoot>
               </table>
 			 <div id="alertaCliente" class="text-center text-red"></div>
             </div>
@@ -51,17 +59,15 @@
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/localstorage.js"></script>
     <script type="text/javascript" src="js/commun.js"></script>
-    <script type="text/javascript" src="js/filter.js"></script>
-    <script type="text/javascript" src="js/inspections.js"></script>
-    <script type="text/javascript" src="js/vehiculos.js"></script>
+    <script type="text/javascript" src="js/sync.js"></script>
     <script type="text/javascript" src="js/tecnicos.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
       document.addEventListener("deviceready", function(){
           obtenerTecnicos(10, 0);
           $("#search").click(function(){
-              $("#tecnicos").html("");
-              obtenerTecnicos(10, 0, null, $("#word").val());
+              $("#tecnicos tr:not(#clone)").html("");
+              obtenerTecnicos(10, 0, $("#word").val());
           })
       }, false);
      </script>

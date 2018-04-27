@@ -6,39 +6,8 @@ document.addEventListener("deviceready", function(){
   app_settings = JSON.parse(localStorage.getItem('app_settings'));
 });
 
-function gridClientes(take, skip, target = null, search = null){
-    var token = session.token;
 
-    $.ajax({
-        url: ruta_generica+"/api/v1/new_inspection",
-        type: 'GET',
-        dataType: 'JSON',
-        data: {
-            token:      token,
-            take: take,
-            skip: skip,
-            search: search
-        },
-        success:function(resp) {
 
-            if( resp.status == 'ok' ) {
-                if(target)
-                {
-                    $(target).parent().parent().remove();
-                }
-               $("#table-clients").append(resp.table);
-            }
-            else {
-                navigator.notification.alert(resp.message, null, 'Aviso', 'Aceptar');
-            }
-            permissions();
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-            console.log("Status: " + textStatus);
-            console.log("Error: " + errorThrown);
-        }
-    });
-}
 
 function obtenerclients(take, skip, target = null, search = null){
     session=JSON.parse(localStorage.getItem('session'));
@@ -71,7 +40,7 @@ function obtenerclients(take, skip, target = null, search = null){
                 navigator.notification.alert(resp.message, null, 'Aviso', 'Aceptar');
             }
              permissions();
-          
+
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             console.log("Status: " + textStatus);

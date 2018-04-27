@@ -55,7 +55,7 @@
                 	  <td data-field='model' class="fill-data "></td>
                 	  <td data-field='license_plate' class="fill-data "></td>
                 	  <td data-field='status' data-permissions="true" class="fill-data permission_advisory_group permission_technical_group"> </td>
-                	  <td data-field='edit_link'  data-permissions="true" class="fill-data permission_technical_group  text-center  fullaccess"></td>
+                	  <td data-field='link'  data-permissions="true" class="fill-data permission_technical_group  text-center  fullaccess"></td>
                 	</tr>
                 </tbody>
                 <tfoot>
@@ -71,18 +71,19 @@
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/localstorage.js"></script>
     <script type="text/javascript" src="js/commun.js"></script>
+    <script type="text/javascript" src="js/sync.js"></script>
     <script type="text/javascript" src="js/push.js"></script>
     <script type="text/javascript" src="js/filter.js"></script>
-    <script type="text/javascript" src="js/inspections.js"></script>
-    <script type="text/javascript" src="js/sync.js"></script>
+    <script type="text/javascript" src="js/dashboard.js"></script>
+
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
       document.addEventListener("deviceready", function(){
-          getInspectionsList(10, 0);
+          dashboard(10, 0);
 
           $("#search").click(function(){
               $("#table-body tr:not(#clone)").html("");
-              getInspectionsList(10, 0, $("#word").val());
+              dashboard(10, 0, $("#word").val());
           })
 
 

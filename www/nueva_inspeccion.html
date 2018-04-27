@@ -45,7 +45,18 @@
                     <th class="text-center">Técnico</th>
                   </tr>
                 </thead>
-                <tbody id="table-clients"></tbody>
+                <tbody id="table-clients">
+                    <tr id="clone" class="hide">
+                        <td class="fill-data" data-field="name"></td>
+                        <td class="fill-data" data-field="brand"></td>
+                        <td class="fill-data" data-field="model"></td>
+                        <td class="fill-data" data-field="license_plate"></td>
+                        <td class="fill-data text-center" data-field="link"></td>
+                    </tr>
+              </tbody>
+              <tfoot>
+                  <tr><td colspan ="5" class="text-center"><a id="show_more">Ver más registros</a></td></tr>
+              </tfoot>
               </table>
             </div>
           </div>
@@ -56,17 +67,15 @@
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/localstorage.js"></script>
     <script type="text/javascript" src="js/commun.js"></script>
-    <script type="text/javascript" src="js/filter.js"></script>
-    <script type="text/javascript" src="js/inspections.js"></script>
-    <script type="text/javascript" src="js/vehiculos.js"></script>
-    <script type="text/javascript" src="js/clientes.js"></script>
+    <script type="text/javascript" src="js/sync.js"></script>
+    <script type="text/javascript" src="js/new_inspection.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
       document.addEventListener("deviceready", function(){
-        gridClientes(10, 0);
+        new_inspection(10, 0);
         $("#search").click(function(){
-            $("#table-clients").html("");
-            gridClientes(10, 0, null, $("#word").val());
+            $("#table-clients tr:not(#clone)").html("");
+            new_inspection(10, 0, $("#word").val());
         })
       }, false);
      </script>
