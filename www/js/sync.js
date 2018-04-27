@@ -46,7 +46,13 @@ function __sync_get_data(data, callback = null){
             tx.executeSql("INSERT INTO catalogue (id, inspection_id, name, category_name) VALUES ("+catalogue.id+", '"+catalogue.inspection_id+"', '"+catalogue.name+"', '"+catalogue.category_name+"')");
         }
     });
-
+        db.transaction(function(tx) {
+    var sql = " SELECT  *  FROM techs";
+    debug(sql, true);
+    tx.executeSql(sql, [], function (tx, results){
+        debug(results, true);
+    });
+});
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS inspections;');
         tx.executeSql('CREATE TABLE IF NOT EXISTS inspections (id, vehicle_id, user_id, status)');
@@ -65,17 +71,19 @@ function __sync_get_data(data, callback = null){
                 tx.executeSql(sql2);
             }
         }
+
+
     }, function(error) {
         debug('algo fallo', true);
     }, function() {
         $('#dbRefresh').attr('class', 'text-success');
         $('#dbRefresh').attr('class', 'text-danger hide')
         debug('Data base has been saved', true);
-        let sql = " SELECT  *  FROM techs";
-        debug(sql, true)
-        tx.executeSql(sql, [], function (tx, results){
-            debug(results, true);
-        });
+        if (callback)
+        {
+            return callback(true);
+        }
+        return true;
     });
 }
 
