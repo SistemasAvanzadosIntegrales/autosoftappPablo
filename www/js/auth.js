@@ -32,7 +32,10 @@ function ingresar() {
                     localStorage.setItem("app_settings", JSON.stringify(resp));
                     localStorage.setItem("network", 'online');
                     sync_get_data();
-                    location.href="dashboard.html";
+                    setTimeout(function(){
+                        location.href="dashboard.html";
+                    }, 2000)
+
                 }
                 else {
                   navigator.notification.alert(resp.message, null, 'Aviso', 'Aceptar');
