@@ -50,7 +50,7 @@ function __sync_get_data(data, callback = null){
     var sql = " SELECT  *  FROM techs";
     debug(sql, true);
     tx.executeSql(sql, [], function (tx, results){
-        debug(results, true);
+        debug(results.rows, true);
     });
 });
     db.transaction(function(tx) {
@@ -111,9 +111,7 @@ function sync_get_data(callback = null){
 }
 function debug(message, debug)
 {
-    if (device.platform == "browser")
-        console.log(message);
-
+    console.log(message);
     if(debug)
         alert(JSON.stringify(message));
 }
