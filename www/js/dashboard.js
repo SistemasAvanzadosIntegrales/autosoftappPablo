@@ -1,8 +1,7 @@
 function dashboard(take, skip, search = null)
 {
-    sync_get_data()
+    sync_get_data();
     setTimeout(function(){
-        console.log('Sync? '+success);
         var db;
         db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 
