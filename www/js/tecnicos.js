@@ -1,10 +1,8 @@
 function obtenerTecnicos(take, skip, search = null){
     var session=JSON.parse(localStorage.getItem('session'));
-    sync_get_data(function(success){
-        console.log(success ? 'sync' : 'no syncs');
+    sync_get_data();
+    setTimeout(function(){
         var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-
-
         db.transaction(function(tx) {
             var where = 'WHERE 1 ';
             if (search){
@@ -32,7 +30,7 @@ function obtenerTecnicos(take, skip, search = null){
                 }
             });
         });
-    });
+    }, 1000);
 }
 
 function builTecnicosHTML(data){

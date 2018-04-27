@@ -1,6 +1,6 @@
 function new_inspection(take, skip, search = null){
-    sync_get_data(function(success){
-        console.log(success ? 'sync' : 'no syncs');
+    sync_get_data();
+    setTimeout(function(){
         var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 
 
@@ -35,7 +35,7 @@ function new_inspection(take, skip, search = null){
                 }
             });
         });
-    })
+    }, 1000)
 }
 function new_inspection_html(data){
     for(i in data.vehicles){

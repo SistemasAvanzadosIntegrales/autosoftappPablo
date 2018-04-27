@@ -1,4 +1,4 @@
-function __sync_get_data(data, callback = null){
+function __sync_get_data(data){
     var  db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 
     db.transaction(function(tx) {
@@ -67,16 +67,11 @@ function __sync_get_data(data, callback = null){
     }, function() {
         $('#dbRefresh').attr('class', 'text-success');
         $('#dbRefresh').attr('class', 'text-danger hide')
-        debug('Data base has been saved', true);
-        if (callback)
-        {
-            return callback(true);
-        }
-        return true;
+        debug('Data base has been saved');
     });
 }
 
-function sync_get_data(callback = null){
+function sync_get_data(){
     if(localStorage.getItem("network") == 'online'){
         $('#dbRefresh').attr('class', 'text-danger')
         let session = JSON.parse(localStorage.getItem('session'));
@@ -88,14 +83,9 @@ function sync_get_data(callback = null){
                 token: session.token,
             },
             success:function(data) {
-                __sync_get_data(data, callback);
+                __sync_get_data(data);
             }
         });
-    }else{
-        if (callback)
-        {
-            return callback(false);
-        }
     }
 }
 function debug(message, debug)
