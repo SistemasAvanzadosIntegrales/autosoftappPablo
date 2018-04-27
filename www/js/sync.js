@@ -70,7 +70,7 @@ function __sync_get_data(data, callback = null){
     }, function() {
         $('#dbRefresh').attr('class', 'text-success');
         $('#dbRefresh').attr('class', 'text-danger hide')
-        debug('Data base has been saved');
+        debug('Data base has been saved', true);
         if (callback)
         {
             return callback(true);
