@@ -1,36 +1,35 @@
 function obtenerTecnicos(take, skip, search = null){
     var session=JSON.parse(localStorage.getItem('session'));
     sync_get_data();
-    setTimeout(function(){
-        var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-        db.transaction(function(tx) {
-            var where = 'WHERE 1 ';
-            if (search){
-                where += " AND ( ";
-                where += " techs.name like '%"+search+"%'";
-                where += ")";
-            }
-            let sql = " SELECT  *, id as link FROM techs " + where + " LIMIT " + skip+", "+take;
-            tx.executeSql(sql, [], function (tx, results){
-                builTecnicosHTML({techs: results.rows});
-            });
-            sql = " SELECT COUNT(*) as count_rows FROM techs " + where
-            tx.executeSql(sql, [], function (tx, results){
-                var show_more = $('#show_more');
-                show_more.unbind('click');
-                show_more.parent().parent().removeClass('hide');
-                skip = skip + take;
-                if(skip < results.rows[0].count_rows){
-                    show_more.click(function(){
-                        obtenerTecnicos(take, skip, search)
-                    });
-                }
-                else {
-                    show_more.parent().parent().addClass('hide');
-                }
-            });
+    var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+    db.transaction(function(tx) {
+        var where = 'WHERE 1 ';
+        if (search){
+            where += " AND ( ";
+            where += " techs.name like '%"+search+"%'";
+            where += ")";
+        }
+        let sql = " SELECT  *, id as link FROM techs " + where + " LIMIT " + skip+", "+take;
+        tx.executeSql(sql, [], function (tx, results){
+            builTecnicosHTML({techs: results.rows});
         });
-    }, 1000);
+        sql = " SELECT COUNT(*) as count_rows FROM techs " + where
+        tx.executeSql(sql, [], function (tx, results){
+            var show_more = $('#show_more');
+            show_more.unbind('click');
+            show_more.parent().parent().removeClass('hide');
+            skip = skip + take;
+            if(skip < results.rows[0].count_rows){
+                show_more.click(function(){
+                    obtenerTecnicos(take, skip, search)
+                });
+            }
+            else {
+                show_more.parent().parent().addClass('hide');
+            }
+        });
+    });
+
 }
 
 function builTecnicosHTML(data){
