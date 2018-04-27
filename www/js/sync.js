@@ -48,9 +48,8 @@ function __sync_get_data(data, callback = null){
     });
         db.transaction(function(tx) {
     var sql = " SELECT  *  FROM techs";
-    debug(sql, true);
     tx.executeSql(sql, [], function (tx, results){
-        debug(results.rows, true);
+        debug(results, true);
     });
 });
     db.transaction(function(tx) {
