@@ -105,7 +105,7 @@ function HtmlDashboard(data)
     for(i in data.inspections){
         var clone = $('#table-body #clone').clone();
         clone.attr('id', 'clone'+i);
-        var inspection_id = data.inspections[i].id;
+        var inspection_id = data.inspections[i].link;
         var vehicle_id = data.inspections[i].vehicle_id;
         var good_clone = true;
         clone.find(".fill-data").each(function(x, item){
