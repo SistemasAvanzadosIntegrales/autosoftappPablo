@@ -34,7 +34,7 @@ function ingresar() {
                     localStorage.setItem("app_settings", JSON.stringify(resp));
                     localStorage.setItem("network", 'online');
                     sync_get_data();
-                    location.href="dashboard.html";
+                    //location.href="dashboard.html";
                 }
                 else {
                   navigator.notification.alert(resp.message, null, 'Aviso', 'Aceptar');
