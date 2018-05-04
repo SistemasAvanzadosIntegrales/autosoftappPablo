@@ -18,7 +18,7 @@ function resetPassword(){
 }
 
 function ingresar() {
-    $('#loading').css('display', 'block');
+  //  $('#loading').css('display', 'block');
 
     if( $("#email" ).val().trim() == '' ) {
         navigator.notification.alert('Debes escribir tu email', null, 'Aviso', 'Aceptar');
