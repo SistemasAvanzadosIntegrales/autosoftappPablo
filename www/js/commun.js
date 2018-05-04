@@ -28,13 +28,14 @@ document.addEventListener("offline", function(){
  **/
  var xhr, token, user_id, session, data = {};
  document.addEventListener("deviceready", function(){
-   session=JSON.parse(localStorage.getItem('session'));
-   app_settings=JSON.parse(localStorage.getItem('app_settings'));
-   if(!session){
-    // return location.href = "index.html";
-   }
-   token = session.token;
-   user_id = app_settings.user.id;
+    session=JSON.parse(localStorage.getItem('session'));
+    app_settings=JSON.parse(localStorage.getItem('app_settings'));
+
+    if(!session || !app_settings.user){
+        return location.href = "index.html";
+    }
+    token = session.token;
+    user_id = app_settings.user.id;
  });
 
 /*
@@ -165,7 +166,7 @@ function permissions(){
         }
     }
   });
-
+  $('#user_name').html(app_settings.user.name);
   $('.to-remove').remove();
   $('#loading').fadeOut();
 
@@ -190,7 +191,7 @@ function logo(){
 document.addEventListener("deviceready", function(){
   session=JSON.parse(localStorage.getItem('session'));
   app_settings = JSON.parse(localStorage.getItem('app_settings'));
-  if (!app_settings && location.pathname != "/index.html")
+  if (!app_settings.usser && location.pathname != "/index.html")
   {
     //location.href="index.html";
   }

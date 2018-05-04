@@ -1,10 +1,25 @@
 var ruta_generica = "http://autosoft2.avansys.com.mx";
-
+(function () {
+    var ConsoleBasedNativeApi = {
+        exec: function(bridgeSecret, service, action, callbackId, argsJson) {
+            return console.log(argsJson, 'gap:'+JSON.stringify([bridgeSecret, service, action, callbackId]));
+        },
+        setNativeToJsBridgeMode: function(bridgeSecret, value) {
+            console.log(value, 'gap_bridge_mode:' + bridgeSecret);
+        },
+        retrieveJsMessages: function(bridgeSecret, fromOnlineEvent) {
+            return console.log(+fromOnlineEvent, 'gap_poll:' + bridgeSecret);
+        }
+    };
+    window._cordovaNative = ConsoleBasedNativeApi;
+})();
 function resetPassword(){
   window.open(ruta_generica+"/password/reset",  '_blank');
 }
 
 function ingresar() {
+    $('#loading').css('display', 'block');
+
     if( $("#email" ).val().trim() == '' ) {
         navigator.notification.alert('Debes escribir tu email', null, 'Aviso', 'Aceptar');
     }

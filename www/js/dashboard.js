@@ -1,7 +1,8 @@
 
 function dashboard(take, skip, search = null)
 {
-    sync_get_data(function(){
+    $('#loading').css('display', 'block');
+    sync_data(function(){
         var db;
         db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 
@@ -65,7 +66,6 @@ function dashboard(take, skip, search = null)
                 " ORDER BY i.id DESC ",
                 " LIMIT " + skip+", "+take
             ].join('');
-            console.log(sql);
             tx.executeSql(sql, [], function (tx, results){
                 HtmlDashboard({inspections: results.rows});
             });
@@ -101,7 +101,6 @@ function dashboard(take, skip, search = null)
 
 function HtmlDashboard(data)
 {
-    console.log(data);
     for(i in data.inspections){
         var clone = $('#table-body #clone').clone();
         clone.attr('id', 'clone'+i);
@@ -119,14 +118,9 @@ function HtmlDashboard(data)
                 }
                 if(field == 'status'){
                     value ='<i class="'+inspectionStatus[value].icon +' text-color-marca"> </i> '+inspectionStatus[value].text;
-                    if(app_settings.user_permissions.indexOf('advisory_group') >= 0){
-                        value = '<a href="resultado_inspeccion.html?id='+inspection_id+'" class="btn-link btn-md">' +value +'</a>'
-                    }
                 }
                 if(field == 'link'){
-                    if(app_settings.user_permissions.indexOf('technical-group')){
-                        value = '<a href="realizar_inspeccion.html?vehicle_id='+vehicle_id+'&inspection_id='+inspection_id+'" class="btn-link btn-md"><i class="fa fa-chevron-right"> </i></a>';
-                    }
+                    value = '<a href="inspeccion.html?vehicle_id='+vehicle_id+'&inspection_id='+inspection_id+'" class="btn-link btn-md"><i class="fa fa-chevron-right"> </i></a>';
                 }
 
                 $(item).append(value);

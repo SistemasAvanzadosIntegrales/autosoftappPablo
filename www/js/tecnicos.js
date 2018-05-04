@@ -1,6 +1,6 @@
 function obtenerTecnicos(take, skip, search = null){
     var session=JSON.parse(localStorage.getItem('session'));
-    sync_get_data(function(){
+    sync_data(function(){
         var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
         db.transaction(function(tx) {
             var where = 'WHERE 1 ';
@@ -67,31 +67,36 @@ function builTecnicosHTML(data){
 }
 
 function asignar(vehicle_id, user_id){
+
     navigator.notification.confirm(
         'Confirme la asignación de técnico',  // message
         function(result){
             if(result === 1){
-                $.ajax({
-                   url: ruta_generica+"/api/v1/save_inspections",
-                   type: 'POST',
-                   dataType: 'JSON',
-                   data: {
-                       token:      token,
-                       vehicle_id: vehicle_id,
-                       inspection_id:  null,
-                       user_id: user_id,
-                       dataForm: [],
-                       dataPhoto: []
-                   },
-                   success:function(resp) {
-                       location.href="dashboard.html";
+                var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+                db.transaction(function(tx) {
+                    tx.executeSql( "INSERT INTO inspections (vehicle_id, user_id, origen,  status) VALUES ( "+vehicle_id+", "+user_id+", 'device', 1)", [], function(tx, result) {
+                        var inspection_id = result.insertId;
+                        console.log(result);
+                        tx.executeSql(" SELECT  * FROM catalogue ", [], function (tx, results){
+                            for (var x = 0; x < results.rows.length; x++){
+                                let name = results.rows.item(x).name;
+                                let category_name = results.rows[x].category_name;
+                                let point_id = results.rows[x].id;
+                                let sql2 = "INSERT INTO vehicle_inspections (inspection_id, point_id, price, severity, status, cataloge, category, 'origen') VALUES ("+inspection_id+", "+point_id+",0, 0, 1, '"+name+"', '"+category_name+"', 'device')";
+                                tx.executeSql(sql2);
+                            }
+                        });
                     },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        console.log("Status: " + textStatus + "Error: " + errorThrown);
-                    }
+                    function(error){
+                         alert('Error occurred');
+                    });
+
+                },function(error){
+                    console.log(error);
+                },function(){
+                    location.href="dashboard.html";
                 });
-            }else {
-                 location.href="dashboard.html";
+
             }
         },              // callback to invoke with index of button pressed
         'Crear inspección',            // title

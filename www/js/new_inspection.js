@@ -1,5 +1,5 @@
 function new_inspection(take, skip, search = null){
-    sync_get_data(function(){
+    sync_data(function(){
         var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
         db.transaction(function(tx) {
             var where = 'WHERE 1 ';
