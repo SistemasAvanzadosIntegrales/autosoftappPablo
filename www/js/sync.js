@@ -117,6 +117,7 @@ function sync_data(call_back_function = null){
 
 
 }
+sync_data(debug);
 function debug(message, debug)
 {
     console.log(message);
