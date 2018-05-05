@@ -1,4 +1,4 @@
-alert("");
+alert("fffffff");
 function __sync_data(data, call_back_function = null){
     debug('aki', 1);
     var  db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
@@ -83,7 +83,7 @@ function sync_data(call_back_function = null){
         var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
         var post_data = {
             inspections: [],
-            points: [],
+            points: []
         };
         db.transaction(function(tx) {
             tx.executeSql("SELECT i.* FROM inspections AS i LEFT JOIN vehicle_inspections AS vi ON i.id = vi.inspection_id WHERE i.origen IN ('modified', 'device') OR Vi.origen IN ('modified', 'device') GROUP BY i.id ORDER BY i.id ", [], function (tx, inspections){
