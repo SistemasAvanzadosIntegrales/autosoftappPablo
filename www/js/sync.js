@@ -1,3 +1,4 @@
+alert("");
 function __sync_data(data, call_back_function = null){
     debug('aki', 1);
     var  db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
