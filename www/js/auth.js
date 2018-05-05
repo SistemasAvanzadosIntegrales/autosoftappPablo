@@ -1,18 +1,8 @@
 var ruta_generica = "http://autosoft2.avansys.com.mx";
-(function () {
-    var ConsoleBasedNativeApi = {
-        exec: function(bridgeSecret, service, action, callbackId, argsJson) {
-            return console.log(argsJson, 'gap:'+JSON.stringify([bridgeSecret, service, action, callbackId]));
-        },
-        setNativeToJsBridgeMode: function(bridgeSecret, value) {
-            console.log(value, 'gap_bridge_mode:' + bridgeSecret);
-        },
-        retrieveJsMessages: function(bridgeSecret, fromOnlineEvent) {
-            return console.log(+fromOnlineEvent, 'gap_poll:' + bridgeSecret);
-        }
-    };
-    window._cordovaNative = ConsoleBasedNativeApi;
-})();
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+    window.open = cordova.InAppBrowser.open;
+}
 function resetPassword(){
   window.open(ruta_generica+"/password/reset",  '_blank');
 }
