@@ -85,7 +85,7 @@
     <script type="text/javascript">
       document.addEventListener("deviceready", function(){
           dashboard(10, 0);
-
+          alert("adashboard was been called");
           $("#search").click(function(){
               $("#table-body tr:not(#clone)").html("");
               dashboard(10, 0, $("#word").val());

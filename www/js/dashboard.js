@@ -1,7 +1,7 @@
 alert('loaded dashboard file');
 function dashboard(take, skip, search = null)
 {
-    $('#loading').css('display', 'block');
+    alert("dashboard function")
     sync_data(function(){
         var db;
         db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
