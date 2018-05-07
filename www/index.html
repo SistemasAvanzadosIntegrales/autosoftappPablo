@@ -1,67 +1,95 @@
 <html>
-    <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <link rel="stylesheet" href="css/bootstrap.css" />
-      <link rel="stylesheet" href="css/main.css" />
-      <link rel="stylesheet" href="css/font-awesome.css" />
-      <link type="image/x-icon" href="/img/logo.ico" rel="icon" />
-      <link type="image/x-icon" href="/img/logo.ico" rel="shortcut icon" />
-      <title>Login</title>
-    </head>
-    <body style="background:#012d4a">
-      <div id="loading"><div id="loader"></div></div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12 text-left mt-4">
-                    <img src="img/logo.png" width="70px">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 text-left mt-4" id="form-login">
-                    <form class="vertical-center" onsubmit="return ingresar()">
-                        <h2 class="text-center text-shadow text-white">Acceso Taller</h2>
-                        <div id="alertaLogin" class="text-center text-red"></div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-user"> </i></span>
-                                <input value="asesor@speedee.com" type="email" id="email" class="form-control" placeholder="Usuario">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-lock"> </i></span>
-                                <input value="password" type="password" id="password" class="form-control" placeholder="Contraseña">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-key"> </i></span>
-                                <input value="6yigp" type="token" id="token" class="form-control" placeholder="Token">
-                            </div>
-                        </div>
-                        <button type="submit" class="pull-right btn btn-primary mt-4" ><i class="fa fa-sign-in"> </i> Ingresar</button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-12 text-center mt-5">
-                    <a onclick="resetPassword();" class="text-white">¿Olvidó su contraseña?</a>
-                </div>
-            </div>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/font-awesome.css" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="icon" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="shortcut icon" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="icon" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="shortcut icon" />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <div id="loading"><div id="loader"></div></div>
+    <!-- navbar -->
+    <div id="navbar"></div>
+    <div class="container-fluid my-container">
+      <div class="row">
+        <div class="col-xs-12">
+            <h4>
+                <img name="logo" id='logo' src="" width="70px">
+                <span class="pull-right  text-muted text-center">
+                    <i class="fa fa-user-circle"></i><br>
+                    <small class="capitalize" id="user_name"></small>
+                </span>
+            </h4>
         </div>
-    </body>
+
+      </div>
+      <div id="dashboard" class="row">
+        <div class="col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="input-group col-xs-12">
+                <input type="text" class="form-control" id="word" placeholder="Buscar">
+                <a id="search" class="input-group-addon btn btn-search link">
+                  <i class="fa fa-search text-color-marca"> </i>
+                </a>
+                <a data-permissions="true"  onclick="location.href='nueva_inspeccion.html';" class="permission_technical_group permission_advisory_group  fullaccess btn btn-primary pull-right"><i class="fa fa-plus"> </i> Agregar</a>
+              </div>
+            </div>
+            <div id="alertaLogin" class="text-center text-red"></div>
+            <div class="table-responsive">
+              <table id="inspections" class="table table-striped default-table">
+                <thead>
+                  <tr>
+                    <th data-permissions="true" class="permission_advisory_group text-left permission_technical_group">Folio</th>
+                    <th data-permissions="true" class="permission_advisory_group text-left">Cliente</th>
+                    <th data-permissions="true" class="permission_advisory_group text-left permission_technical_group">Marca</th>
+                    <th class="text-left">Modelo</th>
+                    <th class="text-left">Placas</th>
+                    <th >Estatus</th>
+                    <th class="text-center fullaccess">Modificar</th>
+                  </tr>
+                </thead>
+                <tbody id='table-body'>
+                	<tr id="clone" class="hide">
+                	  <td data-field='folio' data-permissions="true" class="fill-data permission_technical_group permission_advisory_group"></td>
+                	  <td data-field='name' data-permissions="true" class="fill-data  permission_advisory_group"></td>
+                	  <td data-field='brand' data-permissions="true" class="fill-data permission_technical_group permission_advisory_group"></td>
+                	  <td data-field='model' class="fill-data "></td>
+                	  <td data-field='license_plate' class="fill-data "></td>
+                	  <td data-field='status' class="fill-data "> </td>
+                	  <td data-field='link'  class="fill-data  text-center  fullaccess"></td>
+                	</tr>
+                </tbody>
+                <tfoot>
+                    <tr><td colspan ="8" class="text-center"><a id="show_more">Ver más registros</a></td></tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/localstorage.js"></script>
-    <script type="text/javascript" src="js/auth.js"></script>
+    <script type="text/javascript" src="js/commun.js"></script>
+    <script type="text/javascript" src="js/sync.js"></script>
+    <script type="text/javascript" src="js/dashboard.js"></script>
+
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
-      document.addEventListener("deviceready",function(){
-          localStorage.clear();
-          $('#loading').fadeOut();
-      });
-
-    </script>
+      document.addEventListener("deviceready", function(){
+          dashboard(10, 0);
+          $("#search").click(function(){
+              $("#table-body tr:not(#clone)").html("");
+              dashboard(10, 0, $("#word").val());
+          })
+      }, false);
+     </script>
+  </body>
 </html>
