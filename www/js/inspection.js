@@ -261,9 +261,7 @@ var inspection = {
                 var progress_bar = $('#progress').find('.progress-bar');
                 var progress_status = $('#progress').find('.progress-status');
                 ft.onprogress = function(progressEvent) {
-
                     if (progressEvent.lengthComputable) {
-
                         progress_bar.removeClass(hide)
                         progress_bar.css('width', $Math.floor(progressEvent.loaded / progressEvent.total));
                     } else {
@@ -276,6 +274,7 @@ var inspection = {
                     }
                     progress.removeClass('hide');
                 };
+                console.log(options);
                 ft.upload(
                     options,
                     photo, ruta_generica+"/api/v1/upload",
@@ -291,7 +290,7 @@ var inspection = {
             function(error){
                 navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
             }, {
-                quality: 100,
+                quality: 90,
                 destinationType: Camera.DestinationType.FILE_URI,
                 saveToPhotoAlbum: true
             });
