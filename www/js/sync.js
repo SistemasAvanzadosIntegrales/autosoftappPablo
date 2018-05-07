@@ -1,5 +1,7 @@
 function __sync_data(data, call_back_function = null){
+    debug('aki', 1);
     var  db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS techs;');
         tx.executeSql('CREATE TABLE IF NOT EXISTS techs (id INTEGER PRIMARY KEY, name)');
@@ -19,6 +21,7 @@ function __sync_data(data, call_back_function = null){
             tx.executeSql(sql);
         }
     });
+
 
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS clients;');
@@ -99,12 +102,12 @@ function sync_data(call_back_function = null){
                 });
             });
         }, function(error) {
-            debug('algo fallo');
+            debug('algo fallo', true);
         }, function() {
             $('#dbRefresh').addClass('hide');
             debug('Data base has been saved');
             if(call_back_function)
-                call_back_function.call();
+            call_back_function.call();
         });
 
     }
