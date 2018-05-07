@@ -275,7 +275,7 @@ var inspection = {
                     videoURI,
                     ruta_generica+"/api/v1/upload",
                     function(result){
-                        $('#carousel'+point_id).find('.carousel-inner').append("<div class='item'><video style='height:300px; margin:auto; display: inherit;' controls><source src='"+videoURI+"' type='video/mp4'></video></div>");
+                        $('#carousel'+point_id).find('.carousel-inner').append("<div class='item'><video style='height:300px; margin:auto' controls><source src='"+videoURI+"' type='video/mp4'></video></div>");
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
@@ -327,7 +327,7 @@ var inspection = {
                     photoURI,
                     ruta_generica+"/api/v1/upload",
                     function(result){
-                        $('#carousel'+point_id).find('.carousel-inner').append('<div class="item"><img style="height:300px; margin:auto; display: inherit;" src="'+photoURI+'"></div>');
+                        $('#carousel'+point_id).find('.carousel-inner').append('<div class="item"><img style="height:300px; margin:auto" src="'+photoURI+'"></div>');
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
@@ -383,7 +383,7 @@ var inspection = {
                     ruta_generica+"/api/v1/upload",
                     function(result){
                         let item  = "<div class='item'>"+
-                        "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto; display: inherit;' controls>"+
+                        "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto' controls>"+
                         "<source src='"+mediaFiles.full_path+"'></audio></div>";
                         $('#carousel'+point_id).find('.carousel-inner').append(item);
                     },
