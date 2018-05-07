@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/font-awesome.css" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="icon" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="shortcut icon" />
+    <title>Realizar inspección</title>
+  </head>
+  <body>
+    <div id="loading"><div id="loader"></div></div>
+    <!-- navbar -->
+    <div id="navbar"></div>
+    <div class="container-fluid my-container">
+      <div class="row">
+        <div class="col-xs-12">
+            <h4>
+                <img name="logo" id='logo' src="" width="70px">
+                <span class="pull-right  text-muted text-center">
+                    <i class="fa fa-user-circle"></i><br>
+                    <small class="capitalize" id="user_name"></small>
+                </span>
+            </h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="form-group">
+                  <div class="input-group add-on">
+                    <label class="input-group-addon ">Modelo</label>
+                    <input type="text" size="10" class="form-control" value="" id="model">
+                    <input type="hidden" size="10" class="form-control" value="" id="vehicle_id">
+                    <input type="hidden" size="10" class="form-control" value="" id="inspections_id">
+                                      <input type="hidden" size="10" class="form-control" value="" id="inspection_id">
+                  </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group add-on">
+                    <label class="input-group-addon ">Placa</label>
+                    <input type="text" size="10" class="form-control" value="" id="license_plate">
+                  </div>
+                </div>
+                </div>
+            <div id="status"></div>
+            <div class="table-responsive">
+              <table class="table default-table">
+                <thead>
+                  <tr>
+                    <th class="text-center">Severidad</th>
+                    <th class="text-left">Inspecci&oacute;n</th>
+                    <th class="text-center">Multimedia</th>
+                    <th class="text-center">Audio</th>
+                    <th class="text-center">Ver</th>
+                  </tr>
+                </thead>
+                <tbody id='table-inspections'>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/localstorage.js"></script>
+    <script type="text/javascript" src="js/commun.js"></script>
+    <script type="text/javascript" src="js/inspections.js"></script>
+    <script type="text/javascript" src="js/capture_uploader.js"></script>
+    <script type="text/javascript" src="js/inspeccion_tecnico.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+  </body>
+</html>

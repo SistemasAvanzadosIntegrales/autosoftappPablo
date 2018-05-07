@@ -166,14 +166,7 @@ var inspection = {
             call_back_function.call();
         }
     },
-    add_events: function(){SM-P350
-#a6ea4d77228cd790
-com.sec.android.app.sbrowser (56.0.2924.87)
-Google
-￼Inspect
-￼
-https://www.google.com/?gws_rd=ssl
-Chrome
+    add_events: function(){
         var self = this;
         var SeverityPicker = $('.severity-picker');
 

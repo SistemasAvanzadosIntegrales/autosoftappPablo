@@ -5,24 +5,15 @@
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/font-awesome.css" />
-    <link type="image/x-icon" href="/img/logo.ico" rel="icon" />
-    <link type="image/x-icon" href="/img/logo.ico" rel="shortcut icon" />
     <title>Nueva inspección</title>
   </head>
   <body>
-    <div id="loading"><div id="loader"></div></div>
     <!-- navbar -->
     <div id="navbar"></div>
-    <div class="container-fluid my-container fullaccess">
+    <div class="container-fluid my-container">
       <div class="row">
-        <div class="col-xs-12">
-            <h4>
-                <img name="logo" id='logo' src="" width="70px">
-                <span class="pull-right  text-muted text-center">
-                    <i class="fa fa-user-circle"></i><br>
-                    <small class="capitalize" id="user_name"></small>
-                </span>
-            </h4>
+        <div class="col-xs-1">
+          <h1><img name="logo" id='logo' src="" width="70px"></h1>
         </div>
       </div>
       <div class="row">
@@ -30,39 +21,30 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <div class="input-group col-xs-12">
+                <form class="form-inline">
                   <div class="form-group">
                     <div class="input-group">
-                      <input type="text" class="form-control" id="word" placeholder="Buscar">
-                        <a id="search" class="input-group-addon btn btn-search link">
-                        <i class="fa fa-search text-color-marca"> </i>
+                      <input type="text" class="form-control" id="cliente" placeholder="Buscar">
+                      <a class="input-group-addon btn btn-search link" onclick="gridClientes();">
+                        <i class="fa fa-search "> </i>
                       </a>
                     </div>
                   </div>
+                </form>
               </div>
             </div>
             <div class="table-responsive">
               <table class="table table-striped default-table">
                 <thead>
                   <tr>
-                    <th>Cliente</th>
-                    <th>Marca</th>
-                    <th>Modelo</th>
-                    <th>Placas</th>
-                    <th class="text-center">Técnico</th>
+                    <th class="text-left">Cliente</th>
+                    <th class="text-center">Marca</th>
+                    <th class="text-center">Modelo</th>
+                    <th class="text-center">Placas</th>
+                    <th class="text-center"></th>
                   </tr>
                 </thead>
-                <tbody id="table-clients">
-                    <tr id="clone" class="hide">
-                        <td class="fill-data" data-field="name"></td>
-                        <td class="fill-data" data-field="brand"></td>
-                        <td class="fill-data" data-field="model"></td>
-                        <td class="fill-data" data-field="license_plate"></td>
-                        <td class="fill-data text-center" data-field="link"></td>
-                    </tr>
-              </tbody>
-              <tfoot>
-                  <tr><td colspan ="5" class="text-center"><a id="show_more">Ver más registros</a></td></tr>
-              </tfoot>
+                <tbody id="table-clients"></tbody>
               </table>
             </div>
           </div>
@@ -73,16 +55,12 @@
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/localstorage.js"></script>
     <script type="text/javascript" src="js/commun.js"></script>
-    <script type="text/javascript" src="js/sync.js"></script>
-    <script type="text/javascript" src="js/new_inspection.js"></script>
+    <script type="text/javascript" src="js/filter.js"></script>
+    <script type="text/javascript" src="js/inspections.js"></script>
+    <script type="text/javascript" src="js/vehiculos.js"></script>
+    <script type="text/javascript" src="js/clientes.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
-      document.addEventListener("deviceready", function(){
-        new_inspection(10, 0);
-        $("#search").click(function(){
-            $("#table-clients tr:not(#clone)").html("");
-            new_inspection(10, 0, $("#word").val());
-        })
-      }, false);
+      document.addEventListener("deviceready", gridClientes, false);
      </script>
   </body>
