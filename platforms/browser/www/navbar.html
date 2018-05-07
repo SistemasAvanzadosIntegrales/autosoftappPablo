@@ -3,59 +3,36 @@
   <div class="container-fluid">
     <a class="navbar-link navbar-brand" href="dashboard.html"><i class="fa fa-arrow-circle-left"></i></a>
     <div class="navbar-header">
-      <button type="button" class="navbar-link navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <div id="buttonmenu" name="buttonmenu"></div>
+        <button type="button" class="navbar-link navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div id="buttonmenu" name="buttonmenu" style="width: auto;height: 50px; text-align: right; padding-top: 14px;">
+            <a class="hide" id="dbRefresh" style="font-size:1.6em"><i class="fa fa-refresh"></i></a>
+            <a id="netStatus" style="font-size:1.6em"><i class="fa fa-wifi"></i></a>
+        </div>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown-header hidden-sm hidden-md hidden-lg">Menu principal</li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections"><a class="navbar-link"><i class="fa fa-home"></i> Inicio </a></li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_clients"><a class="navbar-link" href="clientes.html"><i class="fa fa-user"></i> Clientes</a></li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_add_inspections"><a class="navbar-link" href="nueva_inspeccion.html"><i class="fa fa-plus"></i> Inspección</a></li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_mark_as_attended"><a class="navbar-link" href="index.html"><i class="fa fa-sign-out"></i>Salir</a></li>
-        <li class="dropdown-header hidden-sm hidden-md hidden-lg">Realizar Inspección</li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections"><a  onclick="guardar('Asesor')" class="navbar-link"><i class="fa fa-paper-plane"></i> Enviar al asesor</a></li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections"><a id="guardar" href="#" onclick="guardar(0)" class="navbar-link "><i class="fa fa-save"></i> Guardar inspeccion (tecnico) </a></li>
-        <li class="dropdown-header hidden-sm hidden-md hidden-lg">Clientes</li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections"><a title="Agregar Autos" id="agregarAutos" name="agregarAutos"  href="alta_vehiculo.html" class="navbar-link"><i class="fa fa-car"> </i> Agregar Autos</a></li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections"><a title="Guardar cliente" id="guardarcliente" name="guardarcliente" onclick="accion_cliente();" class="navbar-link"><i class="fa fa-save"> </i> Guardar cliente</a></li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections"><a title="Guardar vehiculo" id="guardarvehiculo" name="guardarvehiculo" onclick="accion_vehiculo();" class="navbar-link"><i class="fa fa-save"> </i> Guardar vehiculo</a></li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections"><a title="Add cliente" id="addcliente" name="addcliente" href="alta_cliente.html" class="navbar-link"><i class="fa fa-plus-circle"></i> Add cliente</a></li>
-        <li class="dropdown-header hidden-sm hidden-md hidden-lg">Resultado Inspección</li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections"><a title="Inspección revisada" onclick="update_inspection('status', '5')" class="navbar-link"><i class="fa fa-check "></i> Inspección revisada</a></li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections"><a title="Guardar inspeccion inspeccion" onclick="update_inspection('status', '2')" class="navbar-link"><i class="fa fa-save "></i> Guardar inspeccion</a></li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections"><a title="Enviar inspección" onclick="update_inspection('status', '3')" class="navbar-link"><i class="fa fa-paper-plane "></i> Enviar inspección</a></li>
-        <li data-permissions="true" class="hidden-sm hidden-md hidden-lg permission_see_inspections"><a title="Adjuntar presupuesto" class="navbar-link"><i class="fa fa-file"></i> Presupuesto</a></li>
-
-        <li class="dropdown visible-sm visible-md visible-lg">
-          <a href="#" class="dropdown-toggle navbar-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"> </i></a>
-          <ul class="dropdown-menu">
-            <li class="dropdown-header">Menu principal</li>
-            <li data-permissions="true" class="permission_see_inspections"><a class="navbar-link"><i class="fa fa-home"></i> Inicio</a></li>
-            <li data-permissions="true" class="permission_see_clients"><a class="navbar-link"href="clientes.html"><i class="fa fa-user"></i> Clientes</a></li>
-            <li data-permissions="true" class="permission_add_inspections"><a class="navbar-link" href="nueva_inspeccion.html"><i class="fa fa-plus"></i> Inspección</a></li>
-            <li data-permissions="true" class="permission_close"><a class="navbar-link" href="index.html"><i class="fa fa-sign-out"></i> Salir</a></li>
-            <li class="dropdown-header">Realizar Inspección</li>
-            <li data-permissions="true" class="permission_add_inspections"><a  onclick="guardar('Asesor')" class="navbar-link"><i class="fa fa-paper-plane"></i> Enviar al asesor</a></li>
-            <li data-permissions="true" class="permission_add_inspections"><a id="guardar" href="#" onclick="guardar(0)" class="navbar-link"><i class="fa fa-save"></i> Guardar inspeccion (tecnico) </a></li>
-            <li class="dropdown-header">Clientes</li>
-            <li data-permissions="true" class="permission_see_inspections"><a title="Agregar vehiculo" id="agregarAutos" name="agregarAutos"  href="alta_vehiculo.html" class="navbar-link"><i class="fa fa-car"> </i> Agregar Autos</a></li>
-            <li data-permissions="true" class="permission_see_inspections"><a title="Guardar cliente" id="guardarcliente" name="guardarcliente" onclick="accion_cliente();" class="navbar-link"><i class="fa fa-save"> </i> Guardar cliente</a></li>
-            <li data-permissions="true" class="permission_see_inspections"><a title="Guardar vehiculo" id="guardarvehiculo" name="guardarvehiculo" onclick="accion_vehiculo();" class="navbar-link"><i class="fa fa-save"> </i> Guardar vehiculo</a></li>
-            <li data-permissions="true" class="permission_see_inspections"><a title="Add cliente" id="addcliente" name="addcliente" href="alta_cliente.html" class="navbar-link"><i class="fa fa-plus-circle"></i> Add cliente</a></li>
-            <li class="dropdown-header">Resultado Inspección</li>
-            <li data-permissions="true" class="permission_see_inspections"><a title="Inspección revisada" onclick="update_inspection('status', '5')" class="navbar-link"><i class="fa fa-check "></i> Inspección revisada</a></li>
-            <li data-permissions="true" class="permission_see_inspections"><a title="Guardar inspeccion" onclick="update_inspection('status', '2')" class="navbar-link"><i class="fa fa-save "></i> Guardar inspeccion (asesor)</a></li>
-            <li data-permissions="true" class="permission_see_inspections"><a title="Enviar inspección" onclick="update_inspection('status', '3')" class="navbar-link"><i class="fa fa-paper-plane "></i> Enviar al cliente</a></li>
-            <li data-permissions="true" class="permission_see_inspections"><a title="Adjuntar presupuesto" class="navbar-link"><i class="fa fa-file"></i>Presupuesto </label></a></li>
-          </ul>
-        </li>
-      </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li  class="hidden-sm hidden-md hidden-lg "><a href="dashboard.html" class="navbar-link"><i class="fa fa-home"></i> Inicio </a></li>
+            <li  class="hidden-sm hidden-md hidden-lg "><a class="navbar-link" href="clientes.html"><i class="fa fa-user"></i> Clientes</a></li>
+            <li  class="hidden-sm hidden-md hidden-lg  fullaccess "><a class="navbar-link" href="nueva_inspeccion.html"><i class="fa fa-plus"></i> Inspección</a></li>
+            <li data-permissions="true" class="hidden-sm  hidden-md hidden-lg permission_attach_budget fullaccess"><a data-permissions="true" data-screen="inspeccion.html" onclick="inspection.upload_pdf()"class="navbar-link permission_attach_budget"><i class="fa fa-paperclip"></i> Presupuesto</a></li>
+            <li class="hidden-sm hidden-md hidden-lg"><a class="navbar-link" href="index.html"><i class="fa fa-sign-out"></i>Salir</a></li>
+            <li class="dropdown visible-sm visible-md visible-lg">
+                <a href="#" class="dropdown-toggle navbar-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="dashboard.html" class="navbar-link"><i class="fa fa-home"></i> Inicio</a></li>
+                    <li><a class="navbar-link" href="clientes.html"><i class="fa fa-user"></i> Clientes</a></li>
+                    <li><a class="navbar-link" href="nueva_inspeccion.html"><i class="fa fa-plus"></i> Inspección</a></li>
+                    <li data-permissions="true" class="permission_attach_budget  fullaccess"><a data-permissions="true" data-screen="inspeccion.html" onclick="inspection.upload_pdf()" class="navbar-link permission_attach_budget"><i class="fa fa-paperclip"></i> Presupuesto</a></li>
+                    <li><a class="navbar-link" href="index.html"><i class="fa fa-sign-out"></i> Salir</a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
   </div>
 </nav>
+<div id="readonly-alert" style="z-index: 100; top:50px; position: absolute; width: 100%;" class="text-center alert alert-danger hide "><b>Readonly Access</b> Su cuenta ha expirado, activar licencia full access <a href="#">aqui</a> </div>

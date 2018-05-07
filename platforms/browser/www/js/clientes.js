@@ -1,67 +1,58 @@
+var session;
+var app_settings;
 
-function gridClientes(){
+document.addEventListener("deviceready", function(){
+  session=JSON.parse(localStorage.getItem('session'));
+  app_settings = JSON.parse(localStorage.getItem('app_settings'));
+});
+
+
+
+
+function obtenerclients(take, skip, target = null, search = null){
     session=JSON.parse(localStorage.getItem('session'));
-    $("#table-clients").html("");
+    app_settings = JSON.parse(localStorage.getItem('app_settings'));
     var token = session.token;
-
+    var data = {
+        token: token,
+        take: take,
+        skip: skip,
+        search: search,
+        id_user: session.id_cliente
+    };
     $.ajax({
         url: ruta_generica+"/api/v1/clients",
         type: 'GET',
         dataType: 'JSON',
-        data: {
-            token:      token,
-            cliente:    $("#cliente" ).val().trim()
-        },
+        data: data,
         success:function(resp) {
-
             if( resp.status == 'ok' ) {
-               $("#table-clients").append(resp.table);
+			   $("#table-clients-users").append(resp.table);
+               if(target ){
+                   $(target).parent().parent().remove();
+               }
+               if(parseInt(resp.count_rows) + 1 <= $("#table-clients-users tr").length) {
+
+    			   localStorage.removeItem("id_cliente");
+                }
             }
             else {
                 navigator.notification.alert(resp.message, null, 'Aviso', 'Aceptar');
             }
+             permissions();
+
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             console.log("Status: " + textStatus);
             console.log("Error: " + errorThrown);
         }
     });
-}
-
-function obtenerclients(){
-
-    $("#table-clients-users").html("");
-    var token = session.get_token;
-
-    $.ajax({
-        url: ruta_generica+"/api/v1/clients",
-        type: 'GET',
-        dataType: 'JSON',
-        data: {
-            token:      token,
-            cliente:    $("#cliente").val().trim(),
-			id_user:    session.get_id_cliente
-        },
-        success:function(resp) {
-
-            if( resp.status == 'ok' ) {
-			   $("#table-clients-users").append(resp.user);
-				localStorage.removeItem("id_cliente");
-            }
-            else {
-                navigator.notification.alert(resp.message, null, 'Aviso', 'Aceptar');
-            }
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-            console.log("Status: " + textStatus);
-            console.log("Error: " + errorThrown);
-        }
-    });
-
 }
 
 function delete_cliente(id){
-    var token = session.get_token;
+    session=JSON.parse(localStorage.getItem('session'));
+    app_settings = JSON.parse(localStorage.getItem('app_settings'));
+    var token = session.token;
 
     $.ajax({
         url: ruta_generica+"/api/v1/delete",
@@ -92,25 +83,30 @@ function detalle_cliente(id){
 	location.href = "alta_cliente.html";
 }
 
-function obtener_datos_cliente(){
-
+function obtener_datos_cliente(take, skip, target = null){
+    session=JSON.parse(localStorage.getItem('session'));
+    app_settings = JSON.parse(localStorage.getItem('app_settings'));
 	var id = localStorage.getItem('id_cliente');
 
 	if(id != null){
-		var token = session.get_token;
+		var token = session.token;
 
 		$.ajax({
 			url: ruta_generica+"/api/v1/clients/"+id,
 			type: 'GET',
 			dataType: 'JSON',
 			data: {
-				token:    token,
+				token: token,
+                take: take,
+                skip: skip,
 				id_user:  session.get_id_cliente
 			},
 			success:function(resp) {
 
 				if( resp.status == 'ok' ) {
-
+                    if(target) {
+                        $(target).parent().parent().remove();
+                    }
 					$("#name").val(resp.user[0]['name']);
 					$("#email").val(resp.user[0]['email']);
 					$("#cellphone").val(resp.user[0]['cellphone']);
@@ -161,10 +157,11 @@ function editar_cliente(){
 	var email = $("#email").val();
 	var cellphone = $("#cellphone").val();
 	var password = $("#password").val();
-
+    session=JSON.parse(localStorage.getItem('session'));
+    app_settings = JSON.parse(localStorage.getItem('app_settings'));
 	var id = localStorage.getItem('id_cliente');
 
-	var token = session.get_token;
+	var token = session.token;
 
 	if(password != "" && (password.length > 12 || password.length < 8)){
 		navigator.notification.alert("La contraseña debe ser mayor 8 y menor a 12 caracteres", null, 'Aviso', 'Aceptar');
@@ -212,8 +209,9 @@ function agregar_cliente(){
 		navigator.notification.alert("La contraseña debe ser mayor 8 y menor a 12 caracteres", null, 'Aviso', 'Aceptar');
 	}
 	else{
-
-		var token = session.get_token;
+        session=JSON.parse(localStorage.getItem('session'));
+        app_settings = JSON.parse(localStorage.getItem('app_settings'));
+		var token = session.token;
 
 		$.ajax({
 			url: ruta_generica+"/api/v1/clients/",
@@ -242,4 +240,3 @@ function agregar_cliente(){
 		});
 	}
 }
-document.addEventListener("deviceready", gridClientes);

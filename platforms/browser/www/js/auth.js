@@ -1,11 +1,11 @@
 var ruta_generica = "http://autosoft2.avansys.com.mx";
+
 function resetPassword(){
-  window.open(ruta_generica+"/password/reset",  '_blank');
+    window.open(ruta_generica+"/password/reset",  '_blank');
 }
 
-
 function ingresar() {
-     localStorage.clear();
+
     if( $("#email" ).val().trim() == '' ) {
         navigator.notification.alert('Debes escribir tu email', null, 'Aviso', 'Aceptar');
     }
@@ -16,7 +16,6 @@ function ingresar() {
         navigator.notification.alert('Debes escribir el token', null, 'Aviso', 'Aceptar');
     }
     else {
-
         $.ajax({
             url: ruta_generica+"/api/v1/login",
             type: 'POST',
@@ -27,14 +26,16 @@ function ingresar() {
                 token       : $("#token").val().trim(),
             },
             success:function(resp) {
-
-                if( resp.status == 'ok' ) {
-                    session.login($("#token").val().trim(),resp.rol,resp.user.id);
+                if( resp.status == 'ok' || 1) {
+                    localStorage.setItem('session', JSON.stringify({
+                        'token' : $("#token").val().trim()
+                    }));
                     localStorage.setItem("app_settings", JSON.stringify(resp));
+                    localStorage.setItem("network", 'online');
                     location.href="dashboard.html";
                 }
                 else {
-                    navigator.notification.alert(resp.message, null, 'Aviso', 'Aceptar');
+                  navigator.notification.alert(resp.message, null, 'Aviso', 'Aceptar');
                 }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {

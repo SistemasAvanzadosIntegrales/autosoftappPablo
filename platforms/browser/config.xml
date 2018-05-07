@@ -1,21 +1,23 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.hellocordova" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Autosoft Taller</name>
-    <description>
-      Easier Car Service
-  </description>
-    <author email="ivan_vazquez@avansys.com.mx" href="http://avansys.com.mx">
-      Avansys Developers Team
-  </author>
+<widget android-versionCode="1" id="xdk.intel.autosoft" version="1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>autosoft</name>
+    <description />
+    <author>autosoft</author>
     <content src="index.html" />
-    <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <preference name="SplashScreen" value="/img/loading.gif" />
-    <preference name="SplashScreenDelay" value="1000" />
-    <preference name="SplashScreenBackgroundColor" value="#e5eff1" />
+    <allow-intent href="market:*" />
+    <access origin="*" />
+    <config-file mode="merge" parent="/manifest/application" platform="android">
+        <activity android:launchMode="singleTop" />
+    </config-file>
+    <preference name="android-build-tool" value="gradle" />
+    <preference name="phonegap-version" value="cli-6.2.0" />
+    <preference name="xwalkMultipleApk" value="false" />
+    <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect --ignore-gpu-blacklist" />
+    <preference name="SplashMaintainAspectRatio" value="false" />
 </widget>
