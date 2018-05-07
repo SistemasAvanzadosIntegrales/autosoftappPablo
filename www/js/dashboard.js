@@ -1,3 +1,4 @@
+alert('loaded dashboard file');
 function dashboard(take, skip, search = null)
 {
     $('#loading').css('display', 'block');

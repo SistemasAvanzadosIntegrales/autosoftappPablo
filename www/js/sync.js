@@ -1,4 +1,4 @@
-alert("fffffff");
+alert("loaded synk");
 function __sync_data(data, call_back_function = null){
     debug('aki', 1);
     var  db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
@@ -75,6 +75,7 @@ function __sync_data(data, call_back_function = null){
         call_back_function.call();
     });
 }
+alert("loading function sync data");
 
 function sync_data(call_back_function = null){
     if(localStorage.getItem("network") == 'online'){
@@ -117,7 +118,7 @@ function sync_data(call_back_function = null){
 
 
 }
-sync_data(debug);
+alert("loaded sync data function")
 function debug(message, debug)
 {
     console.log(message);

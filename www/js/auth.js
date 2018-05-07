@@ -1,8 +1,5 @@
 var ruta_generica = "http://autosoft2.avansys.com.mx";
-document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady() {
-    window.open = cordova.InAppBrowser.open;
-}
+
 function resetPassword(){
   window.open(ruta_generica+"/password/reset",  '_blank');
 }
