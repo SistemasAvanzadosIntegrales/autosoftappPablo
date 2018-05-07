@@ -205,8 +205,3 @@ document.addEventListener("deviceready", function(){
   });
   //console.log('device is now ready');
 }, false);
-
-document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady() {
-    window.open = cordova.InAppBrowser.open;
-}
