@@ -243,10 +243,10 @@ var inspection = {
     capture_photo: function(point_id){
         var self = this;
         navigator.camera.getPicture(
-            function(imageURI){
+            function(photoURI){
                 var options = new FileUploadOptions();
                  options.fileKey = "file";
-                 options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+                 options.fileName = photoURI.substr(photoURI.lastIndexOf('/') + 1);
                  options.mimeType = "image/jpeg";
                  var params = new Object();
                  params.token= token;
@@ -274,12 +274,11 @@ var inspection = {
                     }
                     progress.removeClass('hide');
                 };
-                console.log(options);
                 ft.upload(
-                    options,
+                    photoURI,
                     ruta_generica+"/api/v1/upload",
                     function(result){
-                        $('#carousel'+point_id).find('.carousel-inner').append('<div class="item"><img style="height:300px; margin:auto" src="'+imageURI+'"></div>');
+                        $('#carousel'+point_id).find('.carousel-inner').append('<div class="item"><img style="height:300px; margin:auto" src="'+photoURI+'"></div>');
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
