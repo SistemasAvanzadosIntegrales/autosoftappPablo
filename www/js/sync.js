@@ -1,9 +1,6 @@
 function __sync_data(data, call_back_function = null){
+    debug('aki', 1);
     var  db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-
-    db.transaction(function(tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS sync (id INTEGER PRIMARY KEY, url, data)');
-    });
 
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS techs;');
@@ -81,10 +78,10 @@ function sync_data(call_back_function = null){
         var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
         var post_data = {
             inspections: [],
-            points: [],
+            points: []
         };
         db.transaction(function(tx) {
-            tx.executeSql("SELECT i.* FROM inspections AS i LEFT JOIN vehicle_inspections AS vi ON i.id = vi.inspection_id WHERE i.origen IN ('modified', 'device') OR Vi.origen IN ('modified', 'device') GROUP BY i.id ORDER BY i.id ", [], function (tx, inspections){
+            tx.executeSql("SELECT i.* FROM inspections AS i LEFT JOIN vehicle_inspections AS vi ON i.id = vi.inspection_id WHERE i.origen IN ('modified', 'device') OR vi.origen IN ('modified', 'device') GROUP BY i.id ORDER BY i.id ", [], function (tx, inspections){
                 post_data.inspections = inspections.rows;
                 tx.executeSql("SELECT *  FROM vehicle_inspections WHERE origen IN ('modified', 'device') order by inspection_id", [], function(tx, points){
                     post_data.points = points.rows;
@@ -104,6 +101,13 @@ function sync_data(call_back_function = null){
                     });
                 });
             });
+        }, function(error) {
+            debug('algo fallo', true);
+        }, function() {
+            $('#dbRefresh').addClass('hide');
+            debug('Data base has been saved');
+            if(call_back_function)
+            call_back_function.call();
         });
 
     }
@@ -112,9 +116,8 @@ function sync_data(call_back_function = null){
         call_back_function.call();
 
     }
-
-
 }
+
 function debug(message, debug)
 {
     console.log(message);

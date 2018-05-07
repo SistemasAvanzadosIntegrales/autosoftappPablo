@@ -79,14 +79,13 @@
     <script type="text/javascript" src="js/localstorage.js"></script>
     <script type="text/javascript" src="js/commun.js"></script>
     <script type="text/javascript" src="js/sync.js"></script>
-    <script type="text/javascript" src="js/push.js"></script>
     <script type="text/javascript" src="js/dashboard.js"></script>
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
       document.addEventListener("deviceready", function(){
           dashboard(10, 0);
-
+          alert("adashboard was been called");
           $("#search").click(function(){
               $("#table-body tr:not(#clone)").html("");
               dashboard(10, 0, $("#word").val());
