@@ -89,7 +89,7 @@ function sync_data(call_back_function = null){
             points: []
         };
         alert("aki 2");
-
+        /*
         db.transaction(function(tx) {
             tx.executeSql("SELECT i.* FROM inspections AS i LEFT JOIN vehicle_inspections AS vi ON i.id = vi.inspection_id WHERE i.origen IN ('modified', 'device') OR Vi.origen IN ('modified', 'device') GROUP BY i.id ORDER BY i.id ", [], function (tx, inspections){
                 post_data.inspections = inspections.rows;
@@ -117,7 +117,22 @@ function sync_data(call_back_function = null){
                 });
             });
         });
-
+        /*/
+        $.ajax({
+            async: false,
+            url: ruta_generica+"/api/v1/sync_data",
+            type: 'POST',
+            cache : false,
+            dataType: 'JSON',
+            data: {
+                token:session.token,
+                post_data: JSON.stringify(post_data)
+            },
+            success:function(data) {
+                alert("aki 5");
+                __sync_data(data, call_back_function);
+            }
+        });
     }
     else
     {
