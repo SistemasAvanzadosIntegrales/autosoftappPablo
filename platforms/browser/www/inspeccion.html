@@ -1,0 +1,216 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/font-awesome.css" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="icon" />
+    <link type="image/x-icon" href="/img/logo.ico" rel="shortcut icon" />
+    <title>Inspección</title>
+    <style media="screen">
+    .btn-toolbar {
+        margin-left: 0px!important;
+        margin-bottom: 10px!important;
+    }
+    .display{
+        font-size: 1em; margin: 1px; display: inline-block;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="loading"><div id="loader"></div></div>
+    <!-- navbar -->
+    <div id="navbar"></div>
+    <div class="container-fluid my-container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h4>
+                    <img name="logo" id='logo' src="" width="70px">
+                    <span class="pull-right  text-muted text-center">
+                        <i class="fa fa-user-circle"></i><br>
+                        <small class="capitalize" id="user_name"></small>
+                    </span>
+                </h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                 <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3><i class="fa fa-user"></i> <small>Cliente</small></h3>
+                        <form class="form-inline my-form">
+                            <div class="form-group ">
+                                <div class="add-on input-group">
+                                    <label class="input-group-addon">Nombre</label>
+                                    <input type="text" readonly disabled  class="form-control" id="name" value="">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="add-on input-group">
+                                    <label class="input-group-addon">Celular</label>
+                                    <input type="text" readonly disabled  class="form-control" id="cell" value="">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="add-on input-group">
+                                    <label class="input-group-addon">Email</label>
+                                    <input type="text" readonly disabled  class="form-control" id="email" value="">
+                                </div>
+                            </div>
+                        </form>
+                        <h3><i class="fa fa-car"></i> <small>Vehiculo</small></h3>
+                        <form class="form-inline my-form">
+                            <input type="hidden" size="10" class="form-control" value="" id="vehicle_id">
+                            <input type="hidden" size="10" class="form-control" value="" id="inspection_id">
+                            <div class="form-group ">
+                                <div class="add-on input-group">
+                                    <label class="input-group-addon">Marca</label>
+                                    <input type="text" readonly disabled  size="10" id="brand"  class="form-control" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="add-on input-group">
+                                    <label class="input-group-addon">Modelo</label>
+                                    <input type="text" readonly disabled  size="10" class="form-control" value="" id="model">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="add-on input-group">
+                                    <label class="input-group-addon">VIN</label>
+                                    <input type="text" readonly disabled  size="10" id="vin" class="form-control" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="add-on input-group">
+                                    <label class="input-group-addon">Placa</label>
+                                    <input type="text" readonly disabled  size="10" class="form-control" value="" id="license_plate">
+                                </div>
+                            </div>
+                        </form>
+                        <h3>
+                            <i class='inspection_status_1 hide fa fa-wrench'></i><small class="inspection_status_1 hide"> En revisión</small>
+                            <i class='inspection_status_2 hide fa fa-stethoscope'></i><small class="inspection_status_2 hide"> Verificación</small>
+                            <i class='inspection_status_3 hide fa fa-clock-o'></i><small class="inspection_status_3 hide"> Espera cliente</small>
+                            <i class='inspection_status_4 hide fa fa-comments-o'></i><small class="inspection_status_4 hide"> Respondido</small>
+                            <i class='inspection_status_5 hide fa fa-check-square-o'></i><small class="inspection_status_5 hide"> Revisado</small>
+                            <i class='inspection_status_5 hide fa fa-power-off'></i><small class="inspection_status_6 hide"> Cerrado</small>
+                        </h3>
+                        <div id="progress" class="progress hide">
+                          <div class="progress-status hide"></div>
+                          <div class="progress-bar hide progress-bar-success progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                        </div>
+                        <form id="pdfform"  enctype="multipart/form-data">
+                            <input id="pdf"  class="pdf hide" type="file" />
+                        </form>
+                        <div class="panel-group" style="margin-bottom:0px;" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div id="clone" class="panel hide panel-default">
+                                <div class="panel-heading" role="tab" >
+                                    <h3 class="panel-title" style="font-size:1.4em">
+                                        <a class="collapsed category_name" role="button"  style="display: block" data-toggle="collapse" data-parent="#accordion" href="#collapse_category" aria-expanded="false" aria-controls="collapse_category"></a>
+                                    </h3>
+                                </div>
+                                <div id="collapse_category" class="panel-collapse collapse" role="tabpanel" >
+                                    <div class="list-group">
+                                        <div id="clone-list" class="list-group-item clone-point hide">
+                                            <h4 class="list-group-item-heading ">
+                                                <a href="#" class="round-btn hide btn btn-danger"><i class="fa fa-times"> </i></a>
+                                                <span class="point_name capitalize"></span>
+                                            </h4>
+                                            <div class="btn-toolbar  severity-picker-toolbar" role="toolbar">
+                                                <div style="margin-left: 0px!important;" data-permissions="true" class="severity-picker permission_technical_group btn-group pull-left shadow inspection_status_1">
+                                                    <button data-severity="1" data-class="btn-success" class="update-severity btn btn-link" role="button">
+                                                        <i class="fa fa-check"> </i>
+                                                    </button>
+                                                    <button data-severity="2" data-class="btn-warning" class="update-severity btn btn-link" role="button">
+                                                        <i class="fa fa-exclamation"> </i>
+                                                    </button>
+                                                    <button data-severity="3" data-class="btn-danger" class="update-severity btn btn-link" role="button">
+                                                        <i class="fa fa-times"> </i>
+                                                    </button>
+                                                    <button data-severity="4" data-class="btn-primary" class="update-severity btn btn-link" role="button">
+                                                        <i class="fa fa-ban"> </i>
+                                                    </button>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <button style="height: 22px; margin-right: 4px" class="status-point btn btn-success btn-sm">
+                                                        <i class="fa fa-check"> </i>
+                                                    </button>
+                                                    <div data-permissions="true" class="input-group permission_advisory_group inspection_status_2 hide " style="margin-left: 3px; border: 1px solid #aaa; border-radius: 3px; width: 30%; position: absolute; margin: -3px 40px;">
+                                                        <span class="input-group-addon">$</span>
+                                                        <input type="number" style="width: 100%; border: 1px solid #d9d9d9; height: 28px;" placeholder="Precio" class="update-price">
+                                                    </div>
+                                                    <label data-permissions="true" class="display permission_advisory_group inspection_price inspection_status_6 inspection_status_5 inspection_status_4 inspection_status_3 inspection_status_1 label label-default">$0,00</label>
+
+                                                    <label class="point_status_3 label display hide label-danger">Rechazado</label>
+                                                    <label class="point_status_2 label display hide label-success">Aceptado</label>
+                                                    <label class="point_status_4 label display hide label-info">Pospuesto</label>
+                                                </div>
+                                                <div class="btn-group shadow pull-right">
+                                                    <button data-permissions="true" class="inspection_status_1 permission_technical_group btn btn-default capture-photo" role="button">
+                                                        <i class="fa fa-camera"> </i>
+                                                    </button>
+                                                    <button data-permissions="true" class="inspection_status_1 permission_technical_group btn btn-default capture-video" role="button">
+                                                        <i class="fa fa-video-camera"> </i>
+                                                    </button>
+                                                    <button data-permissions="true" class="inspection_status_1 permission_technical_group btn btn-default capture-audio" role="button">
+                                                        <i class="fa fa-volume-up"> </i>
+                                                    </button>
+                                                    <a data-toggle="collapse"  href="#gallery1" aria-expanded="false" aria-controls="collapseExample"  class="gallery-link btn btn-default" role="button">
+                                                        <i class="fa fa-eye"> </i>
+                                                    </a>
+                                                    <button data-permissions="true" class="permission_advisory_group btn btn-default delete-point" role="button">
+                                                        <i class="fa fa-trash"> </i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="collapse gallery" id="gallery">
+                                              <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                                    <!-- Wrapper for slides -->
+                                                    <div class="carousel-inner" role="listbox">
+                                                        <div class="item active"><img style="height:300px; margin:auto" src="img/logo.png"></div>
+                                                        <div class="item"><img style="height:300px; margin:auto" src="img/logo.png"></div>
+                                                        <div class="item"><img style="height:300px; margin:auto" src="img/logo.png"></div>
+                                                        <div class="item"><img style="height:300px; margin:auto" src="img/logo.png"></div>
+                                                    </div>
+
+                                                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                                      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                                      <span class="sr-only">Previous</span>
+                                                    </a>
+
+                                                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                                      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                                      <span class="sr-only">Next</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="js/localstorage.js"></script>
+  <script type="text/javascript" src="js/commun.js"></script>
+  <script type="text/javascript" src="js/sync.js"></script>
+  <script type="text/javascript" src="js/inspection.js"></script>
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript">
+  	document.addEventListener("deviceready", function(){
+        var url = window.location.href;
+        var params = getParams(url);
+        inspection.start(params.inspection_id);
+        setTimeout(function(){
+            permissions();
+        },2000)
+    }, false);
+   </script>
+ </html>

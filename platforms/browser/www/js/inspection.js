@@ -176,17 +176,14 @@ https://www.google.com/?gws_rd=ssl
 Chrome
         var self = this;
         var SeverityPicker = $('.severity-picker');
-
         SeverityPicker.find('button').click(function(e){
             $(this).parent('.severity-picker').find('button').attr('class', 'btn btn-link');
             $(this).attr('class', 'btn ' + $(this).attr('data-class'));
             $(this).parent('.severity-picker').find('.severity').val($(this).attr('data-severity'));
         });
-
         $('.update-price').change(function(){
             self.update_point($(this).attr('data-point-id'), 'price', $(this).val());
         });
-
         $('.update-severity').click(function(){
             self.update_point($(this).attr('data-point-id'), 'severity', $(this).attr('data-severity'));
         });
@@ -220,27 +217,27 @@ Chrome
 
         var pdf = $('#pdf');
         pdf.change(function(){
-            var url = window.location.href;
-            params = getParams(url);
-            var formData = new FormData(document.getElementById("pdfform"));
+          var url = window.location.href;
+          params = getParams(url);
+          var formData = new FormData(document.getElementById("pdfform"));
 
-            formData.append('file', pdf[0].files[0]);
+          formData.append('file', pdf[0].files[0]);
 
-            $.ajax({
-                url : ruta_generica+'/api/v1/upload_price_quote?token=' + session.token + '&inspection_id=' + self.id,
-                type : 'POST',
-                dataType: 'JSON',
-                data : formData,
-                processData: false,  // tell jQuery not to process the data
-                contentType: false,  // tell jQuery not to set contentType
-                success : function(data) {
-                    navigator.notification.alert(data.message, null, 'Ok');
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    navigator.notification.alert('Pdf cargado correctamente', null, 'Ok');
-                }
-            });
-            pdf.val('');
+          $.ajax({
+            url : ruta_generica+'/api/v1/upload_price_quote?token=' + session.token + '&inspection_id=' + self.id,
+            type : 'POST',
+            dataType: 'JSON',
+            data : formData,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,  // tell jQuery not to set contentType
+            success : function(data) {
+              navigator.notification.alert(data.message, null, 'Ok');
+           },
+           error: function(XMLHttpRequest, textStatus, errorThrown) {
+             navigator.notification.alert('Pdf cargado correctamente', null, 'Ok');
+           }
+          });
+          pdf.val('');
         });
 
     },
@@ -250,7 +247,8 @@ Chrome
     capture_photo: function(point_id){
         var self = this;
         navigator.camera.getPicture(
-            function(photo){
+            function(photo)
+            {
                 var options = new FileUploadOptions();
                  options.fileKey = "file";
                  options.fileName = photo.substr(photo.lastIndexOf('/') + 1);
@@ -294,14 +292,7 @@ Chrome
                     }
                 );
 
-            },
-            function(error){
-                navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
-            }, {
-                quality: 100,
-                destinationType: Camera.DestinationType.FILE_URI,
-                saveToPhotoAlbum: true
-            });
+            }, cameraFail, { quality: 90, destinationType: Camera.DestinationType.FILE_URI, saveToPhotoAlbum: true });
     },
     capture_audio: function(point_id){
         console.log(point_id);

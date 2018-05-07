@@ -1,11 +1,10 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "Autosoft Taller",
-  "short_name": "Autosoft Taller",
-  "version": "io.cordova.hellocordova",
-  "description": "Easier Car Service",
-  "author": "Avansys Developers Team",
+  "name": "autosoft",
+  "short_name": "autosoft",
+  "version": "xdk.intel.autosoft",
+  "author": "autosoft",
   "icons": [],
   "start_url": "index.html"
 }
