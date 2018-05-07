@@ -240,17 +240,18 @@ var inspection = {
     capture_video: function(point_id){
         var self = this;
          navigator.device.capture.captureVideo(
-            function(videoURI){
+            function(file){
                 var options = new FileUploadOptions();
-                 options.fileKey = "file";
-                 options.fileName = videoURI.substr(videoURI.lastIndexOf('/') + 1);
-                 options.mimeType = "image/jpeg";
-                 var params = new Object();
-                 params.token= token;
-                 params.point_id = point_id;
-                 params.inspection_id =self.id;
-                 options.params = params;
-                 options.chunkedMode = true;
+                var videoURI=file[0].fullPath;
+                options.fileKey = "file";
+                options.fileName = videoURI.substr(videoURI.lastIndexOf('/') + 1);
+                options.mimeType = "image/jpeg";
+                var params = new Object();
+                params.token= token;
+                params.point_id = point_id;
+                params.inspection_id =self.id;
+                options.params = params;
+                options.chunkedMode = true;
 
                 var ft = new FileTransfer();
                 var progress = $('#progress');
