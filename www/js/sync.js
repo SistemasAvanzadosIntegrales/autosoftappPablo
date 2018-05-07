@@ -78,7 +78,9 @@ function __sync_data(data, call_back_function = null){
 alert("loading function sync data");
 
 function sync_data(call_back_function = null){
-    if(localStorage.getItem("network") == 'online'){
+    alert("sync data function");
+    if(localStorage.getItem("network") == 'online' || true){
+            alert("aki 1");
         $('#dbRefresh').removeClass('hide');
         var session = JSON.parse(localStorage.getItem('session'));
         var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
@@ -86,11 +88,17 @@ function sync_data(call_back_function = null){
             inspections: [],
             points: []
         };
+        alert("aki 2");
+
         db.transaction(function(tx) {
             tx.executeSql("SELECT i.* FROM inspections AS i LEFT JOIN vehicle_inspections AS vi ON i.id = vi.inspection_id WHERE i.origen IN ('modified', 'device') OR Vi.origen IN ('modified', 'device') GROUP BY i.id ORDER BY i.id ", [], function (tx, inspections){
                 post_data.inspections = inspections.rows;
+                alert("aki 3");
+
                 tx.executeSql("SELECT *  FROM vehicle_inspections WHERE origen IN ('modified', 'device') order by inspection_id", [], function(tx, points){
                     post_data.points = points.rows;
+                    alert("aki 4");
+
                     $.ajax({
                         async: false,
                         url: ruta_generica+"/api/v1/sync_data",
@@ -99,9 +107,10 @@ function sync_data(call_back_function = null){
                         dataType: 'JSON',
                         data: {
                             token:session.token,
-                            post_data: JSON.stringify(post_data),
+                            post_data: JSON.stringify(post_data)
                         },
                         success:function(data) {
+                            alert("aki 5");
                             __sync_data(data, call_back_function);
                         }
                     });
