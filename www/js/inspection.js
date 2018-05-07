@@ -189,7 +189,7 @@ var inspection = {
         });
 
         $('.capture-video').click(function(){
-            self.capture_photo($(this).attr('data-point-id'));
+            self.capture_video($(this).attr('data-point-id'));
         });
 
         $('.capture-audio').click(function(){
@@ -238,7 +238,56 @@ var inspection = {
 
     },
     capture_video: function(point_id){
-        console.log(point_id);
+        var self = this;
+         navigator.device.capture.captureVideo(
+            function(videoURI){
+                var options = new FileUploadOptions();
+                 options.fileKey = "file";
+                 options.fileName = videoURI.substr(videoURI.lastIndexOf('/') + 1);
+                 options.mimeType = "image/jpeg";
+                 var params = new Object();
+                 params.token= token;
+                 params.point_id = point_id;
+                 params.inspection_id =self.id;
+                 options.params = params;
+                 options.chunkedMode = true;
+
+                var ft = new FileTransfer();
+                var progress = $('#progress');
+                var progress_bar = $('#progress').find('.progress-bar');
+                var progress_status = $('#progress').find('.progress-status');
+                ft.onprogress = function(progressEvent) {
+                    if (progressEvent.lengthComputable) {
+                        progress_bar.removeClass(hide)
+                        progress_bar.css('width', $Math.floor(progressEvent.loaded / progressEvent.total));
+                    } else {
+                        progress_status.removeClass('hide');
+                        if(progress_status.html() == "") {
+                            progress_status.html("Loading");
+                        } else {
+                            rogress_status.html(rogress_status.html()+ ".");
+                        }
+                    }
+                    progress.removeClass('hide');
+                };
+                ft.upload(
+                    videoURI,
+                    ruta_generica+"/api/v1/upload",
+                    function(result){
+                        $('#carousel'+point_id).find('.carousel-inner').append("<div class='item'><video controls><source src='"+videoURI+"' type='video/mp4'></video></div>");
+                    },
+                    function(error){
+                        navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
+                    }
+                );
+            },
+            function(error){
+                navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
+            }, {
+                quality: 90,
+                destinationType: Camera.DestinationType.FILE_URI,
+                saveToPhotoAlbum: true
+            });
     },
     capture_photo: function(point_id){
         var self = this;
@@ -254,7 +303,6 @@ var inspection = {
                  params.inspection_id =self.id;
                  options.params = params;
                  options.chunkedMode = true;
-
 
                 var ft = new FileTransfer();
                 var progress = $('#progress');
@@ -284,7 +332,6 @@ var inspection = {
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
                     }
                 );
-
             },
             function(error){
                 navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
@@ -295,7 +342,59 @@ var inspection = {
             });
     },
     capture_audio: function(point_id){
-        console.log(point_id);
+        var self = this;
+        navigator.device.audiorecorder.recordAudio(
+            function(mediaFiles) {
+                mediaFiles = jQuery.parseJSON(mediaFiles);
+                audioURI=mediaFiles.full_path;
+                var options = new FileUploadOptions();
+
+                 options.fileKey = "file";
+                 options.fileName = audioURI.substr(audioURI.lastIndexOf('/') + 1);
+                 options.mimeType = "image/jpeg";
+                 var params = new Object();
+                 params.token= token;
+                 params.point_id = point_id;
+                 params.inspection_id =self.id;
+                 options.params = params;
+                 options.chunkedMode = true;
+
+                var ft = new FileTransfer();
+                var progress = $('#progress');
+                var progress_bar = $('#progress').find('.progress-bar');
+                var progress_status = $('#progress').find('.progress-status');
+                ft.onprogress = function(progressEvent) {
+                    if (progressEvent.lengthComputable) {
+                        progress_bar.removeClass(hide)
+                        progress_bar.css('width', $Math.floor(progressEvent.loaded / progressEvent.total));
+                    } else {
+                        progress_status.removeClass('hide');
+                        if(progress_status.html() == "") {
+                            progress_status.html("Loading");
+                        } else {
+                            rogress_status.html(rogress_status.html()+ ".");
+                        }
+                    }
+                    progress.removeClass('hide');
+                };
+                ft.upload(
+                    audioURI,
+                    ruta_generica+"/api/v1/upload",
+                    function(result){
+                        let item  = "<div class='item'>"+
+                        "<i class='fa fa-volume-up'></i><audio height='300px' controls>"+
+                        "<source src='"+mediaFiles.full_path+"'></audio></div>";
+                        $('#carousel'+point_id).find('.carousel-inner').append(item);
+                    },
+                    function(error){
+                        navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
+                    }
+                );
+            },
+            function(error){
+                console.log(error);
+            });
+
     },
     update: function(field, value){
         var self = this;

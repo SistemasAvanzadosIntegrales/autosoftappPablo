@@ -321,11 +321,11 @@ function audioCapture(p) {
     pos=p;
     catalogue_id=catalogue_id;
 
-     try{
-      navigator.device.audiorecorder.recordAudio(successAudio, errorAudio);
-  }catch(e){
-      alert(e);
-  }
+    try{
+        navigator.device.audiorecorder.recordAudio(successAudio, errorAudio);
+    }catch(e){
+        alert(e);
+    }
 }
 /**
  *  @author   : Pablo Diaz
