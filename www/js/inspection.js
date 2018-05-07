@@ -50,6 +50,7 @@ var inspection = {
     },
     ui: function(call_back_function = null){
         var self = this;
+
         $("#model").val(self.vehicle.model);
         $("#license_plate").val(self.vehicle.license_plate);
         $("#vehicle_id").val(self.vehicle.id);
@@ -59,6 +60,7 @@ var inspection = {
         $("#cell").val(self.client.cellphone);
         $("#vin").val(self.vehicle.vin);
         $("#brand").val(self.vehicle.brand);
+
         var accordion = $('#accordion');
         var z = 0;
         for(var f = 0; f < self.categories.length; f++){
