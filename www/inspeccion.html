@@ -207,9 +207,7 @@
   	document.addEventListener("deviceready", function(){
         var url = window.location.href;
         var params = getParams(url);
-        sync_data(function(){
-            inspection.start(params.inspection_id);
-        })
+        inspection.start(params.inspection_id);
         setTimeout(function(){
             permissions();
         },2000)
