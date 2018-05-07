@@ -1,11 +1,10 @@
 var ruta_generica = "http://autosoft2.avansys.com.mx";
 
 function resetPassword(){
-  window.open(ruta_generica+"/password/reset",  '_blank');
+    window.open(ruta_generica+"/password/reset",  '_blank');
 }
 
 function ingresar() {
-  //  $('#loading').css('display', 'block');
 
     if( $("#email" ).val().trim() == '' ) {
         navigator.notification.alert('Debes escribir tu email', null, 'Aviso', 'Aceptar');

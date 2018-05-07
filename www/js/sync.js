@@ -1,4 +1,3 @@
-alert("loaded synk");
 function __sync_data(data, call_back_function = null){
     debug('aki', 1);
     var  db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
@@ -71,10 +70,8 @@ function __sync_data(data, call_back_function = null){
         call_back_function.call();
     });
 }
-alert("loading function sync data");
 
 function sync_data(call_back_function = null){
-    alert("sync data function");
     if(localStorage.getItem("network") == 'online'){
         $('#dbRefresh').removeClass('hide');
         var session = JSON.parse(localStorage.getItem('session'));
@@ -84,41 +81,33 @@ function sync_data(call_back_function = null){
             points: []
         };
         db.transaction(function(tx) {
-            tx.executeSql("SELECT i.* FROM inspections AS i LEFT JOIN vehicle_inspections AS vi ON i.id = vi.inspection_id WHERE i.origen IN ('modified', 'device') OR Vi.origen IN ('modified', 'device') GROUP BY i.id ORDER BY i.id ", [], function (tx, inspections){
+            tx.executeSql("SELECT i.* FROM inspections AS i LEFT JOIN vehicle_inspections AS vi ON i.id = vi.inspection_id WHERE i.origen IN ('modified', 'device') OR vi.origen IN ('modified', 'device') GROUP BY i.id ORDER BY i.id ", [], function (tx, inspections){
                 post_data.inspections = inspections.rows;
                 tx.executeSql("SELECT *  FROM vehicle_inspections WHERE origen IN ('modified', 'device') order by inspection_id", [], function(tx, points){
                     post_data.points = points.rows;
+                    $.ajax({
+                        async: false,
+                        url: ruta_generica+"/api/v1/sync_data",
+                        type: 'POST',
+                        cache : false,
+                        dataType: 'JSON',
+                        data: {
+                            token:session.token,
+                            post_data: JSON.stringify(post_data),
+                        },
+                        success:function(data) {
+                            __sync_data(data, call_back_function);
+                        }
+                    });
                 });
             });
         }, function(error) {
-            $.ajax({
-                async: false,
-                url: ruta_generica+"/api/v1/sync_data",
-                type: 'POST',
-                cache : false,
-                dataType: 'JSON',
-                data: {
-                    token:session.token,
-                },
-                success:function(data) {
-                    __sync_data(data, call_back_function);
-                }
-            });
+            debug('algo fallo', true);
         }, function() {
-            $.ajax({
-                async: false,
-                url: ruta_generica+"/api/v1/sync_data",
-                type: 'POST',
-                cache : false,
-                dataType: 'JSON',
-                data: {
-                    token:session.token,
-                    post_data: JSON.stringify(post_data),
-                },
-                success:function(data) {
-                    __sync_data(data, call_back_function);
-                }
-            });
+            $('#dbRefresh').addClass('hide');
+            debug('Data base has been saved');
+            if(call_back_function)
+            call_back_function.call();
         });
 
     }
@@ -127,10 +116,8 @@ function sync_data(call_back_function = null){
         call_back_function.call();
 
     }
-
-
 }
-alert("loaded sync data function")
+
 function debug(message, debug)
 {
     console.log(message);

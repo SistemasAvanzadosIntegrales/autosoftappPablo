@@ -1,7 +1,5 @@
-alert('loaded dashboard file');
 function dashboard(take, skip, search = null)
 {
-    alert("dashboard function")
     sync_data(function(){
         var db;
         db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
@@ -69,7 +67,6 @@ function dashboard(take, skip, search = null)
             tx.executeSql(sql, [], function (tx, results){
                 HtmlDashboard({inspections: results.rows});
             });
-
 
             sql = [
                 " SELECT ",
