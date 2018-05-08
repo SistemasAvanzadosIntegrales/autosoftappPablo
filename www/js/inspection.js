@@ -277,6 +277,7 @@ var inspection = {
                     videoURI,
                     ruta_generica+"/api/v1/upload",
                     function(result){
+                        console.log(result);
                         let itemDefault = carousel.find('#itemDefault');
                         if (itemDefault)
                         {
@@ -336,6 +337,7 @@ var inspection = {
                     photoURI,
                     ruta_generica+"/api/v1/upload",
                     function(result){
+                        console.log(result);
                         let itemDefault = carousel.find('#itemDefault');
                         if (itemDefault)
                         {
@@ -398,6 +400,7 @@ var inspection = {
                     audioURI,
                     ruta_generica+"/api/v1/upload",
                     function(result){
+                        console.log(result);
                         let itemDefault = carousel.find('#itemDefault');
                         if (itemDefault)
                         {
