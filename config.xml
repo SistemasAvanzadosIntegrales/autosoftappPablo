@@ -37,9 +37,6 @@
 <plugin name="onesignal-cordova-plugin" spec="https://github.com/OneSignal/OneSignal-Cordova-SDK"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="onesignal-cordova-plugin" source="npm" />
  
-<!-- Recommend the newest cli but requires cli-5.1.1+, and gradle for Android. -->
-<preference name="phonegap-version" value="cli-5.4.1" />
-<preference name="android-build-tool" value="gradle" />
     
 <plugin name="cordova-plugin-whitelist" spec="1.2.2"/>
 <platform  name="ios">
