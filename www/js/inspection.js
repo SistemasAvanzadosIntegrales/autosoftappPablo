@@ -99,7 +99,7 @@ var inspection = {
                 clone_point.find('.update-price').attr('data-point-id', point_id);
                 var status_point = clone_point.find('.status-point')
                 status_point.html(self.severities[self.points[z].severity].icon);
-                status_point.attr('class', 'btn btn-sm ' + self.severities[self.points[z].severity].class);
+                status_point.attr('class', 'btn btn-sm status-point ' + self.severities[self.points[z].severity].class);
 
                 clone_point.find('.inspection_price').html('$' + _price_float.toFixed(2));
 
@@ -154,7 +154,9 @@ var inspection = {
             $('#buttonmenu').append('<a class="navbar-link" onclick="inspection.update(\'status\', \'6\')" ><i class="fa fa-power-off "></i></a>')
         }
 
-
+        if($('.severity-picker').css('display') === "block"){
+            $('.status-point').addClass('hide');
+        }
         $('.inspection_status_1').addClass('hide');
         $('.inspection_status_2').addClass('hide');
         $('.inspection_status_3').addClass('hide');
@@ -264,7 +266,8 @@ var inspection = {
                         {
                             itemDefault.remove();
                         }
-                        $('#carousel'+point_id).find('.carousel-inner').append("<div class='item'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+videoURI+"' type='video/mp4'></video></div>");
+                        $('#carousel'+point_id).find('.active').removeClass('active');
+                        $('#carousel'+point_id).find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+videoURI+"' type='video/mp4'></video></div>");
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
@@ -305,7 +308,8 @@ var inspection = {
                         {
                             itemDefault.remove();
                         }
-                         $('#carousel'+point_id).find('.carousel-inner').append('<div class="item"><img style="height:300px; margin:auto; display: inherit;" src="'+photoURI+'"></div>');
+                        $('#carousel'+point_id).find('.active').removeClass('active');
+                        $('#carousel'+point_id).find('.carousel-inner').append('<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+photoURI+'"></div>');
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
@@ -349,7 +353,8 @@ var inspection = {
                         {
                             itemDefault.remove();
                         }
-                        let item  = "<div class='item'>"+
+                        $('#carousel'+point_id).find('.active').removeClass('active');
+                        let item  = "<div class='item active'>"+
                         "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto; display: inherit;' controls>"+
                         "<source src='"+mediaFiles.full_path+"'></audio></div>";
                          $('#carousel'+point_id).find('.carousel-inner').append(item);
