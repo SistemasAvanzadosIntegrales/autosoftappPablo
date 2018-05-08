@@ -255,19 +255,18 @@ var inspection = {
 
                 var ft = new FileTransfer();
 
-                var carousel = $('#carousel'+point_id);
                 ft.upload(
                     videoURI,
                     ruta_generica+"/api/v1/upload",
                     function(result){
                         console.log(result);
-                        let itemDefault = carousel.find('#itemDefault');
+                        let itemDefault =  $('#carousel'+point_id).find('#itemDefault');
                         if (itemDefault)
                         {
                             itemDefault.remove();
                         }
-                        carousel.find('.carousel-inner active').addClass('active');
-                        carousel.find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+videoURI+"' type='video/mp4'></video></div>");
+                         $('#carousel'+point_id).find('.carousel-inner active').addClass('active');
+                         $('#carousel'+point_id).find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+videoURI+"' type='video/mp4'></video></div>");
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
@@ -299,19 +298,18 @@ var inspection = {
                  options.chunkedMode = false;
 
                 var ft = new FileTransfer();
-                var carouserl = $('#carousel'+point_id);
                 ft.upload(
                     photoURI,
                     ruta_generica+"/api/v1/upload",
                     function(result){
                         console.log(result);
-                        let itemDefault = carousel.find('#itemDefault');
+                        let itemDefault =  $('#carousel'+point_id).find('#itemDefault');
                         if (itemDefault)
                         {
                             itemDefault.remove();
                         }
-                        carousel.find('.carousel-inner active').addClass('active');
-                        carousel.find('.carousel-inner').append('<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+photoURI+'"></div>');
+                         $('#carousel'+point_id).find('.carousel-inner active').addClass('active');
+                         $('#carousel'+point_id).find('.carousel-inner').append('<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+photoURI+'"></div>');
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
@@ -346,23 +344,22 @@ var inspection = {
                  options.chunkedMode = false;
 
                 var ft = new FileTransfer();
-                var carousel = $('#carousel'+point_id);
                 ft.upload(
                     audioURI,
                     ruta_generica+"/api/v1/upload",
                     function(result){
                         console.log(result);
-                        let itemDefault = carousel.find('#itemDefault');
+                        let itemDefault =  $('#carousel'+point_id).find('#itemDefault');
                         if (itemDefault)
                         {
                             itemDefault.remove();
                         }
-                        carousel.find('.carousel-inner active').addClass('active');
+                         $('#carousel'+point_id).find('.carousel-inner active').addClass('active');
 
                         let item  = "<div class='item'>"+
                         "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto; display: inherit;' controls>"+
                         "<source src='"+mediaFiles.full_path+"'></audio></div>";
-                        carousel.find('.carousel-inner').append(item);
+                         $('#carousel'+point_id).find('.carousel-inner').append(item);
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
