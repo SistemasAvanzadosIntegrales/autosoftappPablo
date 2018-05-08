@@ -99,7 +99,6 @@ var inspection = {
                     $('.capture-video').attr('disabled', true).addClass('disabled');
                     $('.capture-audio').attr('disabled', true).addClass('disabled');
                     $('.gallery-link').attr('disabled', true).addClass('disabled');
-                    gallery-link
                 }
                 var _price_float = parseFloat(self.points[z].price);
                 clone_point.find('.point_status_'+self.points[z].status).removeClass('hide');
