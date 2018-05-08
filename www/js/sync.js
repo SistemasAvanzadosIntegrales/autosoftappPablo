@@ -111,7 +111,6 @@ function sync_data(call_back_function = null){
                     dataType: 'JSON',
                     data: {
                         token:session.token,
-                        post_data: JSON.stringify(post_data),
                     },
                     success:function(data) {
                         __sync_data(data, call_back_function);
