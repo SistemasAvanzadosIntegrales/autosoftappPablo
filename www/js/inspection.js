@@ -157,7 +157,7 @@ var inspection = {
 
         $('.inspection_status_1').addClass('hide');
         $('.inspection_status_2').addClass('hide');
-        $('.iundefinednspection_status_3').addClass('hide');
+        $('.inspection_status_3').addClass('hide');
         $('.inspection_status_4').addClass('hide');
         $('.inspection_status_5').addClass('hide');
         $('.inspection_status_5').addClass('hide');
@@ -271,11 +271,19 @@ var inspection = {
                     }
                     progress.removeClass('hide');
                 };
+
+                var carousel = $('#carousel'+point_id);
                 ft.upload(
                     videoURI,
                     ruta_generica+"/api/v1/upload",
                     function(result){
-                        $('#carousel'+point_id).find('.carousel-inner').append("<div class='item'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+videoURI+"' type='video/mp4'></video></div>");
+                        let itemDefault = carousel.find('#itemDefault');
+                        if (itemDefault)
+                        {
+                            itemDefault.remove();
+                        }
+                        carousel.find('.carousel-inner active').addClass('active');
+                        carousel.find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+videoURI+"' type='video/mp4'></video></div>");
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
@@ -323,11 +331,18 @@ var inspection = {
                     }
                     progress.removeClass('hide');
                 };
+                var carouserl = $('#carousel'+point_id);
                 ft.upload(
                     photoURI,
                     ruta_generica+"/api/v1/upload",
                     function(result){
-                        $('#carousel'+point_id).find('.carousel-inner').append('<div class="item"><img style="height:300px; margin:auto; display: inherit;" src="'+photoURI+'"></div>');
+                        let itemDefault = carousel.find('#itemDefault');
+                        if (itemDefault)
+                        {
+                            itemDefault.remove();
+                        }
+                        carousel.find('.carousel-inner active').addClass('active');
+                        carousel.find('.carousel-inner').append('<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+photoURI+'"></div>');
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
@@ -378,14 +393,22 @@ var inspection = {
                     }
                     progress.removeClass('hide');
                 };
+                var carousel = $('#carousel'+point_id);
                 ft.upload(
                     audioURI,
                     ruta_generica+"/api/v1/upload",
                     function(result){
+                        let itemDefault = carousel.find('#itemDefault');
+                        if (itemDefault)
+                        {
+                            itemDefault.remove();
+                        }
+                        carousel.find('.carousel-inner active').addClass('active');
+
                         let item  = "<div class='item'>"+
                         "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto; display: inherit;' controls>"+
                         "<source src='"+mediaFiles.full_path+"'></audio></div>";
-                        $('#carousel'+point_id).find('.carousel-inner').append(item);
+                        carousel.find('.carousel-inner').append(item);
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');

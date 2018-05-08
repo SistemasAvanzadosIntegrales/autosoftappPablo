@@ -1,5 +1,5 @@
 function __sync_data(data, call_back_function = null){
-    debug('aki', 1);
+
     var  db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 
     db.transaction(function(tx) {
@@ -70,7 +70,9 @@ function __sync_data(data, call_back_function = null){
         call_back_function.call();
     });
 }
-var first_sink = true;
+
+var first_sync = true;
+
 function sync_data(call_back_function = null){
     if(localStorage.getItem("network") == 'online'){
         $('#dbRefresh').removeClass('hide');
@@ -118,7 +120,7 @@ function sync_data(call_back_function = null){
                 });
                 first_sync = false;
             }else {
-                debug('algo fallo', true);
+                debug('algo fallo.. [' + JSON.stringify(error) + ']', true);
             }
         }, function() {
             $('#dbRefresh').addClass('hide');
