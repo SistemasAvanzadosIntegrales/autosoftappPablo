@@ -251,7 +251,7 @@ var inspection = {
                 params.point_id = point_id;
                 params.inspection_id =self.id;
                 options.params = params;
-                options.chunkedMode = true;
+                options.chunkedMode = false;
 
                 var ft = new FileTransfer();
                 var progress = $('#progress');
@@ -313,7 +313,7 @@ var inspection = {
                  params.point_id = point_id;
                  params.inspection_id =self.id;
                  options.params = params;
-                 options.chunkedMode = true;
+                 options.chunkedMode = false;
 
                 var ft = new FileTransfer();
                 var progress = $('#progress');
@@ -377,7 +377,7 @@ var inspection = {
                  params.point_id = point_id;
                  params.inspection_id =self.id;
                  options.params = params;
-                 options.chunkedMode = true;
+                 options.chunkedMode = false;
 
                 var ft = new FileTransfer();
                 var progress = $('#progress');
