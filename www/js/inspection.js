@@ -288,7 +288,8 @@ var inspection = {
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
-                    }
+                    },
+                    options
                 );
             },
             function(error){
@@ -348,7 +349,8 @@ var inspection = {
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
-                    }
+                    },
+                    options
                 );
             },
             function(error){
@@ -415,7 +417,8 @@ var inspection = {
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
-                    }
+                    },
+                    options
                 );
             },
             function(error){
