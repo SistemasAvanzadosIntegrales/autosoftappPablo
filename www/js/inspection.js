@@ -94,7 +94,13 @@ var inspection = {
                 clone_point.find('.capture-photo').attr('data-point-id', point_id);
                 clone_point.find('.capture-video').attr('data-point-id', point_id);
                 clone_point.find('.capture-audio').attr('data-point-id', point_id);
-
+                if(localStorage.getItem("network") == 'offline'){
+                    $('.capture-photo').attr('disabled', true).addClass('disabled');
+                    $('.capture-video').attr('disabled', true).addClass('disabled');
+                    $('.capture-audio').attr('disabled', true).addClass('disabled');
+                    $('.gallery-link').attr('disabled', true).addClass('disabled');
+                    gallery-link
+                }
                 var _price_float = parseFloat(self.points[z].price);
                 clone_point.find('.point_status_'+self.points[z].status).removeClass('hide');
                 _price_float = _price_float ? _price_float : 0;
@@ -208,6 +214,7 @@ var inspection = {
         });
 
         $('.update-severity').click(function(){
+            $(this).parent().attr('data-severity',  $(this).attr('data-severity'));
             self.update_point($(this).attr('data-point-id'), 'severity', $(this).attr('data-severity'));
         });
 
