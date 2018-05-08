@@ -81,7 +81,10 @@ var inspection = {
                 var point_id = self.points[z].id;
                 var severity = clone_point.find('button[data-severity="'+self.points[z].severity+'"]');
                 var update_price = clone_point.find('.update-price')
+                var files = JSON.parse(self.points[z].files);
+                var files_length = files.length;
 
+                clone_point.find('.severity-picker').attr('data-severity', self.points[z].severity);
                 clone_point.find('.update-severity').attr('data-point-id', point_id);
                 severity.addClass(severity.attr('data-class'));
                 severity.removeClass('btn-link');
@@ -99,7 +102,7 @@ var inspection = {
                 clone_point.find('.update-price').attr('data-point-id', point_id);
                 var status_point = clone_point.find('.status-point')
                 status_point.html(self.severities[self.points[z].severity].icon);
-                status_point.attr('class', 'btn btn-sm ' + self.severities[self.points[z].severity].class);
+                status_point.attr('class', 'btn btn-sm status-point ' + self.severities[self.points[z].severity].class);
 
                 clone_point.find('.inspection_price').html('$' + _price_float.toFixed(2));
 
@@ -114,6 +117,29 @@ var inspection = {
                 clone_point.attr('id', null);
                 clone_point.find('.point_name').append(self.points[z].name);
                 clone.find('.list-group').append(clone_point.removeClass('hide'));
+                var uri = 'http://autosoft2.avansys.com.mx/files/';
+                for (let w = 0; w < files_length; w++){
+                    let __file_name = files[w].name;
+                    let item = false;
+                    if (__file_name.indexOf('.mp4') > 0){
+                        item = "<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+uri + __file_name +"' type='video/mp4'></video></div>";
+                    }
+                    else if (__file_name.indexOf('.m4a') > 0){
+                        item  = "<div class='item active'>"+
+                        "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto; display: inherit;' controls>"+
+                        "<source src='"+uri + __file_name+"'></audio></div>";
+                    }
+                    else if (__file_name.indexOf('.jpg') > 0){
+                        item = '<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+uri + __file_name +'"></div>';
+                    }
+                    let itemDefault =  clone_point.find('.carousel').find('#itemDefault');
+                    if (item && itemDefault)
+                    {
+                        itemDefault.remove();
+                    }
+                    clone_point.find('.carousel').find('.active').removeClass('active');
+                    clone_point.find('.carousel').find('.carousel-inner').append(item);
+                }
 
                 z++;
             };
@@ -153,11 +179,12 @@ var inspection = {
         {
             $('#buttonmenu').append('<a class="navbar-link" onclick="inspection.update(\'status\', \'6\')" ><i class="fa fa-power-off "></i></a>')
         }
-
-
+        if(status == 1 && is_tech){
+            $('.status-point').addClass('hide');
+        }
         $('.inspection_status_1').addClass('hide');
         $('.inspection_status_2').addClass('hide');
-        $('.iundefinednspection_status_3').addClass('hide');
+        $('.inspection_status_3').addClass('hide');
         $('.inspection_status_4').addClass('hide');
         $('.inspection_status_5').addClass('hide');
         $('.inspection_status_5').addClass('hide');
@@ -189,7 +216,7 @@ var inspection = {
         });
 
         $('.capture-video').click(function(){
-            self.capture_photo($(this).attr('data-point-id'));
+            self.capture_video($(this).attr('data-point-id'));
         });
 
         $('.capture-audio').click(function(){
@@ -238,54 +265,82 @@ var inspection = {
 
     },
     capture_video: function(point_id){
-        console.log(point_id);
+        var self = this;
+         navigator.device.capture.captureVideo(
+            function(file){
+                var options = new FileUploadOptions();
+                var videoURI=file[0].fullPath;
+                options.fileKey = "file";
+                options.fileName = videoURI.substr(videoURI.lastIndexOf('/') + 1);
+                options.mimeType = "image/jpeg";
+                var params = new Object();
+                params.token = session.token;
+                params.point_id = point_id;
+                params.inspection_id =self.id;
+                options.params = params;
+                options.chunkedMode = false;
+
+                var ft = new FileTransfer();
+
+                ft.upload(
+                    videoURI,
+                    ruta_generica+"/api/v1/upload",
+                    function(result){
+                        let itemDefault =  $('#carousel'+point_id).find('#itemDefault');
+                        if (itemDefault)
+                        {
+                            itemDefault.remove();
+                        }
+                        $('#carousel'+point_id).find('.active').removeClass('active');
+                        $('#carousel'+point_id).find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+videoURI+"' type='video/mp4'></video></div>");
+                    },
+                    function(error){
+                        navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
+                    },
+                    options
+                );
+            },
+            function(error){
+                navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
+            }, {
+                quality: 90,
+                destinationType: Camera.DestinationType.FILE_URI,
+                saveToPhotoAlbum: true
+            });
     },
     capture_photo: function(point_id){
         var self = this;
         navigator.camera.getPicture(
-            function(photo){
+            function(photoURI){
                 var options = new FileUploadOptions();
                  options.fileKey = "file";
-                 options.fileName = photo.substr(photo.lastIndexOf('/') + 1);
+                 options.fileName = photoURI.substr(photoURI.lastIndexOf('/') + 1);
                  options.mimeType = "image/jpeg";
                  var params = new Object();
-                 params.token= token;
+                 params.token = session.token;
                  params.point_id = point_id;
                  params.inspection_id =self.id;
                  options.params = params;
-                 options.chunkedMode = true;
-
+                 options.chunkedMode = false;
 
                 var ft = new FileTransfer();
-                var progress = $('#progress');
-                var progress_bar = $('#progress').find('.progress-bar');
-                var progress_status = $('#progress').find('.progress-status');
-                ft.onprogress = function(progressEvent) {
-                    if (progressEvent.lengthComputable) {
-                        progress_bar.removeClass(hide)
-                        progress_bar.css('width', $Math.floor(progressEvent.loaded / progressEvent.total));
-                    } else {
-                        progress_status.removeClass('hide');
-                        if(progress_status.html() == "") {
-                            progress_status.html("Loading");
-                        } else {
-                            rogress_status.html(rogress_status.html()+ ".");
-                        }
-                    }
-                    progress.removeClass('hide');
-                };
-                console.log(options);
                 ft.upload(
-                    options,
-                    photo, ruta_generica+"/api/v1/upload",
+                    photoURI,
+                    ruta_generica+"/api/v1/upload",
                     function(result){
-                        $('#carousel'+point_id).find('.carousel-inner').append('<div class="item"><img style="height:300px; margin:auto" src="'+imageURI+'"></div>');
+                        let itemDefault =  $('#carousel'+point_id).find('#itemDefault');
+                        if (itemDefault)
+                        {
+                            itemDefault.remove();
+                        }
+                        $('#carousel'+point_id).find('.active').removeClass('active');
+                        $('#carousel'+point_id).find('.carousel-inner').append('<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+photoURI+'"></div>');
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
-                    }
+                    },
+                    options
                 );
-
             },
             function(error){
                 navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
@@ -296,23 +351,94 @@ var inspection = {
             });
     },
     capture_audio: function(point_id){
-        console.log(point_id);
+        var self = this;
+        navigator.device.audiorecorder.recordAudio(
+            function(mediaFiles) {
+                mediaFiles = jQuery.parseJSON(mediaFiles);
+                audioURI=mediaFiles.full_path;
+                var options = new FileUploadOptions();
+
+                 options.fileKey = "file";
+                 options.fileName = audioURI.substr(audioURI.lastIndexOf('/') + 1);
+                 options.mimeType = "image/jpeg";
+                 var params = new Object();
+                 params.token = session.token;
+                 params.point_id = point_id;
+                 params.inspection_id =self.id;
+                 options.params = params;
+                 options.chunkedMode = false;
+
+                var ft = new FileTransfer();
+                ft.upload(
+                    audioURI,
+                    ruta_generica+"/api/v1/upload",
+                    function(result){
+                        let itemDefault =  $('#carousel'+point_id).find('#itemDefault');
+                        if (itemDefault)
+                        {
+                            itemDefault.remove();
+                        }
+                        $('#carousel'+point_id).find('.active').removeClass('active');
+                        let item  = "<div class='item active'>"+
+                        "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto; display: inherit;' controls>"+
+                        "<source src='"+mediaFiles.full_path+"'></audio></div>";
+                         $('#carousel'+point_id).find('.carousel-inner').append(item);
+                    },
+                    function(error){
+                        navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
+                    },
+                    options
+                );
+            },
+            function(error){
+                console.log(error);
+            });
+
     },
     update: function(field, value){
+        var is_valid_to_send = true;
         var self = this;
         var charter = '"';
         if (field =='status')
              charter = '';
 
-         self.db.transaction(function(tx){
-             let sql = "UPDATE inspections SET origen = 'modified', " + field + " = " + charter + value + charter + " where id = " + self.id;
-             console.log(sql);
-             tx.executeSql(sql);
-         }, function(error) {
-             debug('algo fallo', true);
-         }, function() {
-             location.href = 'dashboard.html';
-         });
+        if (value == 2 && field == 'status'){
+            $('.clone-point:not(.hide)').each(function(key, item){
+                var item = $(item);
+                var severity = item.find('.severity-picker').attr('data-severity');
+                if (severity == 0){
+                    is_valid_to_send = false;
+                    navigator.notification.alert('Debe inspeccionar ' + item.find('.point_name').html(), false, 'Error', 'Aceptar');
+                }
+
+                if (severity == 3 && item.find('.carousel .item:not(#itemDefault)').length == 0){
+                    is_valid_to_send = false;
+                    navigator.notification.alert('Debe agregar evidencia en ' + item.find('.point_name').html(), false, 'Error', 'Aceptar');
+                }
+            });
+        }
+
+        if (value == 3 && field == 'status'){
+            $('.clone-point:not(.hide)').each(function(key, item){
+                let price = $(item).find('.update-price');
+                if (!(price.val() < 0)){
+                    is_valid_to_send = false;
+                    navigator.notification.alert('Debe llenar el precio de ' + item.find('.point_name').html(), false, 'Error', 'Aceptar');
+                }
+            });
+        }
+        if (is_valid_to_send) {
+            self.db.transaction(function(tx){
+                 let sql = "UPDATE inspections SET origen = 'modified', " + field + " = " + charter + value + charter + " where id = " + self.id;
+                 console.log(sql);
+                 tx.executeSql(sql);
+            }, function(error) {
+                 debug('algo fallo', true);
+            }, function() {
+                 location.href = 'dashboard.html';
+            });
+        }
+
     },
     update_point: function(id, field, value){
         var self = this;

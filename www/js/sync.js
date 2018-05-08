@@ -1,5 +1,5 @@
 function __sync_data(data, call_back_function = null){
-    debug('aki', 1);
+
     var  db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 
     db.transaction(function(tx) {
@@ -47,7 +47,7 @@ function __sync_data(data, call_back_function = null){
         tx.executeSql('DROP TABLE IF EXISTS inspections;');
         tx.executeSql('CREATE TABLE IF NOT EXISTS inspections (id INTEGER PRIMARY KEY, vehicle_id, user_id, origen, status)');
         tx.executeSql('DROP TABLE IF EXISTS vehicle_inspections;');
-        tx.executeSql('CREATE TABLE IF NOT EXISTS vehicle_inspections (id INTEGER PRIMARY KEY, inspection_id, point_id, price, severity, status, cataloge, category, origen)');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS vehicle_inspections (id INTEGER PRIMARY KEY, inspection_id, point_id, price, severity, status, cataloge, category, origen, files)');
         for(let i = 0; i < data.inspections.length; i++)
         {
             let inspection =  data.inspections[i];
@@ -56,8 +56,9 @@ function __sync_data(data, call_back_function = null){
             let vehicle_inspections = inspection.vehicle_inspections;
             for(let x = 0; x < vehicle_inspections.length; x++)
             {
-                let poin = vehicle_inspections[x];
-                let sql2 = "INSERT INTO vehicle_inspections (id, inspection_id, point_id, price, severity, status, cataloge, category, origen) VALUES ("+poin.id+", "+poin.inspections_id+", "+poin.inspection_id+", '"+poin.price+"', "+poin.severity+", '"+poin.status+"', '"+poin.catalogue.name+"', '"+poin.catalogue.inspection.name+"', 'server' )";
+                let point = vehicle_inspections[x];
+                var files = JSON.stringify(point.files);
+                let sql2 = "INSERT INTO vehicle_inspections (id, inspection_id, point_id, price, severity, status, cataloge, category, origen, files) VALUES ("+point.id+", "+point.inspections_id+", "+point.inspection_id+", '"+point.price+"', "+point.severity+", '"+point.status+"', '"+point.catalogue.name+"', '"+point.catalogue.inspection.name+"', 'server', '"+files+"' )";
                 tx.executeSql(sql2);
             }
         }
@@ -70,6 +71,8 @@ function __sync_data(data, call_back_function = null){
         call_back_function.call();
     });
 }
+
+var first_sync = true;
 
 function sync_data(call_back_function = null){
     if(localStorage.getItem("network") == 'online'){
@@ -102,12 +105,31 @@ function sync_data(call_back_function = null){
                 });
             });
         }, function(error) {
-            debug('algo fallo', true);
+            if(first_sync){
+                $.ajax({
+                    async: false,
+                    url: ruta_generica+"/api/v1/sync_data",
+                    type: 'POST',
+                    cache : false,
+                    dataType: 'JSON',
+                    data: {
+                        token:session.token,
+                    },
+                    success:function(data) {
+                        __sync_data(data, call_back_function);
+                    }
+                });
+                first_sync = false;
+            }else {
+                debug('algo fallo.. [' + JSON.stringify(error) + ']', true);
+            }
         }, function() {
             $('#dbRefresh').addClass('hide');
             debug('Data base has been saved');
             if(call_back_function)
-            call_back_function.call();
+            {
+                call_back_function.call();
+            }
         });
 
     }
