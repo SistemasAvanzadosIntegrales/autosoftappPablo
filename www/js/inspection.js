@@ -84,6 +84,7 @@ var inspection = {
                 var files = JSON.parse(self.points[z].files);
                 var files_length = files.length;
 
+                clone_point.find('.severity-picker').attr('data-severity', self.points[z].severity);
                 clone_point.find('.update-severity').attr('data-point-id', point_id);
                 severity.addClass(severity.attr('data-class'));
                 severity.removeClass('btn-link');
@@ -178,8 +179,7 @@ var inspection = {
         {
             $('#buttonmenu').append('<a class="navbar-link" onclick="inspection.update(\'status\', \'6\')" ><i class="fa fa-power-off "></i></a>')
         }
-
-        if($('.severity-picker').css('display') === "block"){
+        if(status == 1 && is_tech){
             $('.status-point').addClass('hide');
         }
         $('.inspection_status_1').addClass('hide');
@@ -396,20 +396,49 @@ var inspection = {
 
     },
     update: function(field, value){
+        var is_valid_to_send = true;
         var self = this;
         var charter = '"';
         if (field =='status')
              charter = '';
 
-         self.db.transaction(function(tx){
-             let sql = "UPDATE inspections SET origen = 'modified', " + field + " = " + charter + value + charter + " where id = " + self.id;
-             console.log(sql);
-             tx.executeSql(sql);
-         }, function(error) {
-             debug('algo fallo', true);
-         }, function() {
-             location.href = 'dashboard.html';
-         });
+        if (value == 2 && field == 'status'){
+            $('.clone-point:not(.hide)').each(function(key, item){
+                var item = $(item);
+                var severity = item.find('.severity-picker').attr('data-severity');
+                if (severity == 0){
+                    is_valid_to_send = false;
+                    navigator.notification.alert('Debe inspeccionar ' + item.find('.point_name').html(), false, 'Error', 'Aceptar');
+                }
+
+                if (severity == 3 && item.find('.carousel .item:not(#itemDefault)').length == 0){
+                    is_valid_to_send = false;
+                    navigator.notification.alert('Debe agregar evidencia en ' + item.find('.point_name').html(), false, 'Error', 'Aceptar');
+                }
+            });
+        }
+
+        if (value == 3 && field == 'status'){
+            $('.clone-point:not(.hide)').each(function(key, item){
+                let price = $(item).find('.update-price');
+                if (!(price.val() < 0)){
+                    is_valid_to_send = false;
+                    navigator.notification.alert('Debe llenar el precio de ' + item.find('.point_name').html(), false, 'Error', 'Aceptar');
+                }
+            });
+        }
+        if (is_valid_to_send) {
+            self.db.transaction(function(tx){
+                 let sql = "UPDATE inspections SET origen = 'modified', " + field + " = " + charter + value + charter + " where id = " + self.id;
+                 console.log(sql);
+                 tx.executeSql(sql);
+            }, function(error) {
+                 debug('algo fallo', true);
+            }, function() {
+                 location.href = 'dashboard.html';
+            });
+        }
+
     },
     update_point: function(id, field, value){
         var self = this;
