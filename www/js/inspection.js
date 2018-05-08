@@ -254,23 +254,6 @@ var inspection = {
                 options.chunkedMode = false;
 
                 var ft = new FileTransfer();
-                var progress = $('#progress');
-                var progress_bar = $('#progress').find('.progress-bar');
-                var progress_status = $('#progress').find('.progress-status');
-                ft.onprogress = function(progressEvent) {
-                    if (progressEvent.lengthComputable) {
-                        progress_bar.removeClass(hide)
-                        progress_bar.css('width', $Math.floor(progressEvent.loaded / progressEvent.total));
-                    } else {
-                        progress_status.removeClass('hide');
-                        if(progress_status.html() == "") {
-                            progress_status.html("Loading");
-                        } else {
-                            rogress_status.html(rogress_status.html()+ ".");
-                        }
-                    }
-                    progress.removeClass('hide');
-                };
 
                 var carousel = $('#carousel'+point_id);
                 ft.upload(
@@ -316,23 +299,6 @@ var inspection = {
                  options.chunkedMode = false;
 
                 var ft = new FileTransfer();
-                var progress = $('#progress');
-                var progress_bar = $('#progress').find('.progress-bar');
-                var progress_status = $('#progress').find('.progress-status');
-                ft.onprogress = function(progressEvent) {
-                    if (progressEvent.lengthComputable) {
-                        progress_bar.removeClass(hide)
-                        progress_bar.css('width', $Math.floor(progressEvent.loaded / progressEvent.total));
-                    } else {
-                        progress_status.removeClass('hide');
-                        if(progress_status.html() == "") {
-                            progress_status.html("Loading");
-                        } else {
-                            rogress_status.html(rogress_status.html()+ ".");
-                        }
-                    }
-                    progress.removeClass('hide');
-                };
                 var carouserl = $('#carousel'+point_id);
                 ft.upload(
                     photoURI,
@@ -380,23 +346,6 @@ var inspection = {
                  options.chunkedMode = false;
 
                 var ft = new FileTransfer();
-                var progress = $('#progress');
-                var progress_bar = $('#progress').find('.progress-bar');
-                var progress_status = $('#progress').find('.progress-status');
-                ft.onprogress = function(progressEvent) {
-                    if (progressEvent.lengthComputable) {
-                        progress_bar.removeClass(hide)
-                        progress_bar.css('width', $Math.floor(progressEvent.loaded / progressEvent.total));
-                    } else {
-                        progress_status.removeClass('hide');
-                        if(progress_status.html() == "") {
-                            progress_status.html("Loading");
-                        } else {
-                            rogress_status.html(rogress_status.html()+ ".");
-                        }
-                    }
-                    progress.removeClass('hide');
-                };
                 var carousel = $('#carousel'+point_id);
                 ft.upload(
                     audioURI,
