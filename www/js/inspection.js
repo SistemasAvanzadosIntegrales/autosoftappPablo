@@ -81,6 +81,8 @@ var inspection = {
                 var point_id = self.points[z].id;
                 var severity = clone_point.find('button[data-severity="'+self.points[z].severity+'"]');
                 var update_price = clone_point.find('.update-price')
+                var files = JSON.parse(self.points[z].files);
+                var files_length = files.length;
 
                 clone_point.find('.update-severity').attr('data-point-id', point_id);
                 severity.addClass(severity.attr('data-class'));
@@ -114,6 +116,29 @@ var inspection = {
                 clone_point.attr('id', null);
                 clone_point.find('.point_name').append(self.points[z].name);
                 clone.find('.list-group').append(clone_point.removeClass('hide'));
+                var uri = 'http://autosoft2.avansys.com.mx/files/';
+                for (let w = 0; w < files_length; w++){
+                    let __file_name = files[w].name;
+                    let item = false;
+                    if (__file_name.indexOf('.mp4') > 0){
+                        item = "<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+uri + __file_name +"' type='video/mp4'></video></div>";
+                    }
+                    else if (__file_name.indexOf('.m4a') > 0){
+                        item  = "<div class='item active'>"+
+                        "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto; display: inherit;' controls>"+
+                        "<source src='"+uri + __file_name+"'></audio></div>";
+                    }
+                    else if (__file_name.indexOf('.jpg') > 0){
+                        item = '<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+uri + __file_name +'"></div>';
+                    }
+                    let itemDefault =  clone_point.find('.carousel').find('#itemDefault');
+                    if (item && itemDefault)
+                    {
+                        itemDefault.remove();
+                    }
+                    clone_point.find('.carousel').find('.active').removeClass('active');
+                    clone_point.find('.carousel').find('.carousel-inner').append(item);
+                }
 
                 z++;
             };

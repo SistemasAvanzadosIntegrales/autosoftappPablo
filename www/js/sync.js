@@ -47,7 +47,7 @@ function __sync_data(data, call_back_function = null){
         tx.executeSql('DROP TABLE IF EXISTS inspections;');
         tx.executeSql('CREATE TABLE IF NOT EXISTS inspections (id INTEGER PRIMARY KEY, vehicle_id, user_id, origen, status)');
         tx.executeSql('DROP TABLE IF EXISTS vehicle_inspections;');
-        tx.executeSql('CREATE TABLE IF NOT EXISTS vehicle_inspections (id INTEGER PRIMARY KEY, inspection_id, point_id, price, severity, status, cataloge, category, origen)');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS vehicle_inspections (id INTEGER PRIMARY KEY, inspection_id, point_id, price, severity, status, cataloge, category, origen, files)');
         for(let i = 0; i < data.inspections.length; i++)
         {
             let inspection =  data.inspections[i];
@@ -56,8 +56,9 @@ function __sync_data(data, call_back_function = null){
             let vehicle_inspections = inspection.vehicle_inspections;
             for(let x = 0; x < vehicle_inspections.length; x++)
             {
-                let poin = vehicle_inspections[x];
-                let sql2 = "INSERT INTO vehicle_inspections (id, inspection_id, point_id, price, severity, status, cataloge, category, origen) VALUES ("+poin.id+", "+poin.inspections_id+", "+poin.inspection_id+", '"+poin.price+"', "+poin.severity+", '"+poin.status+"', '"+poin.catalogue.name+"', '"+poin.catalogue.inspection.name+"', 'server' )";
+                let point = vehicle_inspections[x];
+                var files = JSON.stringify(point.files);
+                let sql2 = "INSERT INTO vehicle_inspections (id, inspection_id, point_id, price, severity, status, cataloge, category, origen, files) VALUES ("+point.id+", "+point.inspections_id+", "+point.inspection_id+", '"+point.price+"', "+point.severity+", '"+point.status+"', '"+point.catalogue.name+"', '"+point.catalogue.inspection.name+"', 'server', '"+files+"' )";
                 tx.executeSql(sql2);
             }
         }
