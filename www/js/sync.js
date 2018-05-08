@@ -1,5 +1,7 @@
 function __sync_data(data, call_back_function = null){
+    debug('aki', 1);
     var  db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS techs;');
         tx.executeSql('CREATE TABLE IF NOT EXISTS techs (id INTEGER PRIMARY KEY, name)');
@@ -19,6 +21,7 @@ function __sync_data(data, call_back_function = null){
             tx.executeSql(sql);
         }
     });
+
 
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS clients;');
@@ -67,7 +70,7 @@ function __sync_data(data, call_back_function = null){
         call_back_function.call();
     });
 }
-
+var first_sink = true;
 function sync_data(call_back_function = null){
     if(localStorage.getItem("network") == 'online'){
         $('#dbRefresh').removeClass('hide');
@@ -99,12 +102,32 @@ function sync_data(call_back_function = null){
                 });
             });
         }, function(error) {
-            debug('algo fallo');
+            if(first_sync){
+                $.ajax({
+                    async: false,
+                    url: ruta_generica+"/api/v1/sync_data",
+                    type: 'POST',
+                    cache : false,
+                    dataType: 'JSON',
+                    data: {
+                        token:session.token,
+                        post_data: JSON.stringify(post_data),
+                    },
+                    success:function(data) {
+                        __sync_data(data, call_back_function);
+                    }
+                });
+                first_sync = false;
+            }else {
+                debug('algo fallo', true);
+            }
         }, function() {
             $('#dbRefresh').addClass('hide');
             debug('Data base has been saved');
             if(call_back_function)
+            {
                 call_back_function.call();
+            }
         });
 
     }
