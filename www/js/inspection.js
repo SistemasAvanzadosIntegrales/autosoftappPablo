@@ -479,7 +479,7 @@ var inspection = {
          console.log("presupuesto nav");
          var presupuesto = $('#presupuesto');
          var self = this;
-         respuesto.find('.delete-presupuesto').unbind('click');
+         presupuesto.find('.delete-presupuesto').unbind('click');
          presupuesto.find('.download-presupuesto').attr('href', ruta_generica + '/api/v1/download_price_quote/'+file);
          presupuesto.find('.delete-presupuesto').click(function(){
              self.delete_presupuesto(file);
