@@ -60,7 +60,9 @@ var inspection = {
         $("#cell").val(self.client.cellphone);
         $("#vin").val(self.vehicle.vin);
         $("#brand").val(self.vehicle.brand);
-
+        if (self.inspection.presupuesto != ''){
+            self.presupuesto_navbar(self.inspection.presupuesto);
+        }
         var accordion = $('#accordion');
         var z = 0;
         for(var f = 0; f < self.categories.length; f++){
@@ -69,12 +71,17 @@ var inspection = {
             }
             var clone = $("#clone").clone();
             var category_name = clone.find('.category_name');
-
+            var prespuesto = $('#prespuesto');
             category_name.html(self.categories[f].category_name);
             category_name.attr('href', '#'+self.categories[f].category_name);
             category_name.attr('aria-controls', self.categories[f].category_name);
             clone.find('.panel-collapse').attr('id', self.categories[f].category_name);
+
             var clone_success = true;
+
+            if(localStorage.getItem("network") == 'offline'){
+                $('.online-required').attr('disabled', true).addClass('disabled');
+            }
             while(self.points[z] && (self.categories[f].category_name == self.points[z].category_name)){
 
                 var clone_point = $('#clone-list').clone();
@@ -94,12 +101,7 @@ var inspection = {
                 clone_point.find('.capture-photo').attr('data-point-id', point_id);
                 clone_point.find('.capture-video').attr('data-point-id', point_id);
                 clone_point.find('.capture-audio').attr('data-point-id', point_id);
-                if(localStorage.getItem("network") == 'offline'){
-                    $('.capture-photo').attr('disabled', true).addClass('disabled');
-                    $('.capture-video').attr('disabled', true).addClass('disabled');
-                    $('.capture-audio').attr('disabled', true).addClass('disabled');
-                    $('.gallery-link').attr('disabled', true).addClass('disabled');
-                }
+
                 var _price_float = parseFloat(self.points[z].price);
                 clone_point.find('.point_status_'+self.points[z].status).removeClass('hide');
                 _price_float = _price_float ? _price_float : 0;
@@ -265,10 +267,10 @@ var inspection = {
                 processData: false,  // tell jQuery not to process the data
                 contentType: false,  // tell jQuery not to set contentType
                 success : function(data) {
-                    navigator.notification.alert(data.message, null, 'Ok');
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    navigator.notification.alert('Pdf cargado correctamente', null, 'Ok');
+                    navigator.notification.alert(data.message, function(){
+                        self.presupuesto_navbar(data.file)
+                    }, 'Ok');
+
                 }
             });
             pdf.val('');
@@ -371,7 +373,7 @@ var inspection = {
 
                  options.fileKey = "file";
                  options.fileName = audioURI.substr(audioURI.lastIndexOf('/') + 1);
-                 options.mimeType = "image/jpeg";
+                 options.mimeType = "image/jpeg";delete_presupuesto
                  var params = new Object();
                  params.token = session.token;
                  params.point_id = point_id;
@@ -416,7 +418,7 @@ var inspection = {
         if (value == 2 && field == 'status'){
             $('.clone-point:not(.hide)').each(function(key, item){
                 var item = $(item);
-                var severity = item.find('.severity-picker').attr('data-severity');
+                var severity = item.find('.severity-picker').attr('datdelete_presupuestoa-severity');
                 if (severity == 0){
                     is_valid_to_send = false;
                     navigator.notification.alert('Debe inspeccionar ' + item.find('.point_name').html(), false, 'Error', 'Aceptar');
@@ -432,7 +434,7 @@ var inspection = {
         if (value == 3 && field == 'status'){
             $('.clone-point:not(.hide)').each(function(key, item){
                 let price = $(item).find('.update-price');
-                if (!(price.val() < 0)){
+                if (!(price.val() < 0) && !self.inspection.presupuesto){
                     is_valid_to_send = false;
                     navigator.notification.alert('Debe llenar el precio de ' + item.find('.point_name').html(), false, 'Error', 'Aceptar');
                 }
@@ -473,4 +475,38 @@ var inspection = {
     upload_pdf: function(){
          $('#pdf').trigger('click');
      },
+     presupuesto_navbar: function(file){
+         console.log("prespuesto nav");
+         var prespuesto = $('#prespuesto');
+         var self = this;
+         respuesto.find('.delete-prespuesto').unbind('click');
+         prespuesto.find('.download-prespuesto').attr('href', ruta_generica + '/api/v1/download_price_quote/'+file);
+         prespuesto.find('.delete-prespuesto').click(function(){
+             self.delete_presupuesto(file);
+         });
+         prespuesto.removeClass('hide');
+     },
+     delete_presupuesto: function(file){
+         console.log("prespuesto delete");
+
+         navigator.notification.confirm(
+             'Eliminar presupuesto?',
+             function(result){
+                 if(result === 1){
+                     $.ajax({
+                         url :  ruta_generica + '/api/v1/delete_price_quote/'+file,
+                         type : 'POST',
+                         dataType: 'JSON',
+                         processData: false,  // tell jQuery not to process the data
+                         contentType: false,  // tell jQuery not to set contentType
+                         success : function(data) {
+                             $('#prespuesto').addClass('hide');
+                         },
+                     });
+                 }
+             },
+             'Eliminar',
+             'Ok,Cancelar'
+         );
+     }
 };

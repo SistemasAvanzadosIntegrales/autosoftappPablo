@@ -95,6 +95,11 @@
                             <i class='inspection_status_4 hide fa fa-comments-o'></i><small class="inspection_status_4 hide"> Respondido</small>
                             <i class='inspection_status_5 hide fa fa-check-square-o'></i><small class="inspection_status_5 hide"> Revisado</small>
                             <i class='inspection_status_6 hide fa fa-power-off'></i><small class="inspection_status_6 hide"> Cerrado</small>
+                            <span id="prespuesto" class="pull-right hide online-required" style="font-size:0.7em; line-height: 2em;" class="pull-right">
+                                <small class="label label-primary">Presupuesto</small>
+                                <a class="download-prespuesto"><i class="fa fa-download"></i></a>
+                                <a class="delete-prespuesto"><i class="fa fa-trash"></i></a>
+                            </span>
                         </h3>
                         <div id="progress" class="progress hide">
                           <div class="progress-status hide"></div>
@@ -147,16 +152,16 @@
                                                     <label class="point_status_4 label display hide label-info">Pospuesto</label>
                                                 </div>
                                                 <div class="btn-group shadow pull-right">
-                                                    <button data-permissions="true" class="inspection_status_1 permission_technical_group btn btn-default capture-photo" role="button">
+                                                    <button data-permissions="true" class="inspection_status_1 permission_technical_group btn btn-default capture-photo online-required" role="button">
                                                         <i class="fa fa-camera"> </i>
                                                     </button>
-                                                    <button data-permissions="true" class="inspection_status_1 permission_technical_group btn btn-default capture-video" role="button">
+                                                    <button data-permissions="true" class="inspection_status_1 permission_technical_group btn btn-default capture-video online-required" role="button">
                                                         <i class="fa fa-video-camera"> </i>
                                                     </button>
-                                                    <button data-permissions="true" class="inspection_status_1 permission_technical_group btn btn-default capture-audio" role="button">
+                                                    <button data-permissions="true" class="inspection_status_1 permission_technical_group btn btn-default capture-audio online-required" role="button">
                                                         <i class="fa fa-volume-up"> </i>
                                                     </button>
-                                                    <a data-toggle="collapse"  href="#gallery1" aria-expanded="false" aria-controls="collapseExample"  class="gallery-link btn btn-default" role="button">
+                                                    <a data-toggle="collapse"  href="#gallery1" aria-expanded="false" aria-controls="collapseExample"  class="gallery-link online-required btn btn-default" role="button">
                                                         <i class="fa fa-eye"> </i>
                                                     </a>
                                                     <button data-permissions="true" class="permission_advisory_group btn btn-default delete-point" role="button">

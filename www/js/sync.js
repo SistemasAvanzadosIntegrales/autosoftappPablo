@@ -5,7 +5,7 @@ function __sync_data(data, call_back_function = null){
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS techs;');
         tx.executeSql('CREATE TABLE IF NOT EXISTS techs (id INTEGER PRIMARY KEY, name)');
-        for(let i = 0; i < data.techs.length; i++)
+        for(var i = 0; i < data.techs.length; i++)
         {
             tx.executeSql("INSERT INTO techs (id, name) VALUES ("+data.techs[i].id+", '"+data.techs[i].name+"')");
         }
@@ -14,10 +14,10 @@ function __sync_data(data, call_back_function = null){
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS vehicles;');
         tx.executeSql('CREATE TABLE IF NOT EXISTS vehicles (id INTEGER PRIMARY KEY, brand, model, license_plate, user_id, vin)');
-        for(let i = 0; i < data.vehicles.length; i++)
+        for(var i = 0; i < data.vehicles.length; i++)
         {
-            let vehicle = data.vehicles[i];
-            let sql = "INSERT INTO vehicles (id, brand, model, license_plate, user_id, vin) VALUES ("+vehicle.id+", '"+vehicle.brand+"', '"+vehicle.model+"', '"+vehicle.license_plate+"', "+vehicle.user_id+", '"+vehicle.vin+"')";
+            var vehicle = data.vehicles[i];
+            var sql = "INSERT INTO vehicles (id, brand, model, license_plate, user_id, vin) VALUES ("+vehicle.id+", '"+vehicle.brand+"', '"+vehicle.model+"', '"+vehicle.license_plate+"', "+vehicle.user_id+", '"+vehicle.vin+"')";
             tx.executeSql(sql);
         }
     });
@@ -26,9 +26,9 @@ function __sync_data(data, call_back_function = null){
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS clients;');
         tx.executeSql('CREATE TABLE IF NOT EXISTS clients (id INTEGER PRIMARY KEY, name, cellphone, email )');
-        for(let i = 0; i < data.clients.length; i++)
+        for(var i = 0; i < data.clients.length; i++)
         {
-            let client =  data.clients[i];
+            var client =  data.clients[i];
             tx.executeSql("INSERT INTO clients (id, name, cellphone, email) VALUES ("+client.id+", '"+client.name+"', '"+client.cellphone+"', '"+client.email+"')");
         }
     });
@@ -36,29 +36,31 @@ function __sync_data(data, call_back_function = null){
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS catalogue;');
         tx.executeSql('CREATE TABLE IF NOT EXISTS catalogue (id INTEGER PRIMARY KEY, inspection_id, name, category_name)');
-        for(let i = 0; i < data.catalogue.length; i++)
+        for(var i = 0; i < data.catalogue.length; i++)
         {
-            let catalogue =  data.catalogue[i];
+            var catalogue =  data.catalogue[i];
             tx.executeSql("INSERT INTO catalogue (id, inspection_id, name, category_name) VALUES ("+catalogue.id+", "+catalogue.inspection_id+", '"+catalogue.name+"', '"+catalogue.category_name+"')");
         }
     });
 
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS inspections;');
-        tx.executeSql('CREATE TABLE IF NOT EXISTS inspections (id INTEGER PRIMARY KEY, vehicle_id, user_id, origen, status)');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS inspections (id INTEGER PRIMARY KEY, vehicle_id, user_id, origen, status, presupuesto)');
         tx.executeSql('DROP TABLE IF EXISTS vehicle_inspections;');
         tx.executeSql('CREATE TABLE IF NOT EXISTS vehicle_inspections (id INTEGER PRIMARY KEY, inspection_id, point_id, price, severity, status, cataloge, category, origen, files)');
-        for(let i = 0; i < data.inspections.length; i++)
+        for(var i = 0; i < data.inspections.length; i++)
         {
-            let inspection =  data.inspections[i];
-            let sql = "INSERT INTO inspections (id, vehicle_id, user_id, origen, status) VALUES ("+inspection.id+", "+inspection.vehicle_id+", "+inspection.user_id+", 'server', "+inspection.status+")";
+            var inspection =  data.inspections[i];
+
+            var presupuesto = data.presupuestos[inspection.id] ? data.presupuestos[inspection.id] : '';
+            var sql = "INSERT INTO inspections (id, vehicle_id, user_id, origen, status, presupuesto) VALUES ("+inspection.id+", "+inspection.vehicle_id+", "+inspection.user_id+", 'server', "+inspection.status+", '"+ presupuesto +"')";
             tx.executeSql(sql);
-            let vehicle_inspections = inspection.vehicle_inspections;
-            for(let x = 0; x < vehicle_inspections.length; x++)
+            var vehicle_inspections = inspection.vehicle_inspections;
+            for(var x = 0; x < vehicle_inspections.length; x++)
             {
-                let point = vehicle_inspections[x];
+                var point = vehicle_inspections[x];
                 var files = JSON.stringify(point.files);
-                let sql2 = "INSERT INTO vehicle_inspections (id, inspection_id, point_id, price, severity, status, cataloge, category, origen, files) VALUES ("+point.id+", "+point.inspections_id+", "+point.inspection_id+", '"+point.price+"', "+point.severity+", '"+point.status+"', '"+point.catalogue.name+"', '"+point.catalogue.inspection.name+"', 'server', '"+files+"' )";
+                var sql2 = "INSERT INTO vehicle_inspections (id, inspection_id, point_id, price, severity, status, cataloge, category, origen, files) VALUES ("+point.id+", "+point.inspections_id+", "+point.inspection_id+", '"+point.price+"', "+point.severity+", '"+point.status+"', '"+point.catalogue.name+"', '"+point.catalogue.inspection.name+"', 'server', '"+files+"' )";
                 tx.executeSql(sql2);
             }
         }
