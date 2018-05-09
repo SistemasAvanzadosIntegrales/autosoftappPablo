@@ -268,6 +268,7 @@ var inspection = {
                 contentType: false,  // tell jQuery not to set contentType
                 success : function(data) {
                     navigator.notification.alert(data.message, function(){
+                        self.inspection.presupuesto = data.file;
                         self.presupuesto_navbar(data.file)
                     }, 'Ok');
 
@@ -373,7 +374,7 @@ var inspection = {
 
                  options.fileKey = "file";
                  options.fileName = audioURI.substr(audioURI.lastIndexOf('/') + 1);
-                 options.mimeType = "image/jpeg";delete_presupuesto
+                 options.mimeType = "image/jpeg";
                  var params = new Object();
                  params.token = session.token;
                  params.point_id = point_id;
@@ -476,7 +477,6 @@ var inspection = {
          $('#pdf').trigger('click');
      },
      presupuesto_navbar: function(file){
-         console.log("presupuesto nav");
          var presupuesto = $('#presupuesto');
          var self = this;
          presupuesto.find('.delete-presupuesto').unbind('click');
@@ -487,8 +487,6 @@ var inspection = {
          presupuesto.removeClass('hide');
      },
      delete_presupuesto: function(file){
-         console.log("presupuesto delete");
-
          navigator.notification.confirm(
              'Eliminar presupuesto?',
              function(result){
