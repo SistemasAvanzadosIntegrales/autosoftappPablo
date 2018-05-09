@@ -94,7 +94,12 @@ var inspection = {
                 clone_point.find('.capture-photo').attr('data-point-id', point_id);
                 clone_point.find('.capture-video').attr('data-point-id', point_id);
                 clone_point.find('.capture-audio').attr('data-point-id', point_id);
-
+                if(localStorage.getItem("network") == 'offline'){
+                    $('.capture-photo').attr('disabled', true).addClass('disabled');
+                    $('.capture-video').attr('disabled', true).addClass('disabled');
+                    $('.capture-audio').attr('disabled', true).addClass('disabled');
+                    $('.gallery-link').attr('disabled', true).addClass('disabled');
+                }
                 var _price_float = parseFloat(self.points[z].price);
                 clone_point.find('.point_status_'+self.points[z].status).removeClass('hide');
                 _price_float = _price_float ? _price_float : 0;
@@ -158,6 +163,7 @@ var inspection = {
         var is_asesor = app_settings.user_permissions.indexOf('advisory_group') >= 0;
         var is_tech = app_settings.user_permissions.indexOf('technical_group') >= 0;
         var can_close = app_settings.user_permissions.indexOf('close') >= 0;
+        var can_mark_as_attended = app_settings.user_permissions.indexOf('mark_as_attended') >= 0;
 
         var status = parseInt(self.inspection.status)
         if(status == 1 && is_tech)
@@ -171,9 +177,13 @@ var inspection = {
         if(status == 4 && is_asesor)
         {
             $('#buttonmenu').append(
-                '<a class="navbar-link" onclick="inspection.update(\'status\', \'5\')" ><i class="fa fa-check "></i></a>'+
-                '<a class="navbar-link" onclick="inspection.update(\'status\', \'3\')" ><i class="fa fa-paper-plane "></i></a>'
+                '<a class="navbar-link" onclick="inspection.update(\'status\', \'3\')" ><i class="fa fa-paper-plane "></i></a>'+
+                '<a class="navbar-link" onclick="inspection.update(\'status\', \'1\')" ><i class="fa fa-wrench"></i></a>'
             )
+        }
+        if(status >= 2 &&  can_mark_as_attended)
+        {
+            $('#buttonmenu').append('<a class="navbar-link" onclick="inspection.update(\'status\', \'5\')" ><i class="fa fa-check "></i></a>')
         }
         if(status >= 1 && can_close)
         {
@@ -208,6 +218,7 @@ var inspection = {
         });
 
         $('.update-severity').click(function(){
+            $(this).parent().attr('data-severity',  $(this).attr('data-severity'));
             self.update_point($(this).attr('data-point-id'), 'severity', $(this).attr('data-severity'));
         });
 
@@ -462,25 +473,4 @@ var inspection = {
     upload_pdf: function(){
          $('#pdf').trigger('click');
      },
-};
-
-
-
-/**
- * Get the URL parameters
- * source: https://css-tricks.com/snippets/javascript/get-url-variables/
- * @param  {String} url The URL
- * @return {Object}     The URL parameters
- */
-var getParams = function (url) {
-	var params = {};
-	var parser = document.createElement('a');
-	parser.href = url;
-	var query = parser.search.substring(1);
-	var vars = query.split('&');
-	for (var i = 0; i < vars.length; i++) {
-		var pair = vars[i].split('=');
-		params[pair[0]] = decodeURIComponent(pair[1]);
-	}
-	return params;
 };

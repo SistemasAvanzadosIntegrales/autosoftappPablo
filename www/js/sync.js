@@ -68,7 +68,7 @@ function __sync_data(data, call_back_function = null){
         $('#dbRefresh').addClass('hide');
         debug('Data base has been saved');
         if(call_back_function)
-        call_back_function.call();
+            call_back_function.call();
     });
 }
 
@@ -122,13 +122,6 @@ function sync_data(call_back_function = null){
                 first_sync = false;
             }else {
                 debug('algo fallo.. [' + JSON.stringify(error) + ']', true);
-            }
-        }, function() {
-            $('#dbRefresh').addClass('hide');
-            debug('Data base has been saved');
-            if(call_back_function)
-            {
-                call_back_function.call();
             }
         });
 
