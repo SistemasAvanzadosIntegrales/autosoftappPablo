@@ -71,7 +71,7 @@ var inspection = {
             }
             var clone = $("#clone").clone();
             var category_name = clone.find('.category_name');
-            var prespuesto = $('#prespuesto');
+            var presupuesto = $('#presupuesto');
             category_name.html(self.categories[f].category_name);
             category_name.attr('href', '#'+self.categories[f].category_name);
             category_name.attr('aria-controls', self.categories[f].category_name);
@@ -476,18 +476,18 @@ var inspection = {
          $('#pdf').trigger('click');
      },
      presupuesto_navbar: function(file){
-         console.log("prespuesto nav");
-         var prespuesto = $('#prespuesto');
+         console.log("presupuesto nav");
+         var presupuesto = $('#presupuesto');
          var self = this;
-         respuesto.find('.delete-prespuesto').unbind('click');
-         prespuesto.find('.download-prespuesto').attr('href', ruta_generica + '/api/v1/download_price_quote/'+file);
-         prespuesto.find('.delete-prespuesto').click(function(){
+         respuesto.find('.delete-presupuesto').unbind('click');
+         presupuesto.find('.download-presupuesto').attr('href', ruta_generica + '/api/v1/download_price_quote/'+file);
+         presupuesto.find('.delete-presupuesto').click(function(){
              self.delete_presupuesto(file);
          });
-         prespuesto.removeClass('hide');
+         presupuesto.removeClass('hide');
      },
      delete_presupuesto: function(file){
-         console.log("prespuesto delete");
+         console.log("presupuesto delete");
 
          navigator.notification.confirm(
              'Eliminar presupuesto?',
@@ -500,7 +500,7 @@ var inspection = {
                          processData: false,  // tell jQuery not to process the data
                          contentType: false,  // tell jQuery not to set contentType
                          success : function(data) {
-                             $('#prespuesto').addClass('hide');
+                             $('#presupuesto').addClass('hide');
                          },
                      });
                  }
