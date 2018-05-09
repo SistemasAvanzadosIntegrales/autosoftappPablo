@@ -419,7 +419,7 @@ var inspection = {
         if (value == 2 && field == 'status'){
             $('.clone-point:not(.hide)').each(function(key, item){
                 var item = $(item);
-                var severity = item.find('.severity-picker').attr('datdelete_presupuestoa-severity');
+                var severity = item.find('.severity-picker').attr('data-severity');
                 if (severity == 0){
                     is_valid_to_send = false;
                     navigator.notification.alert('Debe inspeccionar ' + item.find('.point_name').html(), false, 'Error', 'Aceptar');
