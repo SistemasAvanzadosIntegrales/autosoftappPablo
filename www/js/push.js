@@ -1,6 +1,6 @@
-// Add to index.js or the first page that loads with your app.
-// For Intel XDK and please add this to your app.js.
 document.addEventListener('deviceready', function () {
+    var session = JSON.parse(localStorage.getItem('session'));
+    var app_settings = JSON.parse(localStorage.getItem('app_settings')); 
     // Enable to debug issues.
     // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
     try {
@@ -12,8 +12,8 @@ document.addEventListener('deviceready', function () {
             .handleNotificationOpened(notificationOpenedCallback)
             .endInit();
         var session=JSON.parse(localStorage.getItem('session'));
-        window.plugins.OneSignal.sendTag("rol",session.rol+session.token);
-        window.plugins.OneSignal.sendTag("id", session.id_cliente+session.token);
+        window.plugins.OneSignal.sendTag("rol",app_settings.rol+session.token);
+        window.plugins.OneSignal.sendTag("id", app_settings.user.id+session.token);
 
     } catch (e) {
         console.log(e);
