@@ -32,9 +32,9 @@ function dashboard(take, skip, search = null)
                 where += " c.name like '%"+search+"%'";
                 where += " OR i.id like  '%"+search+"%'";
 
-                let l = _status.length;
-                let status_id;
-                for (let i = 0; i < l; i++){
+                var l = _status.length;
+                var status_id;
+                for (var i = 0; i < l; i++){
                     if (_status[i][search])
                     {
                         status_id = _status[i][search];
@@ -54,7 +54,7 @@ function dashboard(take, skip, search = null)
             }else {
                 where += ' AND i.status != 6 ';
             }
-            let sql = [
+            var sql = [
                 " SELECT ",
                 " substr('000000' || i.id, -4, 4) as folio,  i.id as link, * ",
                 " FROM inspections AS i ",
@@ -108,7 +108,7 @@ function HtmlDashboard(data)
             field = $(item).attr('data-field');
             if(field)
             {
-                let value = data.inspections[i][field];
+                var value = data.inspections[i][field];
                 if(!value){
                     good_clone = false;
                     return;

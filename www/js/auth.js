@@ -5,14 +5,17 @@ function resetPassword(){
 }
 
 function ingresar() {
+    var email = $('#email').val().trim();
+    var password = $('#password').val().trim();
+    var token = $('#token').val().trim();
 
-    if( $("#email" ).val().trim() == '' ) {
+    if( email == '' ) {
         navigator.notification.alert('Debes escribir tu email', null, 'Aviso', 'Aceptar');
     }
-    else if( $("#password").val().trim() == '' ) {
+    else if( password == '' ) {
         navigator.notification.alert('Debes escribir tu contraseña', null, 'Aviso', 'Aceptar');
     }
-    else if( $("#token").val().trim() == '' ) {
+    else if( token == '' ) {
         navigator.notification.alert('Debes escribir el token', null, 'Aviso', 'Aceptar');
     }
     else {
@@ -21,15 +24,13 @@ function ingresar() {
             type: 'POST',
             dataType: 'JSON',
             data: {
-                email       : $("#email" ).val(),
-                password    : $("#password").val().trim(),
-                token       : $("#token").val().trim(),
+                email    : email,
+                token    : token,
+                password : password,
             },
             success:function(resp) {
                 if( resp.status == 'ok' || 1) {
-                    localStorage.setItem('session', JSON.stringify({
-                        'token' : $("#token").val().trim()
-                    }));
+                    localStorage.setItem('session', JSON.stringify({'token' : token}));
                     localStorage.setItem("app_settings", JSON.stringify(resp));
                     localStorage.setItem("network", 'online');
                     location.href="dashboard.html";
@@ -37,10 +38,6 @@ function ingresar() {
                 else {
                   navigator.notification.alert(resp.message, null, 'Aviso', 'Aceptar');
                 }
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                jsonValue = jQuery.parseJSON( XMLHttpRequest.responseText);
-                navigator.notification.alert(jsonValue.message, null, 'Aviso', 'Aceptar');
             }
         });
 

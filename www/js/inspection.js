@@ -125,9 +125,9 @@ var inspection = {
                 clone_point.find('.point_name').append(self.points[z].name);
                 clone.find('.list-group').append(clone_point.removeClass('hide'));
                 var uri = 'http://autosoft2.avansys.com.mx/files/';
-                for (let w = 0; w < files_length; w++){
-                    let __file_name = files[w].name;
-                    let item = false;
+                for (var w = 0; w < files_length; w++){
+                    var __file_name = files[w].name;
+                    var item = false;
                     if (__file_name.indexOf('.mp4') > 0){
                         item = "<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+uri + __file_name +"' type='video/mp4'></video></div>";
                     }
@@ -139,7 +139,7 @@ var inspection = {
                     else if (__file_name.indexOf('.jpg') > 0){
                         item = '<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+uri + __file_name +'"></div>';
                     }
-                    let itemDefault =  clone_point.find('.carousel').find('#itemDefault');
+                    var itemDefault =  clone_point.find('.carousel').find('#itemDefault');
                     if (item && itemDefault)
                     {
                         itemDefault.remove();
@@ -300,7 +300,7 @@ var inspection = {
                     videoURI,
                     ruta_generica+"/api/v1/upload",
                     function(result){
-                        let itemDefault =  $('#carousel'+point_id).find('#itemDefault');
+                        var itemDefault =  $('#carousel'+point_id).find('#itemDefault');
                         if (itemDefault)
                         {
                             itemDefault.remove();
@@ -342,7 +342,7 @@ var inspection = {
                     photoURI,
                     ruta_generica+"/api/v1/upload",
                     function(result){
-                        let itemDefault =  $('#carousel'+point_id).find('#itemDefault');
+                        var itemDefault =  $('#carousel'+point_id).find('#itemDefault');
                         if (itemDefault)
                         {
                             itemDefault.remove();
@@ -387,13 +387,13 @@ var inspection = {
                     audioURI,
                     ruta_generica+"/api/v1/upload",
                     function(result){
-                        let itemDefault =  $('#carousel'+point_id).find('#itemDefault');
+                        var itemDefault =  $('#carousel'+point_id).find('#itemDefault');
                         if (itemDefault)
                         {
                             itemDefault.remove();
                         }
                         $('#carousel'+point_id).find('.active').removeClass('active');
-                        let item  = "<div class='item active'>"+
+                        var item  = "<div class='item active'>"+
                         "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto; display: inherit;' controls>"+
                         "<source src='"+mediaFiles.full_path+"'></audio></div>";
                          $('#carousel'+point_id).find('.carousel-inner').append(item);
@@ -434,7 +434,7 @@ var inspection = {
 
         if (value == 3 && field == 'status'){
             $('.clone-point:not(.hide)').each(function(key, item){
-                let price = $(item).find('.update-price');
+                var price = $(item).find('.update-price');
                 if (!(price.val() < 0) && !self.inspection.presupuesto){
                     is_valid_to_send = false;
                     navigator.notification.alert('Debe llenar el precio de ' + item.find('.point_name').html(), false, 'Error', 'Aceptar');
@@ -443,7 +443,7 @@ var inspection = {
         }
         if (is_valid_to_send) {
             self.db.transaction(function(tx){
-                 let sql = "UPDATE inspections SET origen = 'modified', " + field + " = " + charter + value + charter + " where id = " + self.id;
+                 var sql = "UPDATE inspections SET origen = 'modified', " + field + " = " + charter + value + charter + " where id = " + self.id;
                  console.log(sql);
                  tx.executeSql(sql);
             }, function(error) {
@@ -465,7 +465,7 @@ var inspection = {
              charter = '';
 
         self.db.transaction(function(tx){
-            let sql = "UPDATE vehicle_inspections SET  origen = 'modified', " + field + " = " + charter + value + charter + " where id = " + id;
+            var sql = "UPDATE vehicle_inspections SET  origen = 'modified', " + field + " = " + charter + value + charter + " where id = " + id;
             tx.executeSql(sql);
         }, function(error) {
             debug('algo fallo', true);

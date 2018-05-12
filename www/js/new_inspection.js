@@ -12,7 +12,7 @@ function new_inspection(take, skip, search = null){
                 where += ")";
             }
 
-            let sql = " SELECT  v.id as link, * FROM vehicles AS v LEFT JOIN clients AS c ON c.id = v.user_id " + where + " LIMIT " + skip+", "+take;
+            var sql = " SELECT  v.id as link, * FROM vehicles AS v LEFT JOIN clients AS c ON c.id = v.user_id " + where + " LIMIT " + skip+", "+take;
             tx.executeSql(sql, [], function (tx, results){
                 new_inspection_html({vehicles: results.rows});
             });
@@ -44,7 +44,7 @@ function new_inspection_html(data){
             field = $(item).attr('data-field');
             if(field)
             {
-                let value = data.vehicles[i][field];
+                var value = data.vehicles[i][field];
                 if(!value){
                     good_clone = false;
                     return;

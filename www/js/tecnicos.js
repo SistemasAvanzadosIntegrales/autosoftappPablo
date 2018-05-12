@@ -9,7 +9,7 @@ function obtenerTecnicos(take, skip, search = null){
                 where += " techs.name like '%"+search+"%'";
                 where += ")";
             }
-            let sql = " SELECT  *, id as link FROM techs " + where + " LIMIT " + skip+", "+take;
+            var sql = " SELECT  *, id as link FROM techs " + where + " LIMIT " + skip+", "+take;
             tx.executeSql(sql, [], function (tx, results){
                 builTecnicosHTML({techs: results.rows});
             });
@@ -45,7 +45,7 @@ function builTecnicosHTML(data){
             field = $(item).attr('data-field');
             if(field)
             {
-                let value = data.techs[i][field];
+                var value = data.techs[i][field];
                 if(!value){
                     good_clone = false;
                     return;
@@ -79,10 +79,10 @@ function asignar(vehicle_id, user_id){
                         console.log(result);
                         tx.executeSql(" SELECT  * FROM catalogue ", [], function (tx, results){
                             for (var x = 0; x < results.rows.length; x++){
-                                let name = results.rows.item(x).name;
-                                let category_name = results.rows[x].category_name;
-                                let point_id = results.rows[x].id;
-                                let sql2 = "INSERT INTO vehicle_inspections (inspection_id, point_id, price, severity, status, cataloge, category, 'origen') VALUES ("+inspection_id+", "+point_id+",0, 0, 1, '"+name+"', '"+category_name+"', 'device')";
+                                var name = results.rows.item(x).name;
+                                var category_name = results.rows[x].category_name;
+                                var point_id = results.rows[x].id;
+                                var sql2 = "INSERT INTO vehicle_inspections (inspection_id, point_id, price, severity, status, cataloge, category, 'origen') VALUES ("+inspection_id+", "+point_id+",0, 0, 1, '"+name+"', '"+category_name+"', 'device')";
                                 tx.executeSql(sql2);
                             }
                         });
