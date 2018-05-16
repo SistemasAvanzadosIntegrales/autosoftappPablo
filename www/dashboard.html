@@ -89,31 +89,7 @@
               $("#table-body tr:not(#clone)").html("");
               dashboard(10, 0, $("#word").val());
           })
-
-
       }, false);
      </script>
-        <script>
-            document.addEventListener("deviceready", ondeviceready, false);
-            function ondeviceready() {
-                alert("Device Ready....");
-            }
-            function PushNotification() {
-                cordova.plugins.notification.local.schedule({
-                    id: 1,
-                    title: "Push Notification",
-                    text: "This is first Push Notification."
-                });
-                
-                cordova.plugins.notification.local.schedule({
-                    id: 2,
-                    title: 'Design team meeting',
-                    trigger: { every: 'minute'}
-                });
-            }
-        </script>
-        <br/>
-        <br/>
-        <input type="button" value="Send a Push Notification" onclick="PushNotification();" />
-    </body>
+  </body>
 </html>

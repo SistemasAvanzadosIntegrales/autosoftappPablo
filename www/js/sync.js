@@ -1,4 +1,4 @@
-function __sync_data(data, call_back_function = null){
+function __make_db(data, call_back_function = null){
 
     var  db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 
@@ -75,72 +75,78 @@ function __sync_data(data, call_back_function = null){
 }
 
 var first_sync = true;
-
+send = null;
 function sync_data(call_back_function = null){
-    if(localStorage.getItem("network") == 'online'){
-        $('#dbRefresh').removeClass('hide');
-        var session = JSON.parse(localStorage.getItem('session'));
-        var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-        var post_data = {
-            inspections: [],
-            points: [],
-            clients: [],
-            vehicles: []
-        };
-        db.transaction(function(tx) {
-            tx.executeSql("SELECT i.* FROM inspections AS i LEFT JOIN vehicle_inspections AS vi ON i.id = vi.inspection_id WHERE i.origen IN ('modified', 'device') OR vi.origen IN ('modified', 'device') GROUP BY i.id ORDER BY i.id ", [], function (tx, inspections){
-                post_data.inspections = inspections.rows;
-                tx.executeSql("SELECT *  FROM vehicle_inspections WHERE origen IN ('modified', 'device') order by inspection_id", [], function(tx, points){
-                    post_data.points = points.rows;
-                    tx.executeSql("SELECT *  FROM clients WHERE origen != 'server' order by id", [], function(tx, clients){
-                        post_data.clients = clients.rows;
-                        tx.executeSql("SELECT *  FROM vehicles WHERE  origen != 'server' order by id", [], function(tx, vehicles){
-                            post_data.vehicles = vehicles.rows;
-                            $.ajax({
-                                async: false,
-                                url: ruta_generica+"/api/v1/sync_data",
-                                type: 'POST',
-                                cache : false,
-                                dataType: 'JSON',
-                                data: {
-                                    token:session.token,
-                                    post_data: JSON.stringify(post_data),
-                                },
-                                success:function(data) {
-                                    __sync_data(data, call_back_function);
-                                }
+    if(send)
+    {
+        clearTimeout(send);
+    }
+	send = setTimeout(function(){
+        if(localStorage.getItem("network") == 'online'){
+            $('#dbRefresh').removeClass('hide');
+            var session = JSON.parse(localStorage.getItem('session'));
+            var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+            var post_data = {
+                inspections: [],
+                points: [],
+                clients: [],
+                vehicles: []
+            };
+            db.transaction(function(tx) {
+                tx.executeSql("SELECT i.* FROM inspections AS i LEFT JOIN vehicle_inspections AS vi ON i.id = vi.inspection_id WHERE i.origen IN ('modified', 'device') OR vi.origen IN ('modified', 'device') GROUP BY i.id ORDER BY i.id ", [], function (tx, inspections){
+                    post_data.inspections = inspections.rows;
+                    tx.executeSql("SELECT *  FROM vehicle_inspections WHERE origen IN ('modified', 'device') order by inspection_id", [], function(tx, points){
+                        post_data.points = points.rows;
+                        tx.executeSql("SELECT *  FROM clients WHERE origen != 'server' order by id", [], function(tx, clients){
+                            post_data.clients = clients.rows;
+                            tx.executeSql("SELECT *  FROM vehicles WHERE  origen != 'server' order by id", [], function(tx, vehicles){
+                                post_data.vehicles = vehicles.rows;
+                                $.ajax({
+                                    async: false,
+                                    url: ruta_generica+"/api/v1/sync_data",
+                                    type: 'POST',
+                                    cache : false,
+                                    dataType: 'JSON',
+                                    data: {
+                                        token:session.token,
+                                        post_data: JSON.stringify(post_data),
+                                    },
+                                    success:function(data) {
+                                        __make_db(data, call_back_function);
+                                    }
+                                });
                             });
                         });
                     });
                 });
+            }, function(error) {
+                if(first_sync){
+                    $.ajax({
+                        async: false,
+                        url: ruta_generica+"/api/v1/sync_data",
+                        type: 'POST',
+                        cache : false,
+                        dataType: 'JSON',
+                        data: {
+                            token:session.token,
+                        },
+                        success:function(data) {
+                            __make_db(data, call_back_function);
+                        }
+                    });
+                    first_sync = false;
+                }else {
+                    debug('algo fallo.. [' + JSON.stringify(error) + ']', true);
+                }
             });
-        }, function(error) {
-            if(first_sync){
-                $.ajax({
-                    async: false,
-                    url: ruta_generica+"/api/v1/sync_data",
-                    type: 'POST',
-                    cache : false,
-                    dataType: 'JSON',
-                    data: {
-                        token:session.token,
-                    },
-                    success:function(data) {
-                        __sync_data(data, call_back_function);
-                    }
-                });
-                first_sync = false;
-            }else {
-                debug('algo fallo.. [' + JSON.stringify(error) + ']', true);
-            }
-        });
 
-    }
-    else
-    {
-        call_back_function.call();
+        }
+        else
+        {
+            call_back_function.call();
 
-    }
+        }
+    }, 50);
 }
 
 function debug(message, debug)

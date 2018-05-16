@@ -29,7 +29,7 @@ function ingresar() {
                 password : password,
             },
             success:function(resp) {
-                if( resp.status == 'ok' || 1) {
+                if( resp.status == 'ok') {
                     localStorage.setItem('session', JSON.stringify({'token' : token}));
                     localStorage.setItem("app_settings", JSON.stringify(resp));
                     localStorage.setItem("network", 'online');
