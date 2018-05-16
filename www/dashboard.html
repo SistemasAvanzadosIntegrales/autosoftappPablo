@@ -96,7 +96,19 @@
         <script>
             document.addEventListener("deviceready", ondeviceready, false);
             function ondeviceready() {
-                alert("Device Ready....");
+                cordova.plugins.notification.local.fireQueuedEvents();
+
+                // the timeout is just to make sure the events had time to trigger
+                setTimeout(() => {
+                  let details = cordova.plugins.notification.local.launchDetails;
+
+                  if (details && details.action == 'click') {
+                    // do something
+                  }
+                  else {
+                    // do something else
+                  }
+                }, 200);
             }
             function PushNotification() {
                 cordova.plugins.notification.local.schedule({
