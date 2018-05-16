@@ -76,7 +76,7 @@ function __make_db(data, call_back_function = null){
 
 var first_sync = true;
 send = null;
-function sync_data(call_back_function = null){
+function sync_data(call_back_function = null, espera = 0){
     if(send)
     {
         clearTimeout(send);
@@ -146,7 +146,7 @@ function sync_data(call_back_function = null){
             call_back_function.call();
 
         }
-    }, 50);
+    }, 50 + espera);
 }
 
 function debug(message, debug)
