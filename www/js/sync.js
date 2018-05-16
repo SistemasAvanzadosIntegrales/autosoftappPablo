@@ -13,11 +13,11 @@ function __sync_data(data, call_back_function = null){
 
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS vehicles;');
-        tx.executeSql('CREATE TABLE IF NOT EXISTS vehicles (id INTEGER PRIMARY KEY, brand, model, license_plate, user_id, vin)');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS vehicles (id INTEGER PRIMARY KEY, brand, model, license_plate, user_id, vin, origen)');
         for(var i = 0; i < data.vehicles.length; i++)
         {
             var vehicle = data.vehicles[i];
-            var sql = "INSERT INTO vehicles (id, brand, model, license_plate, user_id, vin) VALUES ("+vehicle.id+", '"+vehicle.brand+"', '"+vehicle.model+"', '"+vehicle.license_plate+"', "+vehicle.user_id+", '"+vehicle.vin+"')";
+            var sql = "INSERT INTO vehicles (id, brand, model, license_plate, user_id, vin, origen) VALUES ("+vehicle.id+", '"+vehicle.brand+"', '"+vehicle.model+"', '"+vehicle.license_plate+"', "+vehicle.user_id+", '"+vehicle.vin+"', 'server')";
             tx.executeSql(sql);
         }
     });
@@ -25,11 +25,11 @@ function __sync_data(data, call_back_function = null){
 
     db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS clients;');
-        tx.executeSql('CREATE TABLE IF NOT EXISTS clients (id INTEGER PRIMARY KEY, name, cellphone, email )');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS clients (id INTEGER PRIMARY KEY, name, cellphone, email, origen, password )');
         for(var i = 0; i < data.clients.length; i++)
         {
             var client =  data.clients[i];
-            tx.executeSql("INSERT INTO clients (id, name, cellphone, email) VALUES ("+client.id+", '"+client.name+"', '"+client.cellphone+"', '"+client.email+"')");
+            tx.executeSql("INSERT INTO clients (id, name, cellphone, email,  origen, password) VALUES ("+client.id+", '"+client.name+"', '"+client.cellphone+"', '"+client.email+"' , 'server', '')");
         }
     });
 
@@ -83,26 +83,34 @@ function sync_data(call_back_function = null){
         var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
         var post_data = {
             inspections: [],
-            points: []
+            points: [],
+            clients: [],
+            vehicles: []
         };
         db.transaction(function(tx) {
             tx.executeSql("SELECT i.* FROM inspections AS i LEFT JOIN vehicle_inspections AS vi ON i.id = vi.inspection_id WHERE i.origen IN ('modified', 'device') OR vi.origen IN ('modified', 'device') GROUP BY i.id ORDER BY i.id ", [], function (tx, inspections){
                 post_data.inspections = inspections.rows;
                 tx.executeSql("SELECT *  FROM vehicle_inspections WHERE origen IN ('modified', 'device') order by inspection_id", [], function(tx, points){
                     post_data.points = points.rows;
-                    $.ajax({
-                        async: false,
-                        url: ruta_generica+"/api/v1/sync_data",
-                        type: 'POST',
-                        cache : false,
-                        dataType: 'JSON',
-                        data: {
-                            token:session.token,
-                            post_data: JSON.stringify(post_data),
-                        },
-                        success:function(data) {
-                            __sync_data(data, call_back_function);
-                        }
+                    tx.executeSql("SELECT *  FROM clients WHERE origen != 'server' order by id", [], function(tx, clients){
+                        post_data.clients = clients.rows;
+                        tx.executeSql("SELECT *  FROM vehicles WHERE  origen != 'server' order by id", [], function(tx, vehicles){
+                            post_data.vehicles = vehicles.rows;
+                            $.ajax({
+                                async: false,
+                                url: ruta_generica+"/api/v1/sync_data",
+                                type: 'POST',
+                                cache : false,
+                                dataType: 'JSON',
+                                data: {
+                                    token:session.token,
+                                    post_data: JSON.stringify(post_data),
+                                },
+                                success:function(data) {
+                                    __sync_data(data, call_back_function);
+                                }
+                            });
+                        });
                     });
                 });
             });

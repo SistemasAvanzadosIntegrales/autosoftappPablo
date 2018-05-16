@@ -38,24 +38,23 @@
               <div class="input-group col-xs-6"></div>
             </div>
             <div class="table-responsive">
-              <table class="table table-striped default-table">
-                <thead class="margin-0">
-                    <tr>
-                        <th width="80%">Técnico</th>
-                        <th class="text-center">Asignar</th>
-                    </tr>
-                </thead>
-                <tbody id="tecnicos">
-                    <tr id="clone" class="hide">
-                        <td class="fill-data" data-field="name"></td>
-                        <td class="fill-data text-center" data-field="link"></td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                      <tr><td colspan ="2" class="text-center"><a id="show_more">Ver más registros</a></td></tr>
-                  </tfoot>
-              </table>
-			 <div id="alertaCliente" class="text-center text-red"></div>
+                <table class="table table-striped default-table">
+                    <thead class="margin-0">
+                        <tr>
+                            <th width="80%">Técnico</th>
+                            <th class="text-center">Asignar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="techs">
+                        <tr id="clone" class="hide">
+                            <td class="fill-data" data-field="name"></td>
+                            <td class="fill-data text-center" data-field="link"></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr><td colspan ="2" class="text-center"><a id="show_more">Ver más registros</a></td></tr>
+                    </tfoot>
+                </table>
             </div>
           </div>
         </div>
@@ -66,14 +65,14 @@
     <script type="text/javascript" src="js/localstorage.js"></script>
     <script type="text/javascript" src="js/commun.js"></script>
     <script type="text/javascript" src="js/sync.js"></script>
-    <script type="text/javascript" src="js/tecnicos.js"></script>
+    <script type="text/javascript" src="js/techs.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
       document.addEventListener("deviceready", function(){
-          obtenerTecnicos(10, 0);
+          obtenerTechs(10, 0);
           $("#search").click(function(){
-              $("#tecnicos tr:not(#clone)").html("");
-              obtenerTecnicos(10, 0, $("#word").val());
+              $("#techs tr:not(#clone)").html("");
+              obtenerTechs(10, 0, $("#word").val());
           })
       }, false);
      </script>

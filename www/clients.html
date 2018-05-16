@@ -13,19 +13,22 @@
     <div id="loading"><div id="loader"></div></div>
     <!-- navbar -->
     <div id="navbar"></div>
-    <div class="container-fluid my-container">
+    <div id="ClientsIndex" class="container-fluid my-container">
       <div class="row">
         <div class="col-xs-12">
-          <h1>
-    <img name="logo" id='logo' src="" width="70px">
-    <small id="user_name" class="pull-right text-center"><i class="fa fa-user"></i><br></small>
-</h1>
+            <h4>
+                <img name="logo" id='logo' src="" width="70px">
+                <span class="pull-right  text-muted text-center">
+                    <i class="fa fa-user-circle"></i><br>
+                    <small class="capitalize" id="user_name"></small>
+                </span>
+            </h4>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
           <div class="panel panel-default">
-            <div class="panel-heading">
+              <div class="panel-heading">
               <div class="input-group col-xs-6">
                   <input type="text" class="form-control" id="word" placeholder="Buscar">
                   <a id="search" class="input-group-addon btn btn-search link">
@@ -35,17 +38,22 @@
               <div class="input-group col-xs-6"></div>
             </div>
             <div class="table-responsive">
-              <table class="table table-striped default-table">
-                <thead class="margin-0">
-                    <tr>
-                        <th width="80%">Nombre</th>
-                        <th class="text-center fullaccess">Eliminar</th>
-                        <th class="text-center">Visualizar</th>
-                    </tr>
-                </thead>
-                <tbody id="table-clients-users"></tbody>
-              </table>
-				      <div id="alertaCliente" class="text-center text-red"></div>
+                <table class="table table-striped default-table">
+                    <thead class="margin-0">
+                        <tr>
+                            <th wid, 'server'th="80%">Nombre</th>
+                            <th class="text-center fullaccess"></th>
+                            <th class="text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="clients">
+                        <tr id="clone" class="hide">
+                            <td class="fill-data" data-field="name"></td>
+                            <td class="fill-data text-center" data-field="trash"></td>
+                            <td class="fill-data text-center" data-field="link"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
           </div>
         </div>
@@ -55,17 +63,15 @@
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/localstorage.js"></script>
     <script type="text/javascript" src="js/commun.js"></script>
-    <script type="text/javascript" src="js/filter.js"></script>
-    <script type="text/javascript" src="js/inspections.js"></script>
-    <script type="text/javascript" src="js/vehiculos.js"></script>
-    <script type="text/javascript" src="js/clientes.js"></script>
+    <script type="text/javascript" src="js/sync.js"></script>
+    <script type="text/javascript" src="js/clients.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
       document.addEventListener("deviceready", function(){
-          obtenerclients(10,0);
+          obtenerClients(10,0);
           $("#search").click(function(){
-              $("#table-clients-users").html("");
-              obtenerclients(10, 0, null, $("#word").val());
+              $("#clients tr:not(#clone)").html("");
+              obtenerClients(10, 0, $("#word").val());
           })
       }, false);
      </script>

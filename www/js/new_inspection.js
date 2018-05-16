@@ -50,7 +50,7 @@ function new_inspection_html(data){
                     return;
                 }
                 if(field == 'link'){
-                    value = '<a href="tecnicos.html?vehicle_id='+vehicle_id+'" class="btn-link btn-md"><i class="fa fa-chevron-right"> </i></a>';
+                    value = '<a href="techs.html?vehicle_id='+vehicle_id+'" class="btn-link btn-md"><i class="fa fa-chevron-right"> </i></a>';
                 }
 
                 $(item).append(value);

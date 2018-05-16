@@ -36,6 +36,12 @@ document.addEventListener("offline", function(){
     }
     token = session.token;
     user_id = app_settings.user.id;
+
+    cordova.plugins.notification.local.schedule({
+        title: 'My first notification',
+        text: 'Thats pretty easy...',
+        foreground: true
+    });
  });
 
 /*
@@ -81,7 +87,6 @@ var getParams = function (url) {
 };
 
 function salir(){
-   localStorage.clear();
    location.href="index.html";
 }
 
@@ -201,7 +206,6 @@ document.addEventListener("deviceready", function(){
     logo();
     style();
     permissions();
-
   });
   //console.log('device is now ready');
 }, false);

@@ -1,4 +1,4 @@
-function obtenerTecnicos(take, skip, search = null){
+function obtenerTechs(take, skip, search = null){
     var session=JSON.parse(localStorage.getItem('session'));
     sync_data(function(){
         var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
@@ -11,7 +11,7 @@ function obtenerTecnicos(take, skip, search = null){
             }
             var sql = " SELECT  *, id as link FROM techs " + where + " LIMIT " + skip+", "+take;
             tx.executeSql(sql, [], function (tx, results){
-                builTecnicosHTML({techs: results.rows});
+                TechsHTML({techs: results.rows});
             });
             sql = " SELECT COUNT(*) as count_rows FROM techs " + where
             tx.executeSql(sql, [], function (tx, results){
@@ -21,7 +21,7 @@ function obtenerTecnicos(take, skip, search = null){
                 skip = skip + take;
                 if(skip < results.rows[0].count_rows){
                     show_more.click(function(){
-                        obtenerTecnicos(take, skip, search)
+                        obtenerTechs(take, skip, search)
                     });
                 }
                 else {
@@ -32,12 +32,12 @@ function obtenerTecnicos(take, skip, search = null){
     });
 }
 
-function builTecnicosHTML(data){
+function TechsHTML(data){
     console.log(data);
     var params = getParams(window.location.href);
     var vehicle_id = params.vehicle_id;
     for(i in data.techs){
-        var clone = $('#tecnicos #clone').clone();
+        var clone = $('#techs #clone').clone();
         clone.attr('id', 'clone'+i);
         var tech_id = data.techs[i].id;
         var good_clone = true;
@@ -58,7 +58,7 @@ function builTecnicosHTML(data){
             }
         });
         if(good_clone)
-            $('#tecnicos').append(clone.removeClass('hide'));
+            $('#techs').append(clone.removeClass('hide'));
         else
             clone.remove()
 
