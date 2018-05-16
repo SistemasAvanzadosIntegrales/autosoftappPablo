@@ -243,7 +243,7 @@ var inspection = {
                 function(result){
                     if(result === 1){
                         self.update_point(button.attr('data-point-id'), 'status', 0);
-                        button.parent().parent().parent().addClass('hide');
+                        button.parent().parent().parent().remove();
                     }
                 },
                 'Eliminar',
@@ -417,7 +417,7 @@ var inspection = {
              charter = '';
 
         if (value == 2 && field == 'status'){
-            $('.clone-point:not(.hide)').each(function(key, item){
+            $('.clone-point').each(function(key, item){
                 var item = $(item);
                 var severity = item.find('.severity-picker').attr('data-severity');
                 if (severity == 0){
@@ -435,9 +435,9 @@ var inspection = {
         if (value == 3 && field == 'status'){
             $('.clone-point:not(.hide)').each(function(key, item){
                 var price = $(item).find('.update-price');
-                if (!(price.val() < 0) && !self.inspection.presupuesto){
+                if (!price.val() && !self.inspection.presupuesto){
                     is_valid_to_send = false;
-                    navigator.notification.alert('Debe llenar el precio de ' + item.find('.point_name').html(), false, 'Error', 'Aceptar');
+                    navigator.notification.alert('Debe llenar el precio de ' + $(item).find('.point_name').html(), false, 'Error', 'Aceptar');
                 }
             });
         }
