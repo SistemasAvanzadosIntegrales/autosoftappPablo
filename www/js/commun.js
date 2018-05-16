@@ -37,7 +37,7 @@ document.addEventListener("offline", function(){
     token = session.token;
     user_id = app_settings.user.id;
 
-    cordova.plugins.notification.local.schedule({
+    cordova.plugins.notifications.local.schedule({
         title: 'My first notification',
         text: 'Thats pretty easy...',
         foreground: true
