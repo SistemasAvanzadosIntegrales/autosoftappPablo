@@ -470,7 +470,7 @@ var inspection = {
         }, function(error) {
             debug('algo fallo', true);
         }, function() {
-            sync_data();
+            sync_data(null, 1000);
         });
     },
     upload_pdf: function(){
