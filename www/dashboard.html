@@ -93,40 +93,6 @@
 
 
       }, false);
-     </script>
-        <script>
-            document.addEventListener("deviceready", ondeviceready, false);
-            function ondeviceready() {
-                cordova.plugins.notification.local.fireQueuedEvents();
-
-                // the timeout is just to make sure the events had time to trigger
-                setTimeout(() => {
-                  let details = cordova.plugins.notification.local.launchDetails;
-
-                  if (details && details.action == 'click') {
-                    // do something
-                  }
-                  else {
-                    // do something else
-                  }
-                }, 200);
-            }
-            function PushNotification() {
-                cordova.plugins.notification.local.schedule({
-                    id: 1,
-                    title: "Push Notification",
-                    text: "This is first Push Notification."
-                });
-                
-                cordova.plugins.notification.local.schedule({
-                    id: 2,
-                    title: 'Design team meeting',
-                    trigger: { every: 'minute'}
-                });
-            }
-        </script>
-        <br/>
-        <br/>
-        <input type="button" value="Send a Push Notification" onclick="PushNotification();" />
+    </script>
     </body>
 </html>
