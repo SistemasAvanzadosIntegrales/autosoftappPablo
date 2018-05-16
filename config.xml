@@ -38,7 +38,7 @@
 
         <plugin name="cordova-plugin-device" spec="~1.1.6" />
     <plugin name="cordova-plugin-x-toast" spec="~2.6.0" />
-    <plugin name="cordova-plugin-local-notifications"   spec="^1.0" />
+    <plugin name="cordova-plugin-local-notifications"   spec="https://github.com/katzer/cordova-plugin-local-notifications#0.8.1" />
     
 <plugin name="cordova-plugin-whitelist" spec="1.2.2"/>
 <platform  name="ios">
