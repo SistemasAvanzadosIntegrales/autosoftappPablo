@@ -12,17 +12,28 @@ var inspectionStatus = [
  ];
 
 
-document.addEventListener("online", function() {
-    $('#netStatus').attr('class', 'text-success');
-     localStorage.setItem("network", 'online');
-}, false);
+ document.addEventListener("online", function() {
+     $('#netStatus').attr('style', 'color:' +  contrast_color+ '!important');
+      localStorage.setItem("network", 'online');
 
-document.addEventListener("offline", function(){
-    $('#netStatus').attr('class', 'text-danger');
-    localStorage.setItem("network", 'offline');
-}, false);
+      if($('.online').length)
+      {
+          $('.online').removeAttr('disabled')
+          $('.online').removeAttr('readonly');
+      }
 
 
+ }, false);
+
+ document.addEventListener("offline", function(){
+     $('#netStatus').attr('style', 'color: red!important');
+     localStorage.setItem("network", 'offline');
+     if($('.online').length){
+         $('.online').attr('disabled', true);
+         $('.online').attr('readonly', true);
+     }
+
+ }, false);
 /**
  *  @author Ivan Vazquez
  **/
@@ -51,16 +62,6 @@ $.get("css.html", function(data){
 });
 */
 
-
-/**
- *  @author   : Pablo Diaz
- *  @Contact  : pablo_diaz@avansys.com.mx
- *  @date     : 25/01/2018
- *  @function : muestra
- **/
-function muestra(nombre){
-   $('.'+nombre).toggle();
-}
 
 /**
  * Get the URL parameters

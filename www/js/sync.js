@@ -1,5 +1,15 @@
 function __make_db(data, call_back_function = null){
+    var app_settings = {
+        config_company: data.config_company,
+        license: data.license,
+        licensing_access: data.licensing_access,
+        logo: data.logo,
+        rol: data.rol,
+        user: data.user,
+        user_permissions: data.user_permissions,
+    }
 
+    localStorage.setItem("app_settings", JSON.stringify(app_settings));
     var  db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 
     db.transaction(function(tx) {
@@ -68,6 +78,7 @@ function __make_db(data, call_back_function = null){
         debug('algo fallo', true);
     }, function() {
         $('#dbRefresh').addClass('hide');
+
         debug('Data base has been saved');
         if(call_back_function)
             call_back_function.call();
@@ -76,12 +87,14 @@ function __make_db(data, call_back_function = null){
 
 var first_sync = true;
 send = null;
-function sync_data(call_back_function = null){
+function sync_data(call_back_function = null, espera = 0){
     if(send)
     {
         clearTimeout(send);
     }
 	send = setTimeout(function(){
+        var app_settings = JSON.parse(localStorage.getItem('app_settings'));
+
         if(localStorage.getItem("network") == 'online'){
             $('#dbRefresh').removeClass('hide');
             var session = JSON.parse(localStorage.getItem('session'));
@@ -109,6 +122,7 @@ function sync_data(call_back_function = null){
                                     dataType: 'JSON',
                                     data: {
                                         token:session.token,
+                                        user_id: app_settings.user.id,
                                         post_data: JSON.stringify(post_data),
                                     },
                                     success:function(data) {
@@ -128,6 +142,7 @@ function sync_data(call_back_function = null){
                         cache : false,
                         dataType: 'JSON',
                         data: {
+                            user_id: app_settings.user.id,
                             token:session.token,
                         },
                         success:function(data) {
@@ -146,7 +161,7 @@ function sync_data(call_back_function = null){
             call_back_function.call();
 
         }
-    }, 50);
+    }, 50 + espera);
 }
 
 function debug(message, debug)
