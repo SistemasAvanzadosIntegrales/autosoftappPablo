@@ -39,7 +39,7 @@ function TechsHTML(data){
     for(i in data.techs){
         var clone = $('#techs #clone').clone();
         clone.attr('id', 'clone'+i);
-        var tech_id = data.techs[i].id;
+        var tech_id = data.techs[i].link;
         var good_clone = true;
         clone.find(".fill-data").each(function(x, item){
             field = $(item).attr('data-field');
@@ -82,7 +82,7 @@ function asignar(vehicle_id, user_id){
                                 var name = results.rows.item(x).name;
                                 var category_name = results.rows[x].category_name;
                                 var point_id = results.rows[x].id;
-                                var sql2 = "INSERT INTO vehicle_inspections (inspection_id, point_id, price, severity, status, cataloge, category, 'origen') VALUES ("+inspection_id+", "+point_id+",0, 0, 1, '"+name+"', '"+category_name+"', 'device')";
+                                var sql2 = "INSERT INTO vehicle_inspections (inspection_id, point_id, price, severity, status, cataloge, category, 'origen', files) VALUES ("+inspection_id+", "+point_id+",0, 0, 1, '"+name+"', '"+category_name+"', 'device', '[]')";
                                 tx.executeSql(sql2);
                             }
                         });

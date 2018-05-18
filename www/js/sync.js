@@ -27,6 +27,7 @@ function __make_db(data, call_back_function = null){
         for(var i = 0; i < data.vehicles.length; i++)
         {
             var vehicle = data.vehicles[i];
+            console.log(vehicle);
             var sql = "INSERT INTO vehicles (id, brand, model, license_plate, user_id, vin, origen) VALUES ("+vehicle.id+", '"+vehicle.brand+"', '"+vehicle.model+"', '"+vehicle.license_plate+"', "+vehicle.user_id+", '"+vehicle.vin+"', 'server')";
             tx.executeSql(sql);
         }
@@ -70,7 +71,7 @@ function __make_db(data, call_back_function = null){
             {
                 var point = vehicle_inspections[x];
                 var files = JSON.stringify(point.files);
-                var sql2 = "INSERT INTO vehicle_inspections (id, inspection_id, point_id, price, severity, status, cataloge, category, origen, files) VALUES ("+point.id+", "+point.inspections_id+", "+point.inspection_id+", '"+point.price+"', "+point.severity+", '"+point.status+"', '"+point.catalogue.name+"', '"+point.catalogue.inspection.name+"', 'server', '"+files+"' )";
+                var sql2 = "INSERT INTO vehicle_inspections (id, inspection_id, point_id, price, severity, status, cataloge, category, origen, files) VALUES ("+point.id+", "+point.inspections_id+", "+point.inspection_id+", '"+point.price+"', "+point.severity+", "+point.status+", '"+point.catalogue.name+"', '"+point.catalogue.inspection.name+"', 'server', '"+files+"' )";
                 tx.executeSql(sql2);
             }
         }
@@ -161,7 +162,7 @@ function sync_data(call_back_function = null, espera = 0){
             call_back_function.call();
 
         }
-    }, 50 + espera);
+    }, espera);
 }
 
 function debug(message, debug)

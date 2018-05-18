@@ -39,8 +39,9 @@ var inspection = {
                             self.categories = categories.rows;
                             tx.executeSql("select * from catalogue AS c LEFT JOIN vehicle_inspections AS vi ON c.id = vi.point_id WHERE vi.inspection_id = ? AND vi.status != '0' order by c.category_name", [self.id], function(tx, points){
                                 self.points = points.rows;
-                                if (call_back_function)
+                                if (call_back_function){
                                     call_back_function.call();
+                                }
                             });
                         });
                     });
@@ -440,16 +441,25 @@ var inspection = {
                     navigator.notification.alert('Debe llenar el precio de ' + $(item).find('.point_name').html(), false, 'Error', 'Aceptar');
                 }
             });
+            if(is_valid_to_send)
+            {
+                self.db.transaction(function(tx){
+                    var sql = "UPDATE vehicle_inspections SET status = 1, origen = 'modified' where inspection_id = " + self.id;
+                    tx.executeSql(sql);
+                });
+            }
         }
         if (is_valid_to_send) {
             self.db.transaction(function(tx){
                  var sql = "UPDATE inspections SET origen = 'modified', " + field + " = " + charter + value + charter + " where id = " + self.id;
-                 console.log(sql);
                  tx.executeSql(sql);
             }, function(error) {
                  debug('algo fallo', true);
             }, function() {
-                 location.href = 'dashboard.html';
+                sync_data(function(){
+                    location.href = 'dashboard.html';
+                }, 0);
+
             });
         }
 

@@ -12,13 +12,15 @@ function new_inspection(take, skip, search = null){
                 where += ")";
             }
 
-            var sql = " SELECT  v.id as link, * FROM vehicles AS v LEFT JOIN clients AS c ON c.id = v.user_id " + where + " LIMIT " + skip+", "+take;
+            var sql = " SELECT  v.id as link, * FROM vehicles AS v LEFT JOIN clients AS c ON c.id = v.user_id " + where + " GROUP BY v.id LIMIT " + skip+", "+take;
             tx.executeSql(sql, [], function (tx, results){
+                console.log(results.rows);
                 new_inspection_html({vehicles: results.rows});
             });
-            sql = " SELECT COUNT(*) as count_rows FROM vehicles AS v LEFT JOIN clients AS c ON c.id = v.user_id " + where;
-            tx.executeSql(sql, [], function (tx, results){
+            var _sql = " SELECT COUNT(*) as count_rows FROM vehicles AS v " + where  ;
+            tx.executeSql(_sql, [], function (tx, results){
                 var show_more = $('#show_more');
+                console.log(results);
                 show_more.unbind('click');
                 show_more.parent().parent().removeClass('hide');
                 skip = skip + take;
@@ -38,7 +40,7 @@ function new_inspection_html(data){
     for(i in data.vehicles){
         var clone = $('#table-clients #clone').clone();
         clone.attr('id', 'clone'+i);
-        var vehicle_id = data.vehicles[i].id;
+        var vehicle_id = data.vehicles[i].link;
         var good_clone = true;
         clone.find(".fill-data").each(function(x, item){
             field = $(item).attr('data-field');

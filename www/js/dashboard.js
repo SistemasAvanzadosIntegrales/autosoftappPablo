@@ -24,7 +24,7 @@ function dashboard(take, skip, search = null)
 
         db.transaction(function(tx) {
             var where = 'WHERE 1 ';
-            if(app_settings.user_permissions.indexOf('technical-group') >= 0){
+            if(app_settings.user_permissions.indexOf('technical_group') >= 0){
                 where += ' AND i.user_id = ' + app_settings.user.id;
             }
             if (search){
@@ -65,10 +65,12 @@ function dashboard(take, skip, search = null)
                 " LIMIT " + skip+", "+take
             ].join('');
             tx.executeSql(sql, [], function (tx, results){
+                console.log(sql);
+                console.log(results.rows);
                 HtmlDashboard({inspections: results.rows});
             });
 
-            sql = [
+            _count_query = [
                 " SELECT ",
                 " COUNT(*) as count_rows ",
                 " FROM inspections AS i ",
@@ -76,7 +78,7 @@ function dashboard(take, skip, search = null)
                 " LEFT JOIN clients AS c ON c.id = v.user_id ",
                 where
             ].join('');
-            tx.executeSql(sql, [], function (tx, results){
+            tx.executeSql(_count_query, [], function (tx, results){
                 var show_more = $('#show_more');
                 show_more.unbind('click');
                 show_more.parent().parent().removeClass('hide');
@@ -101,6 +103,7 @@ function HtmlDashboard(data)
     for(i in data.inspections){
         var clone = $('#table-body #clone').clone();
         clone.attr('id', 'clone'+i);
+        console.log(data.inspections[i]);
         var inspection_id = data.inspections[i].link;
         var vehicle_id = data.inspections[i].vehicle_id;
         var good_clone = true;

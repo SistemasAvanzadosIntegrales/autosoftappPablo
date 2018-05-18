@@ -13,6 +13,10 @@ var inspectionStatus = [
 
 
  document.addEventListener("online", function() {
+     var app_settings = JSON.parse(localStorage.getItem('app_settings'));
+     app_settings = app_settings ? app_settings : {"config_company": {"contrast_color": "dddddd", "base_color": "012d4a"}};
+     var contrast_color = '#'+app_settings.config_company.contrast_color;
+     var base_color = '#'+app_settings.config_company.base_color;
      $('#netStatus').attr('style', 'color:' +  contrast_color+ '!important');
       localStorage.setItem("network", 'online');
 

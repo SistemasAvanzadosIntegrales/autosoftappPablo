@@ -173,24 +173,6 @@ var view_client = function(){
                     sql = "UPDATE clients SET name = '"+name+"', cellphone = '"+cellphone+"', email = '"+email+"' "+set_password+" , origen = 'modified' WHERE id = "+$('#id').val();
                 }
                 tx.executeSql(sql);
-                var user_id = $('#id').val();
-                $('.btn-vehicle-edit:not(.btn-vehicle-edit[data-vehicle-origen="server"])').each(function(i, vehicle){
-                    var vehicle_id = $(vehicle).attr('data-vehicle-id')
-                    var brand = $(vehicle).attr('data-vehicle-brand')
-                    var model = $(vehicle).attr('data-vehicle-model')
-                    var license_plate = $(vehicle).attr('data-vehicle-license_plate')
-                    var vin = $(vehicle).attr('data-vehicle-vin')
-                    var origen = $(vehicle).attr('data-vehicle-origen')
-                    if (origen == 'device')
-                    {
-                        sql = "INSERT INTO vehicles (brand, model, license_plate, user_id, vin, origen) VALUES ('"+brand+"', '"+model+"', '"+license_plate+"', "+user_id+", '"+vin+"', 'device')";
-                    }
-                    else
-                    {
-                        sql = "UPDATE vehicles SET brand = '"+brand+"', model = '"+model+"', license_plate = '"+license_plate+"' ,  vin = '"+ vin+"', origen = 'modified'  WHERE id = "+vehicle_id;
-                    }
-                    tx.executeSql(sql);
-                })
             },function(error){
                 console.log(error);
             },function(){
@@ -307,18 +289,38 @@ $(".save-vehicle").click(function(){
     if ($('#origen').val() != 'device'){
         $('a[data-vehicle-id="'+$('#vehicle_id').val()+'"').parent().parent().remove();
     }
-
+    var name =  $('#brand').val() + " " +  $('#model').val() + " <br> " + $('#license_plate').val() + " " + $('#vin').val();
+    var trash = $('#vehicle_id').val();
+    var link = $('#vehicle_id').val();
+    var brand = $('#brand').val();
+    var model = $('#model').val();
+    var license_plate = $('#license_plate').val();
+    var vin = $('#vin').val();
+    var origen = $('#origen').val() == 'device' ? 'device' : 'modified';
     vehiclesHTML({vehicles: [{
-        id: $('#vehicle_id').val(),
-        name:  $('#brand').val() + " " +  $('#model').val() + " <br> " + $('#license_plate').val() + " " + $('#vin').val(),
-        trash: $('#vehicle_id').val(),
-        link: $('#vehicle_id').val(),
-        brand: $('#brand').val(),
-        model: $('#model').val(),
-        license_plate: $('#license_plate').val(),
-        vin: $('#vin').val(),
-        origen: $('#origen').val() == 'device' ? 'device' : 'modified',
+        id: vehicle_id,
+        name:  brand + " " +  model + " <br> " + license_plate + " " + vin,
+        trash: vehicle_id,
+        link: vehicle_id,
+        brand: brand,
+        model: model,
+        license_plate: license_plate,
+        vin: vin,
+        origen: origen == 'device' ? 'device' : 'modified',
     }]});
+    var user_id = $('#id').val();
 
+    if (origen == 'device')
+    {
+        sql = "INSERT INTO vehicles (brand, model, license_plate, user_id, vin, origen) VALUES ('"+$('#brand').val()+"', '"+model+"', '"+license_plate+"', "+user_id+", '"+vin+"', 'device')";
+    }
+    else
+    {
+        sql = "UPDATE vehicles SET brand = '"+brand+"', model = '"+model+"', license_plate = '"+license_plate+"' ,  vin = '"+ vin+"', origen = 'modified'  WHERE id = "+vehicle_id;
+    }
+    db.transaction(function(tx) {
+        tx.executeSql(sql);
+    })
+    sync_data();
     togle_form_table();
 });
