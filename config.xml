@@ -59,6 +59,8 @@
     <!-- below requires the splash screen plugin -->
     <!-- docs: https://github.com/apache/cordova-plugin-splashscreen -->
     <preference name="SplashMaintainAspectRatio" value="false"/>
+    <icon src="icon.png" />
+
 </platform>
 <platform  name="browser">
     <!-- below requires the splash screen plugin -->
