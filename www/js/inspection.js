@@ -1,5 +1,6 @@
 var inspection = {
     id: null,
+    files:[],
     vehicle: null,
     client: null,
     inspection: null,
@@ -184,7 +185,7 @@ var inspection = {
                 '<a class="navbar-link" onclick="inspection.update(\'status\', \'1\')" ><i class="fa fa-wrench"></i></a>'
             )
         }
-        if(status >= 2 &&  can_mark_as_attended)
+        if(status >= 2 && status < 5 && can_mark_as_attended)
         {
             $('#buttonmenu').append('<a class="navbar-link" onclick="inspection.update(\'status\', \'5\')" ><i class="fa fa-check "></i></a>')
         }
@@ -281,12 +282,60 @@ var inspection = {
     },
     capture_video: function(point_id){
         var self = this;
-         navigator.device.capture.captureVideo(
+         navigator.device.capture.captureVideo(function(file){
+             self.files.push([file: file, point_id: point_id]);
+             self.upload_files()
+         },
+            function(error){
+                navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
+            }, {
+                quality: 90,
+                destinationType: Camera.DestinationType.FILE_URI,
+                saveToPhotoAlbum: true
+            });
+    },
+    capture_photo: function(point_id){
+        var self = this;
+        navigator.camera.getPicture(
             function(file){
+                self.files.push([file: file, point_id: point_id]);
+                self.upload_files()
+            },
+            function(error){
+                navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
+            }, {
+                quality: 90,
+                destinationType: Camera.DestinationType.FILE_URI,
+                saveToPhotoAlbum: true
+            });
+    },
+    capture_audio: function(point_id){
+        var self = this;
+        navigator.device.audiorecorder.recordAudio(function(file){\
+            self.files.push([file: file, point_id: point_id]);
+            self.upload_files()
+        });
+    },
+    upload_files: function(){
+        var self = this;
+        /*
+        $('#carousel'+point_id).find('.carousel-inner').append('<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+photoURI+'"></div>');
+
+
+        $('#carousel'+point_id).find('.active').removeClass('active');
+        var item  = "<div class='item active'>"+
+        "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto; display: inherit;' controls>"+
+        "<source src='"+mediaFiles.full_path+"'></audio></div>";
+        $('#carousel'+point_id).find('.carousel-inner').append(item);
+
+        */
+
+        if (navigator.connection.type !== Connection.NONE) {
+            for(var d = 0; d < self.files.length; d++){
                 var options = new FileUploadOptions();
-                var videoURI=file[0].fullPath;
+                var fileURI=self.files[d][0].fullPath;
                 options.fileKey = "file";
-                options.fileName = videoURI.substr(videoURI.lastIndexOf('/') + 1);
+                options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
                 options.mimeType = "image/jpeg";
                 var params = new Object();
                 params.token = session.token;
@@ -308,107 +357,15 @@ var inspection = {
                         }
                         $('#carousel'+point_id).find('.active').removeClass('active');
                         $('#carousel'+point_id).find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+videoURI+"' type='video/mp4'></video></div>");
+                        delete self.files[d];
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
                     },
                     options
                 );
-            },
-            function(error){
-                navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
-            }, {
-                quality: 90,
-                destinationType: Camera.DestinationType.FILE_URI,
-                saveToPhotoAlbum: true
-            });
-    },
-    capture_photo: function(point_id){
-        var self = this;
-        navigator.camera.getPicture(
-            function(photoURI){
-                var options = new FileUploadOptions();
-                 options.fileKey = "file";
-                 options.fileName = photoURI.substr(photoURI.lastIndexOf('/') + 1);
-                 options.mimeType = "image/jpeg";
-                 var params = new Object();
-                 params.token = session.token;
-                 params.point_id = point_id;
-                 params.inspection_id =self.id;
-                 options.params = params;
-                 options.chunkedMode = false;
-
-                var ft = new FileTransfer();
-                ft.upload(
-                    photoURI,
-                    ruta_generica+"/api/v1/upload",
-                    function(result){
-                        var itemDefault =  $('#carousel'+point_id).find('#itemDefault');
-                        if (itemDefault)
-                        {
-                            itemDefault.remove();
-                        }
-                        $('#carousel'+point_id).find('.active').removeClass('active');
-                        $('#carousel'+point_id).find('.carousel-inner').append('<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+photoURI+'"></div>');
-                    },
-                    function(error){
-                        navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
-                    },
-                    options
-                );
-            },
-            function(error){
-                navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
-            }, {
-                quality: 90,
-                destinationType: Camera.DestinationType.FILE_URI,
-                saveToPhotoAlbum: true
-            });
-    },
-    capture_audio: function(point_id){
-        var self = this;
-        navigator.device.audiorecorder.recordAudio(
-            function(mediaFiles) {
-                mediaFiles = jQuery.parseJSON(mediaFiles);
-                audioURI=mediaFiles.full_path;
-                var options = new FileUploadOptions();
-
-                 options.fileKey = "file";
-                 options.fileName = audioURI.substr(audioURI.lastIndexOf('/') + 1);
-                 options.mimeType = "image/jpeg";
-                 var params = new Object();
-                 params.token = session.token;
-                 params.point_id = point_id;
-                 params.inspection_id =self.id;
-                 options.params = params;
-                 options.chunkedMode = false;
-
-                var ft = new FileTransfer();
-                ft.upload(
-                    audioURI,
-                    ruta_generica+"/api/v1/upload",
-                    function(result){
-                        var itemDefault =  $('#carousel'+point_id).find('#itemDefault');
-                        if (itemDefault)
-                        {
-                            itemDefault.remove();
-                        }
-                        $('#carousel'+point_id).find('.active').removeClass('active');
-                        var item  = "<div class='item active'>"+
-                        "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto; display: inherit;' controls>"+
-                        "<source src='"+mediaFiles.full_path+"'></audio></div>";
-                         $('#carousel'+point_id).find('.carousel-inner').append(item);
-                    },
-                    function(error){
-                        navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
-                    },
-                    options
-                );
-            },
-            function(error){
-                console.log(error);
-            });
-
+            }
+        }
     },
     update: function(field, value){
         var is_valid_to_send = true;
@@ -486,6 +443,7 @@ var inspection = {
     upload_pdf: function(){
          $('#pdf').trigger('click');
      },
+
      presupuesto_navbar: function(file){
          var presupuesto = $('#presupuesto');
          var self = this;
@@ -518,3 +476,4 @@ var inspection = {
          );
      }
 };
+document.addEventListener("online", inspection.fupload_files, false);
