@@ -508,4 +508,4 @@ var inspection = {
          );
      }
 };
-document.addEventListener("online", inspection.fupload_files, false);
+document.addEventListener("online", inspection.upload_files, false);
