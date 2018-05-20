@@ -309,6 +309,7 @@ var inspection = {
         var self = this;
         navigator.camera.getPicture(
             function(photoURI){
+                console.log(photoURI);
                 var options = new FileUploadOptions();
                  options.fileKey = "file";
                  options.fileName = photoURI.substr(photoURI.lastIndexOf('/') + 1);
@@ -333,6 +334,7 @@ var inspection = {
     capture_audio: function(point_id){
         var self = this;
         navigator.device.audiorecorder.recordAudio(function(mediaFiles) {
+            console.log(mediaFiles);
             mediaFiles = jQuery.parseJSON(mediaFiles);
             audioURI=mediaFiles.full_path;
             var options = new FileUploadOptions();
@@ -366,8 +368,8 @@ var inspection = {
         */
         console.log(self.files);
         for(var d = 0; d < self.files.length; d++){
-            var _file_path = self.files[0];
-            var options = self.files[1];
+            var _file_path = self.files[d][0];
+            var options = self.files[d][1];
             var ft = new FileTransfer();
             if (navigator.connection.type !== Connection.NONE) {
                 ft.upload(
