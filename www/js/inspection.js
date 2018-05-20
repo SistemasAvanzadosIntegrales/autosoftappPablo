@@ -389,7 +389,7 @@ var inspection = {
                 "<source src='"+_file_path+"'></audio></div>";
                 $('#carousel'+options.params.point_id).find('.carousel-inner').append(item);
             }
-            if (_file_path.indexOf('.jpeg') > 0){
+            if (_file_path.indexOf('.jpg') > 0){
                 $('#carousel'+options.params.point_id).find('.carousel-inner').append('<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+_file_path+'"></div>');
             }
             if (_file_path.indexOf('.mp4') > 0){
