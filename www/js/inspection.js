@@ -371,7 +371,7 @@ var inspection = {
                     _file_path,
                     ruta_generica+"/api/v1/upload",
                     function(result){
-                        var itemDefault =  $('#carousel'+point_id).find('#itemDefault');
+                        var itemDefault =  $('#carousel'+options.params.point_id).find('#itemDefault');
                         if (itemDefault)
                         {
                             itemDefault.remove();
