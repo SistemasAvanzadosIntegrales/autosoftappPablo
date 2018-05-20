@@ -311,7 +311,7 @@ var inspection = {
     },
     capture_audio: function(point_id){
         var self = this;
-        navigator.device.audiorecorder.recordAudio(function(file){\
+        navigator.device.audiorecorder.recordAudio(function(file){
             self.files.push([file, point_id]);
             self.upload_files()
         });
