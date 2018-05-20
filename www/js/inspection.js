@@ -356,14 +356,9 @@ var inspection = {
     upload_files: function(){
         var self = this;
         /*
-        $('#carousel'+point_id).find('.carousel-inner').append('<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+photoURI+'"></div>');
 
 
-        $('#carousel'+point_id).find('.active').removeClass('active');
-        var item  = "<div class='item active'>"+
-        "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto; display: inherit;' controls>"+
-        "<source src='"+mediaFiles.full_path+"'></audio></div>";
-        $('#carousel'+point_id).find('.carousel-inner').append(item);
+
 
         */
         console.log(self.files);
@@ -389,8 +384,21 @@ var inspection = {
                     options
                 );
             }
-            $('#carousel'+point_id).find('.active').removeClass('active');
-            $('#carousel'+point_id).find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+file_path+"' type='video/mp4'></video></div>");
+            if (_file_path.indexOf('.m4a') > 0){
+                $('#carousel'+point_id).find('.active').removeClass('active');
+                var item  = "<div class='item active'>"+
+                "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto; display: inherit;' controls>"+
+                "<source src='"+_file_path+"'></audio></div>";
+                $('#carousel'+point_id).find('.carousel-inner').append(item);
+            }
+            if (_file_path.indexOf('.jpeg') > 0){
+                $('#carousel'+point_id).find('.carousel-inner').append('<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+_file_path+'"></div>');
+            }
+            if (_file_path.indexOf('.mp4') > 0){
+                $('#carousel'+point_id).find('.active').removeClass('active');
+                $('#carousel'+point_id).find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+_file_path+"' type='video/mp4'></video></div>");
+            }
+
         }
     },
     update: function(field, value){
