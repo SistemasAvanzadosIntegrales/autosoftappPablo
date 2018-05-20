@@ -356,7 +356,6 @@ var inspection = {
     upload_files: function(){
         var self = this;
 
-        console.log(self.files);
         for(var d = 0; d < self.files.length; d++){
             if(!self.files[d])
                 continue;
@@ -369,12 +368,13 @@ var inspection = {
                     _file_path,
                     ruta_generica+"/api/v1/upload",
                     function(result){
+                        console.log(delete self.files[d]);
                         var itemDefault =  $('#carousel'+options.params.point_id).find('#itemDefault');
                         if (itemDefault)
                         {
                             itemDefault.remove();
                         }
-                        delete self.files[d];
+
                     },
                     function(error){
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
