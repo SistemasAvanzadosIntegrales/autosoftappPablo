@@ -329,7 +329,9 @@ var inspection = {
         $('#carousel'+point_id).find('.carousel-inner').append(item);
 
         */
-
+        $('#carousel'+point_id).find('.active').removeClass('active');
+        $('#carousel'+point_id).find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+videoURI+"' type='video/mp4'></video></div>");
+    
         if (navigator.connection.type !== Connection.NONE) {
             for(var d = 0; d < self.files.length; d++){
                 var options = new FileUploadOptions();
@@ -355,8 +357,6 @@ var inspection = {
                         {
                             itemDefault.remove();
                         }
-                        $('#carousel'+point_id).find('.active').removeClass('active');
-                        $('#carousel'+point_id).find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+videoURI+"' type='video/mp4'></video></div>");
                         delete self.files[d];
                     },
                     function(error){
