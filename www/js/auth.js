@@ -1,20 +1,5 @@
 var ruta_generica = "http://autosoft2.avansys.com.mx";
-document.addEventListener("online", function() {
 
-	var app_settings = JSON.parse(localStorage.getItem('app_settings'));
-	var url = window.location.href;
-	var params = getParams(url);
-	var screen =  (new URL(location)).pathname;
-	if(params.url){
-		location.href = params.url
-	}
-	screen = screen.split('/');
-	screen = screen[screen.length - 1];
-	if (app_settings)
-	{
-	  location.href="dashboard.html";
-	}
-});
 function resetPassword(){
     window.open(ruta_generica+"/password/reset",  '_blank');
 }
