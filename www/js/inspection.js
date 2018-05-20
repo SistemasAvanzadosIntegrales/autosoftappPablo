@@ -501,36 +501,3 @@ var inspection = {
      }
 };
 document.addEventListener("online", inspection.fupload_files, false);
-
-    capture_audio: function(point_id){
-        var self = this;
-        navigator.device.audiorecorder.recordAudio(
-            function
-
-                var ft = new FileTransfer();
-                ft.upload(
-                    audioURI,
-                    ruta_generica+"/api/v1/upload",
-                    function(result){
-                        var itemDefault =  $('#carousel'+point_id).find('#itemDefault');
-                        if (itemDefault)
-                        {
-                            itemDefault.remove();
-                        }
-                        $('#carousel'+point_id).find('.active').removeClass('active');
-                        var item  = "<div class='item active'>"+
-                        "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto; display: inherit;' controls>"+
-                        "<source src='"+mediaFiles.full_path+"'></audio></div>";
-                         $('#carousel'+point_id).find('.carousel-inner').append(item);
-                    },
-                    function(error){
-                        navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
-                    },
-                    options
-                );
-            },
-            function(error){
-                console.log(error);
-            });
-
-    },
