@@ -6,12 +6,12 @@ Config.xml file:
 
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.cordova.hellocordova" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Autosoft Taller</name>
+    <name>Easier service</name>
     <description>
-      Easier Car Service
+      Garaje's app
   </description>
-    <author email="ivan_vazquez@avansys.com.mx" href="http://avansys.com.mx">
-      Avansys Developers Team
+    <author email="idvazquezrivera@gmail.com" href="http://ivanvazquez.top">
+     Ivan Vazquez
   </author>
     <content src="index.html" />
     <access origin="*" />
