@@ -355,14 +355,12 @@ var inspection = {
     },
     upload_files: function(){
         var self = this;
-        /*
 
-
-
-
-        */
         console.log(self.files);
         for(var d = 0; d < self.files.length; d++){
+            if(!self.files[d])
+                continue;
+
             var _file_path = self.files[d][0];
             var options = self.files[d][1];
             var ft = new FileTransfer();
@@ -385,18 +383,18 @@ var inspection = {
                 );
             }
             if (_file_path.indexOf('.m4a') > 0){
-                $('#carousel'+point_id).find('.active').removeClass('active');
+                $('#carousel'+options.params.point_id).find('.active').removeClass('active');
                 var item  = "<div class='item active'>"+
                 "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto; display: inherit;' controls>"+
                 "<source src='"+_file_path+"'></audio></div>";
-                $('#carousel'+point_id).find('.carousel-inner').append(item);
+                $('#carousel'+options.params.point_id).find('.carousel-inner').append(item);
             }
             if (_file_path.indexOf('.jpeg') > 0){
-                $('#carousel'+point_id).find('.carousel-inner').append('<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+_file_path+'"></div>');
+                $('#carousel'+options.params.point_id).find('.carousel-inner').append('<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+_file_path+'"></div>');
             }
             if (_file_path.indexOf('.mp4') > 0){
-                $('#carousel'+point_id).find('.active').removeClass('active');
-                $('#carousel'+point_id).find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+_file_path+"' type='video/mp4'></video></div>");
+                $('#carousel'+options.params.point_id).find('.active').removeClass('active');
+                $('#carousel'+options.params.point_id).find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+_file_path+"' type='video/mp4'></video></div>");
             }
 
         }
