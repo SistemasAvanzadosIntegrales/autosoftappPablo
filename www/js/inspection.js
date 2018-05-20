@@ -347,7 +347,7 @@ var inspection = {
             var ft = new FileTransfer();
             if (navigator.connection.type !== Connection.NONE) {
             ft.upload(
-                videoURI,
+                file.full_path,
                 ruta_generica+"/api/v1/upload",
                 function(result){
                     var itemDefault =  $('#carousel'+point_id).find('#itemDefault');
