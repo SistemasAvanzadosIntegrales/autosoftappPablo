@@ -332,11 +332,11 @@ var inspection = {
 
         for(var d = 0; d < self.files.length; d++){
             var options = new FileUploadOptions();
-            var fileURI=self.files[d][0][0];
-            console.log(self.files[d]);
+            var _file = self.files[d][0][0];
+            console.log(_file.name);
             options.fileKey = "file";
-            options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
-            options.mimeType = "image/jpeg";
+            options.fileName = _file.name;
+            options.mimeType = _file.type;
             var params = new Object();
             params.token = session.token;
             params.point_id = self.files[d][1];
@@ -364,7 +364,7 @@ var inspection = {
             );
             }
             $('#carousel'+point_id).find('.active').removeClass('active');
-            $('#carousel'+point_id).find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+videoURI+"' type='video/mp4'></video></div>");
+            $('#carousel'+point_id).find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+file.full_path+"' type='video/mp4'></video></div>");
         }
     },
     update: function(field, value){
