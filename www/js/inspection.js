@@ -15,20 +15,7 @@ var inspection = {
     categories: null,
     points: null,
     db: null,
-    start: function(id){2) ["file:///storage/emulated/0/Android/data/xdk.intel.autosoft/cache/1526838714956.jpg", FileUploadOptions]
-1
-:
-(2) ["VID_20180520_125225291.mp4", FileUploadOptions]
-2
-:
-(2) ["file:///storage/emulated/0/Android/data/xdk.intel.autosoft/cache/1526838818418.jpg", FileUploadOptions]
-length
-:
-3
-__proto__
-:
-Array(0)
-
+    start: function(id){
         var self = this;
         self.id = parseInt(id);
         self.db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
