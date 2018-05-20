@@ -283,7 +283,7 @@ var inspection = {
     capture_video: function(point_id){
         var self = this;
          navigator.device.capture.captureVideo(function(file){
-             self.files.push([file: file, point_id: point_id]);
+             self.files.push([file, point_id]);
              self.upload_files()
          },
             function(error){
@@ -298,7 +298,7 @@ var inspection = {
         var self = this;
         navigator.camera.getPicture(
             function(file){
-                self.files.push([file: file, point_id: point_id]);
+                self.files.push([file, point_id]);
                 self.upload_files()
             },
             function(error){
@@ -312,7 +312,7 @@ var inspection = {
     capture_audio: function(point_id){
         var self = this;
         navigator.device.audiorecorder.recordAudio(function(file){\
-            self.files.push([file: file, point_id: point_id]);
+            self.files.push([file, point_id]);
             self.upload_files()
         });
     },
@@ -329,42 +329,41 @@ var inspection = {
         $('#carousel'+point_id).find('.carousel-inner').append(item);
 
         */
-        $('#carousel'+point_id).find('.active').removeClass('active');
-        $('#carousel'+point_id).find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+videoURI+"' type='video/mp4'></video></div>");
-    
-        if (navigator.connection.type !== Connection.NONE) {
-            for(var d = 0; d < self.files.length; d++){
-                var options = new FileUploadOptions();
-                var fileURI=self.files[d][0].fullPath;
-                options.fileKey = "file";
-                options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
-                options.mimeType = "image/jpeg";
-                var params = new Object();
-                params.token = session.token;
-                params.point_id = point_id;
-                params.inspection_id =self.id;
-                options.params = params;
-                options.chunkedMode = false;
 
-                var ft = new FileTransfer();
+        for(var d = 0; d < self.files.length; d++){
+            var options = new FileUploadOptions();
+            var fileURI=self.files[d][0].fullPath;
+            options.fileKey = "file";
+            options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
+            options.mimeType = "image/jpeg";
+            var params = new Object();
+            params.token = session.token;
+            params.point_id = self.files[d][1];
+            params.inspection_id =self.id;
+            options.params = params;
+            options.chunkedMode = false;
 
-                ft.upload(
-                    videoURI,
-                    ruta_generica+"/api/v1/upload",
-                    function(result){
-                        var itemDefault =  $('#carousel'+point_id).find('#itemDefault');
-                        if (itemDefault)
-                        {
-                            itemDefault.remove();
-                        }
-                        delete self.files[d];
-                    },
-                    function(error){
-                        navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
-                    },
-                    options
-                );
+            var ft = new FileTransfer();
+            if (navigator.connection.type !== Connection.NONE) {
+            ft.upload(
+                videoURI,
+                ruta_generica+"/api/v1/upload",
+                function(result){
+                    var itemDefault =  $('#carousel'+point_id).find('#itemDefault');
+                    if (itemDefault)
+                    {
+                        itemDefault.remove();
+                    }
+                    delete self.files[d];
+                },
+                function(error){
+                    navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
+                },
+                options
+            );
             }
+            $('#carousel'+point_id).find('.active').removeClass('active');
+            $('#carousel'+point_id).find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+videoURI+"' type='video/mp4'></video></div>");
         }
     },
     update: function(field, value){
