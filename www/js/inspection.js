@@ -329,15 +329,16 @@ var inspection = {
         $('#carousel'+point_id).find('.carousel-inner').append(item);
 
         */
-
+        console.log(self.files);
         for(var d = 0; d < self.files.length; d++){
             var options = new FileUploadOptions();
             var _file = self.files[d][0];
-            console.log(self.files[d][0]);
+            console.log(self.files[d].name);
             console.log(_file);
             options.fileKey = "file";
             options.fileName = _file.name;
             options.mimeType = _file.type;
+            console.log(options);
             var params = new Object();
             params.token = session.token;
             params.point_id = self.files[d][1];
@@ -348,7 +349,7 @@ var inspection = {
             var ft = new FileTransfer();
             if (navigator.connection.type !== Connection.NONE) {
             ft.upload(
-                file.full_path,
+                _file.full_path,
                 ruta_generica+"/api/v1/upload",
                 function(result){
                     var itemDefault =  $('#carousel'+point_id).find('#itemDefault');
