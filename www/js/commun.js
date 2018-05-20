@@ -87,8 +87,7 @@ var getParams = function (url) {
 };
 
 function salir(){
-    localStorage.clear();
-    location.href="index.html";
+   location.href="index.html";
 }
 
 function style()
@@ -197,14 +196,9 @@ function logo(){
 document.addEventListener("deviceready", function(){
   session=JSON.parse(localStorage.getItem('session'));
   app_settings = JSON.parse(localStorage.getItem('app_settings'));
-  var url = window.location.href;
-  var params = getParams(url);
-  var screen =  (new URL(location)).pathname;
-  screen = screen.split('/');
-  screen = screen[screen.length - 1];
-  if (!app_settings && screene != "index.html")
+  if (!app_settings.usser && location.pathname != "/index.html")
   {
-    location.href="index.html";
+    //location.href="index.html";
   }
   $.get("navbar.html", function(data){
     $("#navbar").append(data);

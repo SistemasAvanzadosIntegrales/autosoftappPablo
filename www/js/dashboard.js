@@ -100,7 +100,7 @@ function dashboard(take, skip, search = null)
 
 function HtmlDashboard(data)
 {
-    for(i in data.inspections){
+    for(var i = 0; i < data.inspections.length; i++){
         var clone = $('#table-body #clone').clone();
         clone.attr('id', 'clone'+i);
         console.log(data.inspections[i]);
@@ -112,10 +112,6 @@ function HtmlDashboard(data)
             if(field)
             {
                 var value = data.inspections[i][field];
-                if(!value){
-                    good_clone = false;
-                    return;
-                }
                 if(field == 'status'){
                     value ='<i class="'+inspectionStatus[value].icon +' text-color-marca"> </i> '+inspectionStatus[value].text;
                 }

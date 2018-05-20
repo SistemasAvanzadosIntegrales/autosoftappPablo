@@ -36,7 +36,7 @@ function TechsHTML(data){
     console.log(data);
     var params = getParams(window.location.href);
     var vehicle_id = params.vehicle_id;
-    for(i in data.techs){
+    for(var i = 0; i < data.techs.length; i++){
         var clone = $('#techs #clone').clone();
         clone.attr('id', 'clone'+i);
         var tech_id = data.techs[i].link;
@@ -46,10 +46,6 @@ function TechsHTML(data){
             if(field)
             {
                 var value = data.techs[i][field];
-                if(!value){
-                    good_clone = false;
-                    return;
-                }
                 if(field == 'link'){
                     value = '<a onclick="asignar('+vehicle_id+', '+tech_id+')" class="btn-link btn-md"><i class="fa fa-chevron-right"> </i></a>';
                 }

@@ -37,7 +37,7 @@ function new_inspection(take, skip, search = null){
     });
 }
 function new_inspection_html(data){
-    for(i in data.vehicles){
+    for(var i = 0; i < data.vehicles.length; i++){
         var clone = $('#table-clients #clone').clone();
         clone.attr('id', 'clone'+i);
         var vehicle_id = data.vehicles[i].link;
@@ -47,10 +47,6 @@ function new_inspection_html(data){
             if(field)
             {
                 var value = data.vehicles[i][field];
-                if(!value){
-                    good_clone = false;
-                    return;
-                }
                 if(field == 'link'){
                     value = '<a href="techs.html?vehicle_id='+vehicle_id+'" class="btn-link btn-md"><i class="fa fa-chevron-right"> </i></a>';
                 }

@@ -33,7 +33,7 @@ function obtenerClients(take, skip, search = null){
 }
 
 function clientsHTML(data){
-    for(i in data.clients){
+    for(var i = 0; i < data.clients.length; i++){
         var clone = $('#clients #clone').clone();
         clone.attr('id', 'clone'+i);
         var good_clone = true;
@@ -42,10 +42,6 @@ function clientsHTML(data){
             if(field)
             {
                 var value = data.clients[i][field];
-                if(!value){
-                    good_clone = false;
-                    return;
-                }
                 if(field == 'trash'){
                     value = '<a data-client-id="'+data.clients[i].id+'" class="btn-link btn-delete btn-md"><i class="fa fa-trash"> </i></a>';
                 }
