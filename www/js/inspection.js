@@ -332,7 +332,8 @@ var inspection = {
 
         for(var d = 0; d < self.files.length; d++){
             var options = new FileUploadOptions();
-            var fileURI=self.files[d][0].fullPath;
+            var fileURI=self.files[d][0][0];
+            console.log(self.files[d]);
             options.fileKey = "file";
             options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
             options.mimeType = "image/jpeg";
