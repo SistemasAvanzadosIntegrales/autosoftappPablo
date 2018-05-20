@@ -308,7 +308,7 @@ var inspection = {
     capture_photo: function(point_id){
         var self = this;
         navigator.camera.getPicture(
-            function((photoURI){
+            function(photoURI){
                 var options = new FileUploadOptions();
                  options.fileKey = "file";
                  options.fileName = photoURI.substr(photoURI.lastIndexOf('/') + 1);
