@@ -332,8 +332,8 @@ var inspection = {
 
         for(var d = 0; d < self.files.length; d++){
             var options = new FileUploadOptions();
-            var _file = self.files[d];
-            console.log(self.files[d]);
+            var _file = self.files[d][0];
+            console.log(self.files[d][0]);
             console.log(_file);
             options.fileKey = "file";
             options.fileName = _file.name;
