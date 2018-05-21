@@ -382,6 +382,7 @@ var inspection = {
                     options
                 );
             }
+            $('#carousel'+options.params.point_id).find('.active').removeClass('active');
             if (_file_path.indexOf('.m4a') > 0){
                 $('#carousel'+options.params.point_id).find('.active').removeClass('active');
                 var item  = "<div class='item active'>"+
@@ -393,7 +394,7 @@ var inspection = {
                 $('#carousel'+options.params.point_id).find('.carousel-inner').append('<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+_file_path+'"></div>');
             }
             if (_file_path.indexOf('.mp4') > 0){
-                $('#carousel'+options.params.point_id).find('.active').removeClass('active');
+       
                 $('#carousel'+options.params.point_id).find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+_file_path+"' type='video/mp4'></video></div>");
             }
 
