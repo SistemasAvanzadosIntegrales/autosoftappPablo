@@ -83,8 +83,6 @@ function clientsHTML(data){
     })
 }
 
-
-
 var view_client = function(){
     var urlParams = getParams(window.location.href)
     if (urlParams.client_id){
@@ -314,6 +312,7 @@ $(".save-vehicle").click(function(){
     {
         sql = "UPDATE vehicles SET brand = '"+brand+"', model = '"+model+"', license_plate = '"+license_plate+"' ,  vin = '"+ vin+"', origen = 'modified'  WHERE id = "+vehicle_id;
     }
+    console.log(sql);
     db.transaction(function(tx) {
         tx.executeSql(sql);
     })
