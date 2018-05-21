@@ -131,15 +131,15 @@ var inspection = {
                     var __file_name = files[w].name;
                     var item = false;
                     if (__file_name.indexOf('.mp4') > 0){
-                        item = "<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='file:///storage/emulated/0/DCIM/Camera/"+ __file_name +"' type='video/mp4'></video></div>";
+                        item = "<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+uri + __file_name +"' type='video/mp4'></video></div>";
                     }
                     else if (__file_name.indexOf('.m4a') > 0){
                         item  = "<div class='item active'>"+
                         "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto; display: inherit;' controls>"+
-                        "<source src='/data/user/0/xdk.intel.autosoft/files/AudioRecords/" + __file_name+"'></audio></div>";
+                        "<source src='"+uri + __file_name+"'></audio></div>";
                     }
                     else if (__file_name.indexOf('.jpg') > 0){
-                        item = '<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="file:///storage/emulated/0/Android/data/xdk.intel.autosoft/cache/'+ __file_name +'"></div>';
+                        item = '<div class="item active"><img style="height:300px; margin:auto; display: inherit;" src="'+uri + __file_name +'"></div>';
                     }
                     var itemDefault =  clone_point.find('.carousel').find('#itemDefault');
                     if (item && itemDefault)
