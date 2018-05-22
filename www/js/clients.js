@@ -310,9 +310,8 @@ $(".save-vehicle").click(function(){
     }
     else
     {
-        sql = "UPDATE vehicles SET brand = '"+brand+"', model = '"+model+"', license_plate = '"+license_plate+"' ,  vin = '"+ vin+"', origen = 'modified'  WHERE id = "+vehicle_id;
+        sql = "UPDATE vehicles SET brand = '"+brand+"', model = '"+model+"', license_plate = '"+license_plate+"' ,  vin = '"+ vin+"', origen = 'modified'  WHERE id = "+link;
     }
-    console.log(sql);
     db.transaction(function(tx) {
         tx.executeSql(sql);
     })
