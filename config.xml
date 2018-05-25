@@ -49,13 +49,12 @@
         <icon src="icon.png" />
     </platform>
     <platform name="android">
-        <preference name="android-minSdkVersion" value="19" />
+        <preference name="android-minSdkVersion" value="17" />
         <preference name="android-targetSdkVersion" value="21" />
-        <preference name="android-installLocation" value="auto" />
         <preference name="Fullscreen" value="false" />
         <preference name="Orientation" value="default" />
         <preference name="android-signed" value="false" />
         <preference name="AndroidLaunchMode" value="singleTop" />
     </platform>
-    <engine name="android" spec="^6.0.0" />
+    <engine name="android" spec="^7.0.0" />
 </widget>
