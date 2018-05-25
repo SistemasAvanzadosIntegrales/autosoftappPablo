@@ -40,15 +40,6 @@
     <plugin name="cordova-sqlite-storage" spec="1.2.0" />
     <plugin name="onesignal-cordova-plugin" spec="^2.0" />
     <plugin name="cordova-plugin-whitelist" spec="1.2.2" />
-    <platform name="ios">
-        <preference name="AutoHideSplashScreen" value="true" />
-        <preference name="FadeSplashScreen" value="false" />
-        <preference name="FadeSplashScreenDuration" value="2" />
-        <preference name="ShowSplashScreenSpinner" value="false" />
-        <preference name="StatusBarOverlaysWebView" value="false" />
-        <preference name="StatusBarBackgroundColor" value="#000000" />
-        <preference name="StatusBarStyle" value="lightcontent" />
-    </platform>
     <preference name="SplashScreenDelay" value="5000" />
     <platform name="android">
         <preference name="SplashMaintainAspectRatio" value="true" />
@@ -63,12 +54,10 @@
         <splash density="port-xhdpi" src="res/screen/android/screen-xhdpi-portrait.png" />
         <icon src="icon.png" />
     </platform>
-    <platform name="browser">
-        <preference name="SplashMaintainAspectRatio" value="false" />
-    </platform>
+
     <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect --ignore-gpu-blacklist" />
     <platform name="android">
-        <preference name="android-minSdkVersion" value="16" />
+        <preference name="android-minSdkVersion" value="19" />
         <preference name="android-targetSdkVersion" value="21" />
         <preference name="android-installLocation" value="auto" />
         <preference name="Fullscreen" value="false" />
@@ -79,7 +68,5 @@
     <config-file mode="merge" parent="/manifest/application" platform="android">
         <activity android:launchMode="singleTop" />
     </config-file>
-    <engine name="ios" spec="^4.5.4" />
-    <engine name="android" spec="^7.0.0" />
-    <engine name="browser" spec="^5.0.3" />
+    <engine name="android" spec="^6.0.0" />
 </widget>
