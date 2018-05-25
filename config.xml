@@ -67,3 +67,4 @@
 <edit-config target="NSPhotoLibraryAddUsageDescription" file="*-Info.plist" mode="merge">
     <string>need to photo library access to save pictures there</string>
 </edit-config>
+</widget>
