@@ -34,7 +34,6 @@
     <plugin name="cordova-plugin-audio-recorder" spec="1.0.5" />
     <plugin name="cordova-plugin-network-information" spec="1.2.1" />
     <plugin name="cordova-sqlite-storage" spec="1.2.0" />
-    <plugin name="onesignal-cordova-plugin" spec="^2.0" />
     <platform name="android">
         <preference name="SplashMaintainAspectRatio" value="true" />
         <preference name="SplashShowOnlyFirstTime" value="false" />
