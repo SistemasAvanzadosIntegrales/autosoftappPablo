@@ -74,10 +74,11 @@ var inspection = {
             var clone = $("#clone").clone();
             var category_name = clone.find('.category_name');
             var presupuesto = $('#presupuesto');
+            var pivot = self.categories[f].category_name.replace(/[^a-zA-Z 0-9.]+/g,'');
             category_name.html(self.categories[f].category_name);
-            category_name.attr('href', '#'+self.categories[f].category_name);
-            category_name.attr('aria-controls', self.categories[f].category_name);
-            clone.find('.panel-collapse').attr('id', self.categories[f].category_name);
+            category_name.attr('href', '#'+pivot);
+            category_name.attr('aria-controls', pivot);
+            clone.find('.panel-collapse').attr('id', pivot);
 
             var clone_success = true;
 
@@ -355,6 +356,9 @@ var inspection = {
     },
     upload_files: function(){
         var self = this;
+
+        if(!self.files)
+            return;
 
         for(var d = 0; d < self.files.length; d++){
             if(!self.files[d])
