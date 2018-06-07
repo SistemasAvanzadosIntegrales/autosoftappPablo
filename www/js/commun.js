@@ -43,6 +43,12 @@ var inspectionStatus = [
  **/
  var xhr, token, user_id, session, data = {};
  document.addEventListener("deviceready", function(){
+    cordova.getAppVersion.getVersionNumber().then(function (version) {
+        $('.version').text(version);
+    });
+    cordova.getAppVersion.getVersionNumber(function (version) {
+        alert(version);
+    });
     session=JSON.parse(localStorage.getItem('session'));
     app_settings=JSON.parse(localStorage.getItem('app_settings'));
 
