@@ -95,7 +95,7 @@ function style()
 	var app_settings = JSON.parse(localStorage.getItem('app_settings'));
 	app_settings = app_settings ? app_settings : {"config_company": {"contrast_color": "dddddd", "base_color": "323232"}};
 	var version_tag = [
-		'<h5 class="text-center" style="color:'+app_settings.config_company.contrast_color+'">Versión: ',
+		'<br/><br/><h5 class="text-center" style="color:'+app_settings.config_company.contrast_color+'">Versión: ',
 		'version',
 		'</h5>'
 	];
