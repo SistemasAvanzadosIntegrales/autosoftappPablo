@@ -99,17 +99,11 @@ function style()
 		'version',
 		'</h5>'
 	];
-	try {
-		cordova.getAppVersion.getVersionNumber(function (version) {
-			version_tag[1] = version;
-			$('body').append(version_tag.join(''));
-		});
-	} catch (e) {
-		console.log(e);
-	} finally {
-		version_tag[1] = 'Debug';
+	cordova.getAppVersion.getVersionNumber(function (version) {
+		version_tag[1] = version;
 		$('body').append(version_tag.join(''));
-	}
+	});
+	
 	$('.table thead tr th').css('background', '#'+app_settings.config_company.contrast_color);
 	$(document.body).css('background', '#'+app_settings.config_company.base_color);
 }
