@@ -43,12 +43,6 @@ var inspectionStatus = [
  **/
  var xhr, token, user_id, session, data = {};
  document.addEventListener("deviceready", function(){
-    cordova.getAppVersion.getVersionNumber().then(function (version) {
-        $('.version').text(version);
-    });
-    cordova.getAppVersion.getVersionNumber(function (version) {
-        alert(version);
-    });
     session=JSON.parse(localStorage.getItem('session'));
     app_settings=JSON.parse(localStorage.getItem('app_settings'));
 
@@ -97,11 +91,27 @@ function salir(){
 
 function style()
 {
-  var session=JSON.parse(localStorage.getItem('session'));
-  var app_settings = JSON.parse(localStorage.getItem('app_settings'));
-  app_settings = app_settings ? app_settings : {"config_company": {"contrast_color": "dddddd", "base_color": "323232"}};
-  $('.table thead tr th').css('background', '#'+app_settings.config_company.contrast_color);
-  $(document.body).css('background', '#'+app_settings.config_company.base_color);
+	var session=JSON.parse(localStorage.getItem('session'));
+	var app_settings = JSON.parse(localStorage.getItem('app_settings'));
+	app_settings = app_settings ? app_settings : {"config_company": {"contrast_color": "dddddd", "base_color": "323232"}};
+	var version_tag = [
+		'<h5 class="text-center" style="position: absolute;bottom: 0px;width: 100%;font-size: 0.8em;font-weight: bold;color:'+app_settings.config_company.contrast_color+'">Versión:',
+		'version',
+		'</h5>'
+	];
+	try {
+		cordova.getAppVersion.getVersionNumber(function (version) {
+			version_tag[1] = version;
+			$('body').append(version_tag.join(''));
+		});
+	} catch (e) {
+		console.log(e);
+	} finally {
+		version_tag[1] = 'Debug';
+		$('body').append(version_tag.join(''));
+	}
+	$('.table thead tr th').css('background', '#'+app_settings.config_company.contrast_color);
+	$(document.body).css('background', '#'+app_settings.config_company.base_color);
 }
 
 /*
