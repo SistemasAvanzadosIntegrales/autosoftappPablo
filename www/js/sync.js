@@ -9,7 +9,7 @@ function __make_db(data, call_back_function = null){
         user_permissions: data.user_permissions,
     }
 
-    localStorage.setItem("app_settings", JSON.stringify(app_settings));
+    //localStorage.setItem("app_settings", JSON.stringify(app_settings));
     var  db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 
     db.transaction(function(tx) {
