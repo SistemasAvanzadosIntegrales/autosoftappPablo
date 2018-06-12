@@ -74,7 +74,7 @@ var inspection = {
             var clone = $("#clone").clone();
             var category_name = clone.find('.category_name');
             var presupuesto = $('#presupuesto');
-            var pivot = self.categories[f].category_name.replace(/[^a-zA-Z 0-9.]+/g,'');
+            var pivot = self.categories[f].category_name.replace(/[^a-zA-Z0-9]+/g,'');
             category_name.html(self.categories[f].category_name);
             category_name.attr('href', '#'+pivot);
             category_name.attr('aria-controls', pivot);
