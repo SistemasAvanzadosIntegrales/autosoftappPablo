@@ -1,4 +1,4 @@
-var ruta_generica = "http://172.16.0.13:8000/";
+var ruta_generica = "http://172.16.0.13:8000";
 var session;
 var app_settings;
 var inspectionStatus = [
