@@ -1,4 +1,4 @@
-var ruta_generica = "http://autosoft2.avansys.com.mx";
+var ruta_generica = "http://172.16.0.13:8000/";
 
 function resetPassword(){
     window.open(ruta_generica+"/password/reset",  '_blank');
