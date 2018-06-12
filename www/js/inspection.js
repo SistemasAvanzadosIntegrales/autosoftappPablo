@@ -127,12 +127,15 @@ var inspection = {
                 clone_point.attr('id', null);
                 clone_point.find('.point_name').append(self.points[z].name);
                 clone.find('.list-group').append(clone_point.removeClass('hide'));
-                var uri = 'http://autosoft2.avansys.com.mx/files/';
+                var uri = 'http://172.16.0.13:8000/files/';
                 for (var w = 0; w < files_length; w++){
                     var __file_name = files[w].name;
                     var item = false;
                     if (__file_name.indexOf('.mp4') > 0){
                         item = "<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+uri + __file_name +"' type='video/mp4'></video></div>";
+                    }
+                    if (__file_name.indexOf('.3gp') > 0){
+                        item = "<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+uri + __file_name +"' type='video/3gp'></video></div>";
                     }
                     else if (__file_name.indexOf('.m4a') > 0){
                         item  = "<div class='item active'>"+
@@ -235,7 +238,7 @@ var inspection = {
             self.capture_video($(this).attr('data-point-id'));
         });
 
-        $('.capture-audio').click(function(){
+        $('.capture-audio').click(function(){item = 
             self.capture_audio($(this).attr('data-point-id'));
         });
 
@@ -355,7 +358,7 @@ var inspection = {
         });
     },
     upload_files: function(){
-        var self = this;
+        var self = this;item = 
 
         if(!self.files)
             return;
@@ -387,11 +390,14 @@ var inspection = {
                 );
             }
             $('#carousel'+options.params.point_id).find('.active').removeClass('active');
+            if (_file_path.indexOf('.3gp') > 0){
+                $('#carousel'+options.params.point_id).find('.carousel-inner').append("<div class='item active'><video style='height:300px; margin:auto; display: inherit; 'controls><source src='"+_file_path +"' type='video/3gp'></video></div>");
+            }
             if (_file_path.indexOf('.m4a') > 0){
                 $('#carousel'+options.params.point_id).find('.active').removeClass('active');
                 var item  = "<div class='item active'>"+
                 "<i class='fa fa-volume-up'></i><audio style='height:300px; margin:auto; display: inherit;' controls>"+
-                "<source src='"+_file_path+"'></audio></div>";
+                "<source src='"+_file_path+"'><item = /audio></div>";
                 $('#carousel'+options.params.point_id).find('.carousel-inner').append(item);
             }
             if (_file_path.indexOf('.jpg') > 0){
