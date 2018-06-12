@@ -1,4 +1,4 @@
-var ruta_generica = "http://172.16.0.13:8000/";
+var ruta_generica = "http://172.16.0.13:8000";
 
 function resetPassword(){
     window.open(ruta_generica+"/password/reset",  '_blank');
