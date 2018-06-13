@@ -111,7 +111,11 @@ var inspection = {
                 update_price.val(self.points[z].price);
                 clone_point.find('.update-price').attr('data-point-id', point_id);
                 var status_point = clone_point.find('.status-point')
-                status_point.html(self.severities[self.points[z].severity].icon);
+
+                if (self.severities[self.points[z].severity]) {
+                    status_point.html(self.severities[self.points[z].severity].icon);
+                }
+
                 status_point.attr('class', 'btn btn-sm status-point ' + self.severities[self.points[z].severity].class);
 
                 clone_point.find('.inspection_price').html('$' + _price_float.toFixed(2));
@@ -238,7 +242,7 @@ var inspection = {
             self.capture_video($(this).attr('data-point-id'));
         });
 
-        $('.capture-audio').click(function(){item = 
+        $('.capture-audio').click(function(){item =
             self.capture_audio($(this).attr('data-point-id'));
         });
 
@@ -358,7 +362,7 @@ var inspection = {
         });
     },
     upload_files: function(){
-        var self = this;item = 
+        var self = this;
 
         if(!self.files)
             return;
