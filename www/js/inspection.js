@@ -114,10 +114,10 @@ var inspection = {
 
                 if (self.severities[self.points[z].severity]) {
                     status_point.html(self.severities[self.points[z].severity].icon);
+
+
+                    status_point.attr('class', 'btn btn-sm status-point ' + self.severities[self.points[z].severity].class);
                 }
-
-                status_point.attr('class', 'btn btn-sm status-point ' + self.severities[self.points[z].severity].class);
-
                 clone_point.find('.inspection_price').html('$' + _price_float.toFixed(2));
 
                 clone_point.find('.gallery-link').attr('href', '#gallery' + point_id);
