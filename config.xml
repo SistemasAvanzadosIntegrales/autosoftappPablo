@@ -12,7 +12,6 @@
   </author>
 <content src="index.html"/>
 <preference name="android-build-tool" value="gradle" />
-    <preference name="phonegap-version" value="cli-6.4.0" />
 <allow-intent href="http://*/*"/>
 <allow-intent href="https://*/*"/>
 <allow-intent href="tel:*"/>
@@ -21,8 +20,9 @@
 <allow-intent href="geo:*"/>
 <allow-intent href="market:*"/>
 <access origin="*"/>
-<preference name="phonegap-version" value="cli-6.2.0" />
 <preference name="xwalkMultipleApk" value="false" />
+    <plugin name="onesignal-cordova-plugin"  />
+<plugin name="cordova-plugin-whitelist"  />
 <plugin name="cordova-plugin-statusbar" spec="2.2.3"/>
 <plugin name="cordova-plugin-device" spec="1.1.6"/>
 <plugin name="cordova-plugin-camera" spec="2.2.0"/>
@@ -44,8 +44,7 @@
 <plugin name="cordova-plugin-audio-recorder" spec="1.0.5"/>
 <plugin name="cordova-plugin-network-information" spec="1.2.1"/>
 <plugin name="cordova-sqlite-storage" spec="1.2.0"/>
-<plugin name="onesignal-cordova-plugin"  />
-<plugin name="cordova-plugin-whitelist" spec="1.2.2"/>
+
 <platform  name="ios">
     <!-- below requires the splash screen plugin -->
     <!-- docs: https://github.com/apache/cordova-plugin-splashscreen -->
