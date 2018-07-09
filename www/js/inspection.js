@@ -302,9 +302,8 @@ var inspection = {
              params.inspection_id =self.id;
              options.params = params;
              options.chunkedMode = false;
-             alert(JSON.stringify(options));
-             //self.files.push([videoURI, options]);
-             //self.upload_files()
+             self.files.push([videoURI, options]);
+             self.upload_files()
          },
             function(error){
                 navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
@@ -329,9 +328,8 @@ var inspection = {
                  params.inspection_id =self.id;
                  options.params = params;
                 chunkedMode = false;
-                alert(JSON.stringify(options));             
-                //self.files.push([photoURI, options]);
-                //self.upload_files()
+                self.files.push([photoURI, options]);
+                self.upload_files()
             },
             function(error){
                 navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
