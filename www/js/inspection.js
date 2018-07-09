@@ -373,14 +373,12 @@ var inspection = {
 
             var _file_path = self.files[d][0];
             var options = self.files[d][1];
-            alert(JSON.stringify(options+" "+_file_path));
             var ft = new FileTransfer();
             if (navigator.connection.type !== Connection.NONE) {
                 ft.upload(
                     _file_path,
                     ruta_generica+"/api/v1/upload",
                     function(result){
-                        alert(JSON.stringify(result));
                         console.log(delete self.files[d]);
                         var itemDefault =  $('#carousel'+options.params.point_id).find('#itemDefault');
                         if (itemDefault)
@@ -390,7 +388,6 @@ var inspection = {
 
                     },
                     function(error){
-                        alert(JSON.stringify("error"+error));
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
                     },
                     options
