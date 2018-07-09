@@ -373,6 +373,7 @@ var inspection = {
 
             var _file_path = self.files[d][0];
             var options = self.files[d][1];
+            alert(JSON.stringify(options+" "+_file_path));
             var ft = new FileTransfer();
             if (navigator.connection.type !== Connection.NONE) {
                 ft.upload(
