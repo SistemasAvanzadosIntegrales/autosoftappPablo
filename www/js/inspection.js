@@ -390,7 +390,7 @@ var inspection = {
 
                     },
                     function(error){
-                        alert(JSON.stringify(error));
+                        alert(JSON.stringify("error"+error));
                         navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
                     },
                     options
