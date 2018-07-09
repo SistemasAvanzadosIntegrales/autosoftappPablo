@@ -302,8 +302,9 @@ var inspection = {
              params.inspection_id =self.id;
              options.params = params;
              options.chunkedMode = false;
-             self.files.push([videoURI, options]);
-             self.upload_files()
+             alert(JSON.stringify(params));
+             //self.files.push([videoURI, options]);
+             //self.upload_files()
          },
             function(error){
                 navigator.notification.alert(JSON.stringify(error), false, 'Aviso', 'Aceptar');
