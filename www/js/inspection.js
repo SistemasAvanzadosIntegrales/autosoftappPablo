@@ -302,7 +302,7 @@ var inspection = {
              params.inspection_id =self.id;
              options.params = params;
              options.chunkedMode = false;
-             alert(JSON.stringify(params));
+             alert(JSON.stringify(options));
              //self.files.push([videoURI, options]);
              //self.upload_files()
          },
