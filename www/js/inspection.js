@@ -232,15 +232,10 @@ var inspection = {
         $('.update-severity').click(function(){
             var _this = this;
             $(this).parent().parent().parent().parent().find(".btn-link").attr("disabled",true);
-            $(this).parent().parent().parent().parent().find(".update-severity").attr("disabled",true);
-            alert($(this).parent().parent().parent().parent().find(".btn-link").length);
-            alert($(this).parent().parent().parent().parent().find(".update-severity").length);
+            $(this).parent().parent().parent().parent().find(".update-severity").attr("disabled",true);            
             $(this).parent().attr('data-severity',  $(this).attr('data-severity'));
             self.update_point($(this).attr('data-point-id'), 'severity', $(this).attr('data-severity'));            
-            setTimeout(function(){
-                alert("remoev las prop");
-                alert($(_this).parent().parent().parent().parent().find(".update-severity").length);
-                alert($(_this).parent().parent().parent().parent().find(".btn-link").length);
+            setTimeout(function(){                
                 $(_this).parent().parent().parent().parent().find(".update-severity").attr("disabled","");
                 $(_this).parent().parent().parent().parent().find(".update-severity").removeProp("disabled");
                 $(_this).parent().parent().parent().parent().find(".update-severity").removeAttr("disabled");
