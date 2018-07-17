@@ -230,7 +230,7 @@ var inspection = {
         });
 
         $('.update-severity').click(function(){
-            $(this).parent().parent().parent().parent().find(".btn-link").attr("disabled","disabled");
+            $(this).parent().parent().parent().parent().find(".btn-link").prop("disabled",true);
             $(this).parent().attr('data-severity',  $(this).attr('data-severity'));
             self.update_point($(this).attr('data-point-id'), 'severity', $(this).attr('data-severity'));            
             setTimeout(function(){
