@@ -145,7 +145,7 @@ function sync_data(call_back_function = null, espera = 0){
                 if(first_sync){
                     $.ajax({
                         async: false,
-                        url: ruta_generica+"/api/v1/sync_data",
+                        url: ruta_generica+"/api/v1/sync_get_data",
                         type: 'POST',
                         cache : false,
                         dataType: 'JSON',
