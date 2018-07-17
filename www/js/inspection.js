@@ -235,8 +235,8 @@ var inspection = {
             self.update_point($(this).attr('data-point-id'), 'severity', $(this).attr('data-severity'));            
             setTimeout(function(){
                 alert("remoev las prop");
-                $(this).parent().parent().parent().parent().find(".btn-link").removeProp("disabled");
-                $(this).parent().parent().parent().parent().find(".btn-link").removeAttr("disabled");
+                $(this).parent().parent().parent().parent().find(".btn-link").prop("disabled",false);
+                //$(this).parent().parent().parent().parent().find(".btn-link").attr("disabled",false);
             }, 3000);
         });
 
