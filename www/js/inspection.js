@@ -230,13 +230,13 @@ var inspection = {
         });
 
         $('.update-severity').click(function(){
-            $(this).parent().parent().parent().parent().find(".btn-link").prop("disabled",true);
+            $(this).parent().parent().parent().parent().find(".btn-link").attr("disabled",true);
             $(this).parent().attr('data-severity',  $(this).attr('data-severity'));
             self.update_point($(this).attr('data-point-id'), 'severity', $(this).attr('data-severity'));            
             setTimeout(function(){
                 alert("remoev las prop");
                 alert(count($(this).parent().parent().parent().parent().find(".btn-link")));
-                $(this).parent().parent().parent().parent().find(".btn-link").prop("disabled",false);
+                $(this).parent().parent().parent().parent().find(".btn-link").attr("disabled",false);
                 $(this).parent().parent().parent().parent().find(".btn-link").removeProp("disabled");
                 $(this).parent().parent().parent().parent().find(".btn-link").removeAttr("disabled");
                 //$(this).parent().parent().parent().parent().find(".btn-link").attr("disabled",false);
