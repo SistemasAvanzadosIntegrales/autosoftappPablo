@@ -170,19 +170,25 @@ var inspection = {
     },
     rules: function(call_back_function = null){
         var self = this;
+        var send = false;
         var app_settings = JSON.parse(localStorage.getItem('app_settings'));
 
         var is_asesor = app_settings.user_permissions.indexOf('advisory_group') >= 0;
         var is_tech = app_settings.user_permissions.indexOf('technical_group') >= 0;
         var can_close = app_settings.user_permissions.indexOf('close') >= 0;
-        var can_mark_as_attended = app_settings.user_permissions.indexOf('mark_as_attended') >= 0;
+        var can_mark_as_attended = app_settings.user_permissions.indexOf('mark_as_attended') >= 0;        
+
+        for(var f = 0; f < self.points.length; f++){
+            if(self.points[f].severity > 1)
+                send = true;
+        }
 
         var status = parseInt(self.inspection.status)
         if(status == 1 && is_tech)
         {
             $('#buttonmenu').append('<a class="navbar-link" onclick="inspection.update(\'status\', \'2\')" ><i class="fa fa-paper-plane"></i></a>');
         }
-        if(status == 2 && is_asesor)
+        if(status == 2 && is_asesor && send)
         {
             $('#buttonmenu').append('<a class="navbar-link" onclick="inspection.update(\'status\', \'3\')" ><i class="fa fa-paper-plane "></i></a>');
         }
