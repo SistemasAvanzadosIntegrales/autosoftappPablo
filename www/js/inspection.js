@@ -31,10 +31,13 @@ var inspection = {
         var self = this;
         self.db.transaction(function(tx) {
             tx.executeSql("select * from inspections where id = ? ", [self.id], function (tx, inspections){
+                console.log(inspections);
                 self.inspection = inspections.rows.item(0);
                 tx.executeSql("select * from vehicles where id = ? ", [self.inspection.vehicle_id], function(tx, vehicles){
+                  console.log(vehicles);
                     self.vehicle = vehicles.rows.item(0);
                     tx.executeSql("select * from clients where id = ? ", [self.vehicle.user_id], function(tx, clients){
+                        console.log(clients);
                         self.client = clients.rows.item(0);
                         tx.executeSql("select * from catalogue group by category_name ", [], function(tx, categories){
                             self.categories = categories.rows;
@@ -176,7 +179,7 @@ var inspection = {
         var is_asesor = app_settings.user_permissions.indexOf('advisory_group') >= 0;
         var is_tech = app_settings.user_permissions.indexOf('technical_group') >= 0;
         var can_close = app_settings.user_permissions.indexOf('close') >= 0;
-        var can_mark_as_attended = app_settings.user_permissions.indexOf('mark_as_attended') >= 0;        
+        var can_mark_as_attended = app_settings.user_permissions.indexOf('mark_as_attended') >= 0;
 
         for(var f = 0; f < self.points.length; f++){
             if(self.points[f].severity > 1)
@@ -238,10 +241,10 @@ var inspection = {
         $('.update-severity').click(function(){
             var _this = this;
             $(this).parent().parent().parent().parent().find(".btn-link").attr("disabled",true);
-            $(this).parent().parent().parent().parent().find(".update-severity").attr("disabled",true);            
+            $(this).parent().parent().parent().parent().find(".update-severity").attr("disabled",true);
             $(this).parent().attr('data-severity',  $(this).attr('data-severity'));
-            self.update_point($(this).attr('data-point-id'), 'severity', $(this).attr('data-severity'));            
-            setTimeout(function(){                
+            self.update_point($(this).attr('data-point-id'), 'severity', $(this).attr('data-severity'));
+            setTimeout(function(){
                 $(_this).parent().parent().parent().parent().find(".update-severity").attr("disabled","");
                 $(_this).parent().parent().parent().parent().find(".update-severity").removeProp("disabled");
                 $(_this).parent().parent().parent().parent().find(".update-severity").removeAttr("disabled");
@@ -439,11 +442,16 @@ var inspection = {
         if (field =='status')
              charter = '';
 
+        alert(field);
+        alert(value);
+
         if (value == 2 && field == 'status'){
             $('.clone-point').each(function(key, item){
+
                 var item = $(item);
                 var severity = item.find('.severity-picker').attr('data-severity');
-                if (severity == 0){
+
+                if (severity == 0 || !severity){
                     is_valid_to_send = false;
                     navigator.notification.alert('Debe inspeccionar ' + item.find('.point_name').html(), false, 'Error', 'Aceptar');
                 }

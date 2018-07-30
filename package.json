@@ -7,11 +7,51 @@
       "ios",
       "android",
       "browser"
-    ]
+    ],
+    "plugins": {
+      "onesignal-cordova-plugin": {},
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-camera": {},
+      "cordova-plugin-compat": {},
+      "cordova-plugin-file": {},
+      "cordova-plugin-app-version": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-media-capture": {
+        "CAMERA_USAGE_DESCRIPTION": " ",
+        "MICROPHONE_USAGE_DESCRIPTION": " ",
+        "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
+      },
+      "cordova-plugin-media": {
+        "MICROPHONE_USAGE_DESCRIPTION": " "
+      },
+      "cordova-plugin-dialogs": {},
+      "cordova-plugin-file-transfer": {},
+      "cordova-plugin-audio-recorder": {},
+      "cordova-plugin-network-information": {},
+      "cordova-sqlite-storage": {}
+    }
   },
   "dependencies": {
-    "cordova-ios": "^4.5.4",
     "cordova-android": "^7.0.0",
-    "cordova-browser": "^5.0.3"
+    "cordova-browser": "^5.0.3",
+    "cordova-ios": "^4.5.4",
+    "cordova-plugin-app-version": "^0.1.9",
+    "cordova-plugin-audio-recorder": "^1.0.5",
+    "cordova-plugin-camera": "2.2.0",
+    "cordova-plugin-compat": "1.0.0",
+    "cordova-plugin-device": "1.1.6",
+    "cordova-plugin-dialogs": "^1.3.3",
+    "cordova-plugin-file": "4.2.0",
+    "cordova-plugin-file-transfer": "^1.6.3",
+    "cordova-plugin-media": "^3.0.1",
+    "cordova-plugin-media-capture": "1.4.3",
+    "cordova-plugin-network-information": "^1.2.1",
+    "cordova-plugin-splashscreen": "^4.0",
+    "cordova-plugin-statusbar": "2.2.3",
+    "cordova-plugin-whitelist": "^1.3.3",
+    "cordova-sqlite-storage": "^1.2.0",
+    "onesignal-cordova-plugin": "^2.4.1"
   }
 }

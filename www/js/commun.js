@@ -85,8 +85,8 @@ var getParams = function (url) {
 };
 
 function salir(){
-    localStorage.clear();
-   location.href="index.html";
+  localStorage.clear();
+  location.href="index.html";
 }
 
 function style()
@@ -99,11 +99,19 @@ function style()
 		'version',
 		'</h5>'
 	];
-	cordova.getAppVersion.getVersionNumber(function (version) {
-		version_tag[1] = version;
-		$('body').append(version_tag.join(''));
-	});
-	
+
+  try {
+    cordova.getAppVersion.getVersionNumber(function (version) {
+      version_tag[1] = version;
+      $('body').append(version_tag.join(''));
+    });
+  } catch (e) {
+    console.log(e);
+  } finally {
+      $('body').append('Develpment Version');
+  }
+
+
 	$('.table thead tr th').css('background', '#'+app_settings.config_company.contrast_color);
 	$(document.body).css('background', '#'+app_settings.config_company.base_color);
 }
