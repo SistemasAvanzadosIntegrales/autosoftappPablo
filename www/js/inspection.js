@@ -442,9 +442,6 @@ var inspection = {
         if (field =='status')
              charter = '';
 
-        alert(field);
-        alert(value);
-
         if (value == 2 && field == 'status'){
             $('.clone-point').each(function(key, item){
 
